@@ -143,7 +143,7 @@ let handleEvents = async function(req, res) {
             const { user_id, trigger_id } = req.body;
             try {
                 let result = await teamService.checkIfUserHasMultipleTeams(user_id);
-                if (result.multiple === 'true') {
+                if (result.multiple === 'false') {
                     await teamService.updateTeamStatus(result.team_id, 'in');
                     message.sendShortMessage(user_id, "Team Status Set to \'in\'");
                     res.send('');
@@ -176,7 +176,7 @@ let handleEvents = async function(req, res) {
             const { user_id, trigger_id } = req.body;
             try {
                 let result = await teamService.checkIfUserHasMultipleTeams(user_id);
-                if (result.multiple === 'true') {
+                if (result.multiple === 'false') {
                     await teamService.updateTeamStatus(result.team_id, 'out');
                     message.sendShortMessage(user_id, "Team Status Set to \'out\'");
                     res.send('');
