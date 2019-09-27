@@ -3,7 +3,6 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const routes = require('./routes');
-const slackController = require('./controllers/slackController')
 const app = express();
 
 const rawBodyBuffer = (req, res, buf, encoding) => {

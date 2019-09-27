@@ -1,6 +1,8 @@
 const commandsController = require('./controllers/commandsController');
 const interactionsController = require('./controllers/interactionsController');
 const channels = require('./channels');
+const slackController = require('./controllers/slackController')
+
 let bot = '';
 
 let handleRoutes = function(app) {
