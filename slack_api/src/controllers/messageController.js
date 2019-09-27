@@ -37,10 +37,11 @@ const openCreateTeamDialog = async (trigger_id) => {
     const dialogData = {
         token: process.env.SLACK_ACCESS_TOKEN,
         trigger_id: trigger_id,
-        dialog: JSON.stringify({
+        dialog: JSON.stringify(
+            {
             title: 'Create a Team',
             callback_id: 'setupTeam',
-            submit_label: 'Request',
+            submit_label: 'Create',
             text: ' ',
             elements: [{
                     type: 'text',
@@ -63,7 +64,8 @@ const openDeleteTeamDialog = async (trigger_id) => {
     const dialogData = {
         token: process.env.SLACK_ACCESS_TOKEN,
         trigger_id: trigger_id,
-        dialog: JSON.stringify({
+        dialog: JSON.stringify(
+            {
             title: 'Delete a Team',
             callback_id: 'deleteTeam',
             submit_label: 'Delete',
@@ -81,9 +83,69 @@ const openDeleteTeamDialog = async (trigger_id) => {
     return axios.post(`${apiUrl}/dialog.open`, qs.stringify(dialogData));
 };
 
+const openAddUserDialog = async (trigger_id) => {
+    const dialogData = {
+        token: process.env.SLACK_ACCESS_TOKEN,
+        trigger_id: trigger_id,
+        dialog: JSON.stringify(
+            {
+            title: 'Add a user to a team',
+            callback_id: 'addUser',
+            submit_label: 'Add',
+            text: ' ',
+            elements: [
+                {
+                    type: 'select',
+                    name: 'user',
+                    label: 'Choose the user to add',
+                    data_source: 'users',
+                },
+                {
+                    type: 'select',
+                    name: 'team',
+                    label: 'Choose the team',
+                    data_source: 'external',
+                }
+            ]
+        })
+    };
+    return axios.post(`${apiUrl}/dialog.open`, qs.stringify(dialogData));
+};
+
+const openRemoveUserDialog = async (trigger_id) => {
+    const dialogData = {
+        token: process.env.SLACK_ACCESS_TOKEN,
+        trigger_id: trigger_id,
+        dialog: JSON.stringify(
+            {
+            title: 'Remove a user from a team',
+            callback_id: 'removeUser',
+            submit_label: 'Delete',
+            text: ' ',
+            elements: [
+                {
+                    type: 'select',
+                    name: 'user',
+                    label: 'Choose the use',
+                    data_source: 'users',
+                },
+                {
+                    type: 'select',
+                    name: 'team',
+                    label: 'Choose the team',
+                    data_source: 'external',
+                }
+            ]
+        })
+    };
+    return axios.post(`${apiUrl}/dialog.open`, qs.stringify(dialogData));
+};
+
 module.exports = {
     openCreateTeamDialog,
     openDeleteTeamDialog,
+    openAddUserDialog,
+    openRemoveUserDialog,
     postInMessage,
     postOutMessage,
     sendShortMessage
