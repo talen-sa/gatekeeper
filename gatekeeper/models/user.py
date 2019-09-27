@@ -16,7 +16,9 @@ class User(base):
 
     id = db.Column(db.Integer(), primary_key=True)
     username = db.Column(db.String(30), nullable=False, unique=True)
-    _teams = db.relationship("Team", secondary="belongs_to", backref="_users")
+    _teams = db.relationship(
+        "Team", secondary="belongs_to", backref="_users", cascade="delete"
+    )
 
     def save(self):
         """Addes the non-existing user to the DB."""

@@ -3,7 +3,7 @@ from flask_restful import Api, Resource
 from marshmallow import ValidationError
 
 from gatekeeper.controllers.response import Error, Fail, Success
-from gatekeeper.models.team import Team, team_schema, teams_schema
+from gatekeeper.models.team import Team, team_schema, teams_schema, team_put_schema
 
 
 class TeamApi(Resource):
@@ -15,7 +15,18 @@ class TeamApi(Resource):
         return Success(result).to_json(), 200
 
     def put(self, team_name):
-        pass
+        team = Team.get_team(team_name)
+        if team is None:
+            return Error(f"Team {team_name} does not exist.").to_json(), 404
+        try:
+            data = team_put_schema.load(request.get_json())
+            team.status = data["status"]
+            team.location = data["location"]
+            team.board_position = data["board_position"]
+            team.save()
+            return None, 204
+        except ValidationError as err:
+            return Error(str(err)).to_json(), 400
 
     def delete(self, team_name):
         team = Team.get_team(team_name)
@@ -28,10 +39,7 @@ class TeamApi(Resource):
 class TeamsApi(Resource):
     def get(self):
         teams = Team.get_all()
-        current_app.logger.debug(teams)
         response = teams_schema.dump(teams)
-
-        current_app.logger.debug(response)
         return Success(response).to_json(), 200
 
     def post(self):

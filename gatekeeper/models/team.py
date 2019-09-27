@@ -1,3 +1,4 @@
+from marshmallow import fields
 from gatekeeper.models import base, db, ma
 
 
@@ -65,8 +66,16 @@ class Team(base):
 
 class TeamSchema(ma.Schema):
     class Meta:
-        fields = ("name", "in_office", "location", "board_position")
+        fields = ("name", "status", "location", "board_position")
+
+
+class TeamPutSchema(ma.Schema):
+    location = fields.String(required=True)
+    status = fields.Integer(required=True)
+    board_position = fields.Integer(required=True)
 
 
 team_schema = TeamSchema()
 teams_schema = TeamSchema(many=True)
+
+team_put_schema = TeamPutSchema()
