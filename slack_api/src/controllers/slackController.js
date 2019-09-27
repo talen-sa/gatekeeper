@@ -18,7 +18,7 @@ module.exports.getAllUsers = async function() {
 
 module.exports.getUserById = async function(user_id) {
     const payload = {
-        token: process.env.SLACK_ACCESS_TOKEN,
+        token: process.env.SLACK_USER_TOKEN,
         user: user_id
     };
     let result;
