@@ -81,7 +81,7 @@ let handleInteractions = async function(req, res) {
         }
         else if (type === 'dialog_submission') {
             message.sendShortMessage(user.id, 'Thanks! Your team has been registered.');
-            res.sendStatus(200);
+            res.send('');
         }
     }
 }
