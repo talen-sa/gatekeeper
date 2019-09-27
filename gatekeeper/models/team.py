@@ -1,9 +1,7 @@
-from gatekeeper.models import db, ma, Base
-
-# from gatekeeper.models.user import belongs_to
+from gatekeeper.models import db, ma
 
 
-class Team(Base):
+class Team(db.Model):
 
     __tablename__ = "teams"
 
@@ -12,7 +10,7 @@ class Team(Base):
     location = db.Column(db.String(30), default="vault")
     board_position = db.Column(db.Integer(), unique=True)
     # members = db.relationship(
-    #     "users", secondary=belongs_to, backref=db.backref("_teams")
+    #     "users", secondary="BelongsTo", backref=db.backref("_teams")
     # )
 
     def save(self):

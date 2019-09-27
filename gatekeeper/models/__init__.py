@@ -1,14 +1,14 @@
 from flask_marshmallow import Marshmallow
-from flask_sqlalchemy import SQLAlchemy, declarative_base
+from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 ma = Marshmallow()
 
-Base = declarative_base(cls=db.Model)
-
 
 def init_db():
-    from gatekeeper.models.user import User
     from gatekeeper.models.team import Team
 
-    Base.metadata.create_all(bind=db.engine)
+    # from gatekeeper.models.belong_to import BelongsTo
+    from gatekeeper.models.user import User
+
+    db.create_all()

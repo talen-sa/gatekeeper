@@ -1,20 +1,20 @@
-from gatekeeper.models import db, ma, Base
+from gatekeeper.models import db, ma
+
+belongs_to = db.Table(
+    "belongs_to",
+    db.Column("user", db.Integer, db.ForeignKey("users.id"), primary_key=True),
+    db.Column("team", db.String, db.ForeignKey("teams.name"), primary_key=True),
+    extend_existing=True,
+)
 
 
-# belongs_to = db.Table(
-#     "belongs_to",
-#     db.Column("user", db.Integer, db.ForeignKey("users.id"), primary_key=True),
-#     db.Column("team", db.String, db.ForeignKey("teams.name"), primary_key=True),
-# )
-
-
-class User(Base):
+class User(db.Model):
 
     __tablename__ = "users"
 
     id = db.Column(db.Integer(), primary_key=True)
     username = db.Column(db.String(30), nullable=False, unique=True)
-    # teams = db.relationship("teams", secondary=belongs_to, backref="_users")
+    teams = db.relationship("Team", secondary=belongs_to, backref="_users")
 
     def save(self):
         """Addes the non-existing user to the DB."""
