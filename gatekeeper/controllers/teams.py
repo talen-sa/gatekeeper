@@ -3,8 +3,8 @@ from flask_restful import Api, Resource
 from marshmallow import ValidationError
 
 from gatekeeper.controllers.response import Error, Fail, Success
-from gatekeeper.models.team import (Team, team_put_schema, team_schema,
-                                    teams_schema)
+from gatekeeper.models.team import (Team, team_patch_schema, team_put_schema,
+                                    team_schema, teams_schema)
 
 
 class TeamApi(Resource):
@@ -31,6 +31,22 @@ class TeamApi(Resource):
                 )
             for k, v in data.items():
                 setattr(team, k, v)
+            team.save()
+            return None, 204
+        except ValidationError as err:
+            return Error(str(err)).to_json(), 400
+
+    def patch(self, team_name):
+        try:
+            team = Team.get_team(team_name)
+            if team is None:
+                return Error(f"Team {team_name} does not exist.").to_json(), 404
+            status = team_patch_schema.load(request.get_json())["status"]
+            # validate status enum
+
+            team.status = status
+
+            # Update board
             team.save()
             return None, 204
         except ValidationError as err:

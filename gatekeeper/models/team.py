@@ -72,11 +72,15 @@ class TeamSchema(ma.Schema):
 
 class TeamPutSchema(ma.Schema):
     location = fields.String(required=True)
-    status = fields.Integer(required=True)
     board_position = fields.Integer(required=True)
+
+
+class TeamPatchSchema(ma.Schema):
+    status = fields.Integer(required=True)
 
 
 team_schema = TeamSchema()
 teams_schema = TeamSchema(many=True)
 
 team_put_schema = TeamPutSchema()
+team_patch_schema = TeamPatchSchema()
