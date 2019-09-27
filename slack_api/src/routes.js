@@ -25,16 +25,13 @@ let handleRoutes = function(app) {
         res.status(200).send(JSON.stringify({
             options: [
               {
-                label: "[UXD-342] The button color should be artichoke green, not jalapeño",
-                value: 1
+                value: "team 1"
               },
               {
-                label: "[FE-459] Remove the marquee tag",
-                value: 2
+                value: "team 2"
               },
               {
-                label: "[FE-238] Too many shades of gray in master CSS",
-                value: 3
+                value: "team 3"
               }
             ]
           }));
