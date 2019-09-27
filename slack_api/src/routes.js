@@ -14,7 +14,7 @@ let handleRoutes = function(app) {
             console.log(e);
         }
         
-        res.sendStatus('<h2>Running</h2>');
+        res.send(200);
     });
 
     app.post('/events', (req, res) => {
