@@ -89,6 +89,67 @@ const openDeleteTeamDialog = async (trigger_id) => {
     return axios.post(`${apiUrl}/dialog.open`, qs.stringify(dialogData));
 };
 
+const openInDialog = async (trigger_id) => {
+    const dialogData = {
+        token: process.env.SLACK_ACCESS_TOKEN,
+        trigger_id: trigger_id,
+        dialog: JSON.stringify(
+            {
+            title: 'Delete a Team',
+            callback_id: 'deleteTeam',
+            submit_label: 'Delete',
+            text: ' ',
+            elements: [
+                {
+                    type: 'select',
+                    name: 'team',
+                    label: 'Choose the team to delete',
+                    data_source: 'external',
+                }
+            ]
+        })
+    };
+    return axios.post(`${apiUrl}/dialog.open`, qs.stringify(dialogData));
+};
+
+const openInOutDialog = async (trigger_id) => {
+    const dialogData = {
+        token: process.env.SLACK_ACCESS_TOKEN,
+        trigger_id: trigger_id,
+        dialog: JSON.stringify(
+            {
+            title: 'Change Team\'s Status',
+            callback_id: 'inout',
+            submit_label: 'Delete',
+            text: ' ',
+            elements: [
+                {
+                    type: 'select',
+                    name: 'team',
+                    label: 'Choose the team to update',
+                    data_source: 'external',
+                },
+                {
+                    type: 'select',
+                    name: 'status',
+                    label: 'Set team\'s status',
+                    options: [
+                        {
+                            label: "In",
+                            value: "in"
+                        },
+                        {
+                            label: "Out",
+                            value: "out"
+                        }
+                    ]
+                }
+            ]
+        })
+    };
+    return axios.post(`${apiUrl}/dialog.open`, qs.stringify(dialogData));
+};
+
 const openListUsersOnTeamDialog = async (trigger_id) => {
     const dialogData = {
         token: process.env.SLACK_ACCESS_TOKEN,

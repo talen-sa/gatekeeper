@@ -31,7 +31,7 @@ module.exports.createTeam = async function(data) {
     //     console.log(error);
     // });
 }
-module.exports.updateTeam = async function(data) {
+module.exports.updateTeamStatus = async function(data) {
     // axios.put('/team')
     // .then(function (response) {
     //     console.log(response);
@@ -49,14 +49,6 @@ module.exports.deleteTeam = async function(data) {
     // });
 }
 
-module.exports.setUserStatus = async function(data) {
-    // axios.post('/users')
-    // .then(function (response) {
-    //     console.log(response);
-    // }).catch(function (error) {
-    //     console.log(error);
-    // });
-}
 module.exports.getUser = async function(data) {
     // axios.get('/users/1')
     // .then(function (response) {
