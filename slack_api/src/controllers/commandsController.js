@@ -27,7 +27,7 @@ let handleEvents = async function(req, res) {
         } else {
             const { user_id } = req.body;
             message.postInMessage(user_id);
-            res.sendStatus(200);
+            res.send('');
         }
     }
     if (req.body.command === '/out') {
