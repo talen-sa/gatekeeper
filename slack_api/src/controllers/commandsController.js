@@ -6,7 +6,8 @@ function json2array(json){
     var result = [];
     var keys = Object.keys(json);
     keys.forEach(function(key){
-        result.push(`team: ${json[key].team} status: ${json[key].status} \n`);
+        console.log(json[key]);
+        result.push(`team: ${json[key]} status: ${json[key].status} \n`);
     });
     return result;
 }
