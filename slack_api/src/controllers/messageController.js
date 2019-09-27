@@ -33,7 +33,7 @@ const send = async (data) => {
     }
 };
 
-const openDialog = async (trigger_id) => {
+const openCreateDialog = async (trigger_id) => {
     const dialogData = {
         token: process.env.SLACK_ACCESS_TOKEN,
         trigger_id: trigger_id,
@@ -42,24 +42,38 @@ const openDialog = async (trigger_id) => {
             callback_id: 'setupTeam',
             submit_label: 'Request',
             text: ' ',
-
             elements: [{
                     type: 'text',
                     name: 'title',
                     label: 'Team Name',
-                },
-
-                {
-                    type: 'select',
-                    name: 'team',
-                    label: 'Your team\'s slack channel',
-                    data_source: 'channels',
                 },
                 {
                     type: 'text',
                     name: 'time',
                     label: 'Working Hours?',
                     placeholder: '7:30-4:00'
+                }
+            ]
+        })
+    };
+    return axios.post(`${apiUrl}/dialog.open`, qs.stringify(dialogData));
+};
+
+const openDeleteDialog = async (trigger_id) => {
+    const dialogData = {
+        token: process.env.SLACK_ACCESS_TOKEN,
+        trigger_id: trigger_id,
+        dialog: JSON.stringify({
+            title: 'Delete a Team',
+            callback_id: 'setupTeam',
+            submit_label: 'Request',
+            text: ' ',
+            elements: [
+                {
+                    type: 'select',
+                    name: 'team',
+                    label: 'Choose the team to delete',
+                    data_source: 'channel',
                 }
             ]
         })

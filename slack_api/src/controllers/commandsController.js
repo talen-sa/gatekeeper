@@ -2,7 +2,45 @@ const message = require('./messageController');
 const signature = require('../verifySignature');
 
 let handleEvents = async function(req, res) {
-    if (req.body.command === '/register') {
+    if (req.body.command === '/create_team') {
+        if (!signature.isVerified(req)) {
+            res.sendStatus(404);
+            return;
+        } else {
+            const { user_id, trigger_id } = req.body;
+            try {
+                const result = await message.openCreateDialog(trigger_id);
+                if (result.data.error) {
+                    res.sendStatus(500);
+                } else {
+                    //teamService.createTeam(data);
+                    res.send('');
+                }
+            } catch (err) {
+                res.sendStatus(500);
+            }
+        }
+    }
+    if (req.body.command === '/delete_team') {
+        if (!signature.isVerified(req)) {
+            res.sendStatus(404);
+            return;
+        } else {
+            const { user_id, trigger_id } = req.body;
+            try {
+                const result = await message.openDeleteDialog(trigger_id);
+                if (result.data.error) {
+                    res.sendStatus(500);
+                } else {
+                    //teamService.createTeam(data);
+                    res.send('');
+                }
+            } catch (err) {
+                res.sendStatus(500);
+            }
+        }
+    }
+    if (req.body.command === '/leave_team') {
         if (!signature.isVerified(req)) {
             res.sendStatus(404);
             return;
@@ -20,7 +58,8 @@ let handleEvents = async function(req, res) {
                 res.sendStatus(500);
             }
         }
-    } else if (req.body.command === '/in') {
+    }
+    else if (req.body.command === '/in') {
         if (!signature.isVerified(req)) {
             res.sendStatus(404);
             return;
@@ -30,7 +69,7 @@ let handleEvents = async function(req, res) {
             res.send('');
         }
     }
-    if (req.body.command === '/out') {
+    else if (req.body.command === '/out') {
         if (!signature.isVerified(req)) {
             res.sendStatus(404);
             return;

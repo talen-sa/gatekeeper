@@ -7,8 +7,10 @@ let bot = '';
 
 let handleRoutes = function(app) {
     app.get('/', async (req, res) => {
-        let test = await slackController.getUsersInChannel('CNH967BPB');//
-        console.log(test);
+        //let users = await slackController.getAllUsers();
+        //let users = await slackController.getUserById('UNTP2M55W');
+        //let test = await slackController.getUsersInChannel('CNH967BPB');
+        console.log(users);
         res.send(200);
     });
 
@@ -20,7 +22,7 @@ let handleRoutes = function(app) {
         interactionsController.run(req, res);
     });
 
-    app.post('/channels', async (req, res) => {
+    app.post('/data', async (req, res) => {
         const rawList = await channels.findAuthedChannels(bot);
 
         let finalList = rawList.map(o => {
