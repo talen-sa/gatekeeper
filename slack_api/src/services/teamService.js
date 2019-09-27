@@ -24,12 +24,12 @@ module.exports.getTeams = async function(data) {
     return testData;
 }
 module.exports.createTeam = function(data) {
-    axios.post('/team')
-    .then(function (response) {
-        console.log(response);
-    }).catch(function (error) {
-        console.log(error);
-    });
+    // axios.post('/team')
+    // .then(function (response) {
+    //     console.log(response);
+    // }).catch(function (error) {
+    //     console.log(error);
+    // });
 }
 module.exports.updateTeam = function(data) {
     // axios.put('/team')
