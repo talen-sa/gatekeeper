@@ -74,25 +74,41 @@ let handleEvents = async function(req, res) {
             }
         }
     }
-    if (req.body.command === '/in') {
+    if (req.body.command === '/list_teammates') {
         if (!signature.isVerified(req)) {
             res.sendStatus(404);
             return;
         } else {
-            const { user_id } = req.body;
-            message.postInMessage(user_id);
-            res.send('');
+            const { user_id, trigger_id } = req.body;
+            try {
+                const result = await message.openListUsersOnTeamDialog(trigger_id);
+                if (result.data.error) {
+                    res.sendStatus(500);
+                } else {
+                    res.send('');
+                }
+            } catch (err) {
+                res.sendStatus(500);
+            }
         }
     }
-    if (req.body.command === '/out') {
+    if (req.body.command === '/set_status') {
         if (!signature.isVerified(req)) {
             res.sendStatus(404);
             return;
         } else {
-            console.log(req.body);
-            const { user_id } = req.body;
-            message.postOutMessage(user_id);
-            res.send('');
+            const { user_id, trigger_id } = req.body;
+            try {
+                const result = await message.openInOutDialog(trigger_id);
+                console.log('asd', result);
+                if (result.data.error) {
+                    res.sendStatus(500);
+                } else {
+                    res.send('');
+                }
+            } catch (err) {
+                res.sendStatus(500);
+            }
         }
     }
 }
