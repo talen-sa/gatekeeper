@@ -37,6 +37,7 @@ const openDialog = async (trigger_id) => {
             ]
         })
     };
+    console.log(dialogData);
     return axios.post(`${apiUrl}/dialog.open`, qs.stringify(dialogData));
 };
 
