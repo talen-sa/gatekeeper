@@ -9,7 +9,7 @@ let handleEvents = async function(req, res) {
         } else {
             const { user_id, trigger_id } = req.body;
             try {
-                const result = await message.openCreateDialog(trigger_id);
+                const result = await message.openCreateTeamDialog(trigger_id);
                 if (result.data.error) {
                     res.sendStatus(500);
                 } else {
@@ -27,7 +27,7 @@ let handleEvents = async function(req, res) {
         } else {
             const { user_id, trigger_id } = req.body;
             try {
-                const result = await message.openDeleteDialog(trigger_id);
+                const result = await message.openDeleteTeamDialog(trigger_id);
                 if (result.data.error) {
                     res.sendStatus(500);
                 } else {

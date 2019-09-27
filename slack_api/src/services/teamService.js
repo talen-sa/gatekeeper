@@ -41,12 +41,12 @@ module.exports.updateTeam = function(data) {
 }
 
 module.exports.deleteTeam = function(data) {
-    axios.delete('/team')
-    .then(function (response) {
-        console.log(response);
-    }).catch(function (error) {
-        console.log(error);
-    });
+    // axios.delete('/team')
+    // .then(function (response) {
+    //     console.log(response);
+    // }).catch(function (error) {
+    //     console.log(error);
+    // });
 }
 
 module.exports.setUserStatus = function(data) {
