@@ -2,26 +2,26 @@
 
 const axios = require('axios');
 const qs = require('qs');
-
+const interactionsController = require('interactionsController');
 const apiUrl = process.env.SLACK_API_URL;
 
-const postRegistrationMessage = (userId) => {
-    let messageData = {
-        token: process.env.SLACK_ACCESS_TOKEN,
-        channel: userId,
-        attachments: JSON.stringify([{
-            text: 'Register your team',
-            callback_id: 'registerTeam',
-            actions: [{
-                name: 'start',
-                text: 'Register your team',
-                type: 'button',
-                value: 'register',
-            }]
-        }])
-    };
-    send(messageData);
-};
+// const postRegistrationMessage = (userId) => {
+//     let messageData = {
+//         token: process.env.SLACK_ACCESS_TOKEN,
+//         channel: userId,
+//         attachments: JSON.stringify([{
+//             text: 'Register your team',
+//             callback_id: 'registerTeam',
+//             actions: [{
+//                 name: 'start',
+//                 text: 'Register your team',
+//                 type: 'button',
+//                 value: 'register',
+//             }]
+//         }])
+//     };
+//     send(messageData);
+// };
 
 const postInMessage = (userId) => {
     let messageData = {
