@@ -3,8 +3,6 @@ const interactionsController = require('./controllers/interactionsController');
 const channels = require('./channels');
 const slackController = require('./controllers/slackController')
 
-let bot = '';
-
 let handleRoutes = function(app) {
     app.get('/', async (req, res) => {
         //let users = await slackController.getAllUsers();
@@ -23,21 +21,20 @@ let handleRoutes = function(app) {
     });
 
     app.post('/data', async (req, res) => {
-        // const rawList = await channels.findAuthedChannels(bot);
 
-        res.sendStatus(JSON.stringify({
-            "options": [
+        res.status(200).send(JSON.stringify({
+            options: [
               {
-                "label": "[UXD-342] The button color should be artichoke green, not jalapeño",
-                "value": "UXD-342"
+                label: "[UXD-342] The button color should be artichoke green, not jalapeño",
+                value: 1
               },
               {
-                "label": "[FE-459] Remove the marquee tag",
-                "value": "FE-459"
+                label: "[FE-459] Remove the marquee tag",
+                value: 2
               },
               {
-                "label": "[FE-238] Too many shades of gray in master CSS",
-                "value": "FE-238"
+                label: "[FE-238] Too many shades of gray in master CSS",
+                value: 3
               }
             ]
           }));
