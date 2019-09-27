@@ -10,7 +10,7 @@ let handleRoutes = function(app) {
         //let users = await slackController.getAllUsers();
         //let users = await slackController.getUserById('UNTP2M55W');
         //let test = await slackController.getUsersInChannel('CNH967BPB');
-        console.log(users);
+        // console.log(users);
         res.send(200);
     });
 
@@ -27,28 +27,18 @@ let handleRoutes = function(app) {
 
         res.sendStatus(JSON.stringify(
             {
-                "option_groups": [
+                "options": [
                   {
-                    "label": "Visual Design",
-                    "options": [
-                      {
-                        "label": "[UXD-342] The button color should be artichoke green, not jalapeño",
-                        "value": "UXD-342"
-                      }
-                    ]
+                    "label": "[UXD-342] The button color should be artichoke green, not jalapeño",
+                    "value": "UXD-342"
                   },
                   {
-                    "label": "Front-End Engineering",
-                    "options": [
-                      {
-                        "label": "[FE-459] Remove the marquee tag",
-                        "value": "FE-459"
-                      },
-                      {
-                        "label": "[FE-238] Too many shades of gray in master CSS",
-                        "value": "FE-238"
-                      }
-                    ]
+                    "label": "[FE-459] Remove the marquee tag",
+                    "value": "FE-459"
+                  },
+                  {
+                    "label": "[FE-238] Too many shades of gray in master CSS",
+                    "value": "FE-238"
                   }
                 ]
               }
