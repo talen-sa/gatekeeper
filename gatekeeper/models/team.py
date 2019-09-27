@@ -9,9 +9,6 @@ class Team(db.Model):
     in_office = db.Column(db.Boolean(), default=False)
     location = db.Column(db.String(30), default="vault")
     board_position = db.Column(db.Integer(), unique=True)
-    # members = db.relationship(
-    #     "users", secondary="BelongsTo", backref=db.backref("_teams")
-    # )
 
     def save(self):
         """Addes the non-existing Team to the DB."""
