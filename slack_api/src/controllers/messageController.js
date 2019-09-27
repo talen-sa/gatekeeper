@@ -5,12 +5,12 @@ const qs = require('qs');
 const apiUrl = process.env.SLACK_API_URL;
 
 const postInMessage = (userId) => {
-    sendShortMessage(user.id, 'Thanks! Don\'t forget to sign out when you leave');
+    sendShortMessage(userId, 'Thanks! Don\'t forget to sign out when you leave');
     res.sendStatus(200);
 };
 
 const postOutMessage = (userId) => {
-    message.sendShortMessage(user.id, 'Thanks! Have a great rest of your day.');
+    message.sendShortMessage(userId, 'Thanks! Have a great rest of your day.');
     res.sendStatus(200);
 };
 
