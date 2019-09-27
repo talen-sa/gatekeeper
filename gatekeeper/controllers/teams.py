@@ -21,9 +21,16 @@ class TeamApi(Resource):
             return Error(f"Team {team_name} does not exist.").to_json(), 404
         try:
             data = team_put_schema.load(request.get_json())
-            team.status = data["status"]
-            team.location = data["location"]
-            team.board_position = data["board_position"]
+            board_position = data["board_position"]
+            if Team.is_team_at_board_position(board_position):
+                return (
+                    Fail(
+                        f"Team already exists at board_position {board_position}"
+                    ).to_json(),
+                    400,
+                )
+            for k, v in data.items():
+                setattr(team, k, v)
             team.save()
             return None, 204
         except ValidationError as err:
