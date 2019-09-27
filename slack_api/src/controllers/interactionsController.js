@@ -23,6 +23,9 @@ let handleInteractions = async function(req, res) {
                 message.sendShortMessage(user.id, 'Thanks! Your team has been registered.');
                 res.send('');
             }
+            else if (callback_id === 'deleteTeam') {
+                message.sendShortMessage('Deleted team:');
+            }
         }
     }
 }

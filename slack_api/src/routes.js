@@ -23,17 +23,6 @@ let handleRoutes = function(app) {
     app.post('/data', async (req, res) => {
         let teams = await teamService.getTeams();
         res.status(200).send(JSON.stringify(teams));
-
-        // let finalList = rawList.map(o => {
-        //     return {
-        //         value: o.id,
-        //         label: `#${o.name}`
-        //     };
-        // });
-
-        // res.sendStatus(JSON.stringify({
-        //     options: finalList
-        // }));
     });
 }
 
