@@ -37,11 +37,11 @@ module.exports.getAllTeamsStatus = async function() {
             status: "in"
           },
           {
-            label: "team 2",
+            team: "team 2",
             status: "out"
           },
           {
-            label: "team 3",
+            team: "team 3",
             status: "in"
           }
         ]
