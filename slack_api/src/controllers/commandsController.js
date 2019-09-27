@@ -135,6 +135,83 @@ let handleEvents = async function(req, res) {
             }
         }
     }
+    if (req.body.command === '/in') {
+        if (!signature.isVerified(req)) {
+            res.sendStatus(404);
+            return;
+        } else {
+            const { user_id, trigger_id } = req.body;
+            try {
+                let result = await teamService.checkIfUserHasMultipleTeams(user_id);
+                if (result.multiple === 'true') {
+                    await teamService.updateTeamStatus(result.team_id, 'in');
+                    message.sendShortMessage(user_id, "Team Status Set to \'in\'");
+                    res.send('');
+                }
+                else {
+                    try {
+                        let result = await teamService.getAllTeamsStatus();
+                        console.log('1',result.teams[0]);
+                        message.sendShortMessage(user_id, "Who's Here");
+                        for (var a = 0; a < result.teams.length; a++) {
+                            if (result.teams[a].status =='in') {
+                                message.sendShortMessage(user_id, `${result.teams[a].team}`);
+                            }
+                        }
+        
+                        res.send('');
+                    } catch (e) {
+                        console.log('error');
+                        res.send(500);
+                    }
+                }
+            } catch (e) {
+                console.log('error');
+                res.send(500);
+            }
+        }
+    }
+
+    if (req.body.command === '/out') {
+        if (!signature.isVerified(req)) {
+            res.sendStatus(404);
+            return;
+        } else {
+            const { user_id, trigger_id } = req.body;
+            try {
+                let result = await teamService.checkIfUserHasMultipleTeams(user_id);
+                if (result.multiple === 'true') {
+                    await teamService.updateTeamStatus(result.team_id, 'out');
+                    message.sendShortMessage(user_id, "Team Status Set to \'out\'");
+                    res.send('');
+                }
+                else {
+                    try {
+                        let result = await teamService.getAllTeamsStatus();
+                        console.log('1',result.teams[0]);
+                        message.sendShortMessage(user_id, "Who's Here");
+                        for (var a = 0; a < result.teams.length; a++) {
+                            if (result.teams[a].status =='in') {
+                                message.sendShortMessage(user_id, `${result.teams[a].team}`);
+                            }
+                        }
+        
+                        res.send('');
+                    } catch (e) {
+                        console.log('error');
+                        res.send(500);
+                    }
+                }
+            } catch (e) {
+                console.log('error');
+                res.send(500);
+            }
+        }
+    }
+    
+
+
+    
 }
 module.exports.run = function(req, res) {
     handleEvents(req, res);
