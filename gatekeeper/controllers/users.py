@@ -1,10 +1,9 @@
-from flask import Blueprint, current_app, request
+from flask import Blueprint, request
 from flask_restful import Api, Resource
 from marshmallow import ValidationError
 
 from gatekeeper.controllers.response import Error, Fail, Success
-from gatekeeper.models.team import Team
-from gatekeeper.models.user import User, user_schema, users_schema
+from gatekeeper.models import Team, User, user_schema, users_schema
 
 
 class UserApi(Resource):
@@ -31,22 +30,19 @@ class UsersApi(Resource):
     def post(self):
         try:
             data = user_schema.load(request.get_json())
-            current_app.logger.debug(str(data))
-            team_id = data["team_id"]
+            teamname = data["team_id"]
             username = data["username"]
-            team = Team.get_team_by_id(team_id)
+            team = Team.get_team(teamname)
             if team is None:
-                return Fail(f"Team {team_id} does not exist").to_json(), 400
+                return Fail(f"Team {teamname} does not exist").to_json(), 400
             user = User.get_user(username)
             if user is None:
                 new_user = User(username=username, team_id=team.id)
                 new_user.save()
                 return Success(f"user {username} created successfully").to_json(), 201
+            return Fail(f"User {username} already exists").to_json()
         except ValidationError as err:
             return Error(str(err)).to_json(), 400
-
-    def delete(self):
-        pass
 
 
 users_bp = Blueprint("users", __name__)
