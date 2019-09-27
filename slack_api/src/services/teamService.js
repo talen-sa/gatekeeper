@@ -23,7 +23,7 @@ module.exports.getTeams = async function(data) {
       };
     return testData;
 }
-module.exports.createTeam = function(data) {
+module.exports.createTeam = async function(data) {
     // axios.post('/team')
     // .then(function (response) {
     //     console.log(response);
@@ -31,7 +31,7 @@ module.exports.createTeam = function(data) {
     //     console.log(error);
     // });
 }
-module.exports.updateTeam = function(data) {
+module.exports.updateTeam = async function(data) {
     // axios.put('/team')
     // .then(function (response) {
     //     console.log(response);
@@ -40,7 +40,7 @@ module.exports.updateTeam = function(data) {
     // });
 }
 
-module.exports.deleteTeam = function(data) {
+module.exports.deleteTeam = async function(data) {
     // axios.delete('/team')
     // .then(function (response) {
     //     console.log(response);
@@ -49,7 +49,7 @@ module.exports.deleteTeam = function(data) {
     // });
 }
 
-module.exports.setUserStatus = function(data) {
+module.exports.setUserStatus = async function(data) {
     // axios.post('/users')
     // .then(function (response) {
     //     console.log(response);
@@ -57,7 +57,7 @@ module.exports.setUserStatus = function(data) {
     //     console.log(error);
     // });
 }
-module.exports.getUser = function(data) {
+module.exports.getUser = async function(data) {
     // axios.get('/users/1')
     // .then(function (response) {
     //     console.log(response);
@@ -65,11 +65,15 @@ module.exports.getUser = function(data) {
     //     console.log(error);
     // });
 }
-module.exports.deleteUser = function(data) {
+module.exports.deleteUser = async function(data) {
     // axios.delete('/user/1')
     // .then(function (response) {
     //     console.log(response);
     // }).catch(function (error) {
     //     console.log(error);
     // });
+}
+module.exports.addUserToTeam = async function(user, team) {
+}
+module.exports.removeUserFromTeam = async function(user, team) {
 }
