@@ -1,12 +1,5 @@
 const message = require('./messageController');
 const signature = require('../verifySignature');
-const axios = require('axios');
-const qs = require('querystring');
-const teamService = require('../services/teamService');
-
-
-const apiUrl = process.env.SLACK_API_URL;
-
 
 let handleInteractions = async function(req, res) {
     if (!signature.isVerified(req)) {

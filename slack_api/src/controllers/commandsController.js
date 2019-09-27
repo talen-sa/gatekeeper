@@ -1,6 +1,6 @@
 const message = require('./messageController');
 const signature = require('../verifySignature');
-const teamService = require('../services/teamService')
+
 let handleEvents = async function(req, res) {
     if (req.body.command === '/register') {
         if (!signature.isVerified(req)) {
