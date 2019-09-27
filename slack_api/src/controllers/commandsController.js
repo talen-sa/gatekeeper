@@ -130,7 +130,7 @@ let handleEvents = async function(req, res) {
             try {
                 let result = await teamService.getAllTeamsStatus();
                 result = json2array(result);
-                message.sendShortMessage(user.id, `Who's Here:` + result.toString().replace(/[,]/g, ""));
+                message.sendShortMessage(user_id, `Who's Here:` + result.toString().replace(/[,]/g, ""));
                 res.send('');
             } catch (e) {
                 console.log('error');
