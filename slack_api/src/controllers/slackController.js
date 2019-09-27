@@ -43,5 +43,5 @@ module.exports.getUsersInChannel = async function(channel) {
         console.log(e);
         result = e;
     }
-    return result.channel;
+    return result;
 };
