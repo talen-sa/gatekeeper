@@ -21,7 +21,7 @@ let handleInteractions = async function(req, res) {
                     res.send('');
                 } catch (e) {
                     console.log('error');
-                    res.send(500);
+                    res.status(401).send('We had some trouble creating your team.');
                 }
             }
             else if (callback_id === 'deleteTeam') {
@@ -31,7 +31,7 @@ let handleInteractions = async function(req, res) {
                     res.send('');
                 } catch (e) {
                     console.log('error');
-                    res.send(500);
+                    res.status(401).send('We had some trouble creating your team.');
                 }
             }
         }
