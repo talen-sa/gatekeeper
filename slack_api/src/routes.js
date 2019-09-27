@@ -25,13 +25,16 @@ let handleRoutes = function(app) {
         res.status(200).send(JSON.stringify({
             options: [
               {
-                value: "team 1"
+                label: "team",
+                value: "1"
               },
               {
-                value: "team 2"
+                label: "team",
+                value: "2"
               },
               {
-                value: "team 3"
+                label: "team",
+                value: "3"
               }
             ]
           }));
