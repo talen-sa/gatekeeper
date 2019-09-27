@@ -6,12 +6,10 @@ const apiUrl = process.env.SLACK_API_URL;
 
 const postInMessage = (userId) => {
     sendShortMessage(userId, 'Thanks! Don\'t forget to sign out when you leave');
-    res.sendStatus(200);
 };
 
 const postOutMessage = (userId) => {
     sendShortMessage(userId, 'Thanks! Have a great rest of your day.');
-    res.sendStatus(200);
 };
 
 
