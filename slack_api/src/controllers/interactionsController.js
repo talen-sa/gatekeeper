@@ -13,7 +13,7 @@ let handleInteractions = async function(req, res) {
             submission
         } = JSON.parse(req.body.payload);
 
-        console.log(req.body.payload);
+        console.log(submission);
 
         if (type === 'dialog_submission') {
             if (callback_id === 'setupTeam') {
