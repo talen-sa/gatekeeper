@@ -23,6 +23,31 @@ module.exports.getTeams = async function(data) {
       };
     return testData;
 }
+module.exports.getAllTeamsStatus = async function() {
+    // axios.get('/team')
+    // .then(function (response) {
+    //     console.log(response);
+    // }).catch(function (error) {
+    //     console.log(error);
+    // });
+    var testData = {
+        options: [
+          {
+            team: "team 1",
+            status: "in"
+          },
+          {
+            label: "team 2",
+            status: "out"
+          },
+          {
+            label: "team 3",
+            status: "in"
+          }
+        ]
+      };
+    return testData;
+}
 module.exports.createTeam = async function(data) {
     // axios.post('/team')
     // .then(function (response) {

@@ -86,6 +86,17 @@ let handleInteractions = async function(req, res) {
                     res.send(500);
                 }
             }
+            else if (callback_id === 'whosHere') {
+                try {
+                    let result = await teamService.getAllTeamsStatus(submission.team);
+                    result = json2array(result);
+                    message.sendShortMessage(user.id, `Who's Here:` + result.toString().replace(/[,]/g, ""));
+                    res.send('');
+                } catch (e) {
+                    console.log('error');
+                    res.send(500);
+                }
+            }
         }
     }
 }
