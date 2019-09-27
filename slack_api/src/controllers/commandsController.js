@@ -2,15 +2,6 @@ const message = require('./messageController');
 const signature = require('../verifySignature');
 const teamService = require('../services/teamService')
 
-function json2array(json){
-    var result = [];
-    var keys = Object.keys(json);
-    keys.forEach(function(key){
-        result.push(`team: ${json[key]} status: ${json[key].status} \n`);
-    });
-    return result;
-}
-
 let handleEvents = async function(req, res) {
     if (req.body.command === '/create_team') {
         if (!signature.isVerified(req)) {
@@ -130,12 +121,8 @@ let handleEvents = async function(req, res) {
             try {
                 let result = await teamService.getAllTeamsStatus();
                 console.log('1',result);
-                result = json2array(result.teams);
-                console.log('2',result);
-                console.log('3',result.toString());
 
-
-                message.sendShortMessage(user_id, `Who's Here:` + result.toString().replace(/[,]/g, ""));
+                message.sendShortMessage(user_id, `Who's Here:` + result);
                 res.send('');
             } catch (e) {
                 console.log('error');
