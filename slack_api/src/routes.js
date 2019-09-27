@@ -25,16 +25,20 @@ let handleRoutes = function(app) {
     app.post('/data', async (req, res) => {
         const rawList = await channels.findAuthedChannels(bot);
 
-        let finalList = rawList.map(o => {
-            return {
-                value: o.id,
-                label: `#${o.name}`
-            };
-        });
-
         res.sendStatus(JSON.stringify({
-            options: finalList
+            options: ['1','2','3']
         }));
+
+        // let finalList = rawList.map(o => {
+        //     return {
+        //         value: o.id,
+        //         label: `#${o.name}`
+        //     };
+        // });
+
+        // res.sendStatus(JSON.stringify({
+        //     options: finalList
+        // }));
     });
 }
 
