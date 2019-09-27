@@ -27,3 +27,6 @@ dbdown:
 format:
 	black gatekeeper tests
 	isort -rc gatekeeper tests
+
+test:
+	python3 -m coverage run --source gatekeeper -m pytest tests -p no:warnings

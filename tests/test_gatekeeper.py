@@ -1,5 +1,5 @@
-from gatekeeper import __version__
+from gatekeeper import healthcheck
 
 
-def test_version():
-    assert __version__ == "0.1.0"
+def test_healthcheck():
+    pass
