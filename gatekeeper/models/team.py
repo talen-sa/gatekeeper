@@ -1,4 +1,6 @@
+from flask import current_app
 from marshmallow import fields
+
 from gatekeeper.models import base, db, ma
 
 
@@ -60,8 +62,8 @@ class Team(base):
         return Team.query.filter_by(name=name).first()
 
     @staticmethod
-    def get_at_board_position(position):
-        return Team.query.filter_by(board_position=position)
+    def is_team_at_board_position(position):
+        return Team.query.filter_by(board_position=position).first() is not None
 
 
 class TeamSchema(ma.Schema):

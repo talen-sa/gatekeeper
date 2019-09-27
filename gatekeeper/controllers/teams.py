@@ -1,9 +1,10 @@
-from flask import Blueprint, current_app, request
+from flask import Blueprint, request
 from flask_restful import Api, Resource
 from marshmallow import ValidationError
 
 from gatekeeper.controllers.response import Error, Fail, Success
-from gatekeeper.models.team import Team, team_schema, teams_schema, team_put_schema
+from gatekeeper.models.team import (Team, team_put_schema, team_schema,
+                                    teams_schema)
 
 
 class TeamApi(Resource):
@@ -45,13 +46,22 @@ class TeamsApi(Resource):
     def post(self):
         try:
             data = team_schema.load(request.get_json())
-            current_app.logger.debug(data)
             team = Team.get_team(data["name"])
             if team is not None:
                 return Fail(f"Team {team.name} already exists").to_json(), 400
 
-            # Check board position things
-            team = Team(name=data["name"])
+            board_position = data["board_position"]
+            if Team.is_team_at_board_position(board_position):
+                return (
+                    Fail(
+                        f"Team already exists at board_position {board_position}"
+                    ).to_json(),
+                    400,
+                )
+
+            team = Team()
+            for k, v in data.items():
+                setattr(team, k, v)
             team.save()
             return Success(f"Team {team.name} created").to_json(), 204
         except ValidationError as err:
