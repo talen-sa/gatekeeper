@@ -4,58 +4,14 @@ const axios = require('axios');
 const qs = require('qs');
 const apiUrl = process.env.SLACK_API_URL;
 
-// const postRegistrationMessage = (userId) => {
-//     let messageData = {
-//         token: process.env.SLACK_ACCESS_TOKEN,
-//         channel: userId,
-//         attachments: JSON.stringify([{
-//             text: 'Register your team',
-//             callback_id: 'registerTeam',
-//             actions: [{
-//                 name: 'start',
-//                 text: 'Register your team',
-//                 type: 'button',
-//                 value: 'register',
-//             }]
-//         }])
-//     };
-//     send(messageData);
-// };
-
 const postInMessage = (userId) => {
-    let messageData = {
-        token: process.env.SLACK_ACCESS_TOKEN,
-        channel: userId,
-        attachments: JSON.stringify([{
-            text: 'Click below if you are in the office.',
-            callback_id: 'setStatusAsIn',
-            actions: [{
-                name: 'start',
-                text: 'Set Status as \'IN\'',
-                type: 'button',
-                value: 'Submit',
-            }]
-        }])
-    };
-    send(messageData);
+    sendShortMessage(user.id, 'Thanks! Don\'t forget to sign out when you leave');
+    res.sendStatus(200);
 };
 
 const postOutMessage = (userId) => {
-    let messageData = {
-        token: process.env.SLACK_ACCESS_TOKEN,
-        channel: userId,
-        attachments: JSON.stringify([{
-            text: 'Click below when you are leaving the office',
-            callback_id: 'setStatusAsOut',
-            actions: [{
-                name: 'start',
-                text: 'Set Status as \'OUT\'',
-                type: 'button',
-                value: 'register',
-            }]
-        }])
-    };
-    send(messageData);
+    message.sendShortMessage(user.id, 'Thanks! Have a great rest of your day.');
+    res.sendStatus(200);
 };
 
 

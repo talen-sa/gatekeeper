@@ -25,18 +25,7 @@ let handleInteractions = async function(req, res) {
 
         console.log(type, callback_id);
 
-        if (type === 'interactive_message') {
-            if (callback_id === 'setStatusAsIn') {
-                //teamService.setUserStatus(data);
-                message.sendShortMessage(user.id, 'Thanks! Don\'t forget to sign out when you leave');
-                res.sendStatus(200);
-            } else if (callback_id === 'setStatusAsOut') {
-                //teamService.setUserStatus(data);
-                message.sendShortMessage(user.id, 'Thanks! Have a great rest of your day.');
-                res.sendStatus(200);
-            }
-        }
-        else if (type === 'dialog_submission') {
+        if (type === 'dialog_submission') {
             if (callback_id === 'setupTeam') {
                 message.sendShortMessage(user.id, 'Thanks! Your team has been registered.');
                 res.send('');
