@@ -5,7 +5,7 @@ let bot = '';
 
 let handleRoutes = function(app) {
     app.get('/', (req, res) => {
-        res.send('<h2>Running</h2>');
+        res.sendStatus('<h2>Running</h2>');
     });
 
     app.post('/events', (req, res) => {
@@ -26,7 +26,7 @@ let handleRoutes = function(app) {
             };
         });
 
-        res.send(JSON.stringify({
+        res.sendStatus(JSON.stringify({
             options: finalList
         }));
     });
