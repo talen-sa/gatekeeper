@@ -13,5 +13,5 @@ module.exports.getUsersInOrganization = async function() {
         console.log(e);
         result = e;
     }
-    return result;
+    return result.data.members;
 };
