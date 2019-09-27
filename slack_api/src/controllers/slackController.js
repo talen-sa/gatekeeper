@@ -28,5 +28,6 @@ module.exports.getUserById = async function(user_id) {
         console.log(e);
         result = e;
     }
+    console.log(result);
     return result.data;
 };
