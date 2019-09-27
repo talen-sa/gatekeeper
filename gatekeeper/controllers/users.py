@@ -18,39 +18,45 @@ class UserApi(Resource):
         user = User.get_user(username)
         if user is None:
             return Fail(f"User with username {username} not found").to_json(), 404
-        result = user_schema.dumps(user).data
-        return {"data": result}, 200
+        result = user_schema.dump(user)
+        return Success(result).to_json(), 200
 
     def patch(self, username):
-        user = User.get_user(username)
-        if user is None:
-            return Fail(f"User with username {username} not found").to_json(), 404
-        teams = user_post_schema.load(request.get_json())["teams"]
-        current_app.logger.debug(teams)
-        for t in teams:
-            team_name = t["name"]
-            team = Team.get_team(team_name)
-            if team is None:
-                return Fail(f"Team {team_name} does not exist").to_json(), 400
-            user._teams.append(team)
-        user.save()
-        return None, 204
+        try:
+            user = User.get_user(username)
+            if user is None:
+                return Fail(f"User with username {username} not found").to_json(), 404
+            teams = user_post_schema.load(request.get_json())["teams"]
+            current_app.logger.debug(teams)
+            for t in teams:
+                team_name = t["name"]
+                team = Team.get_team(team_name)
+                if team is None:
+                    return Fail(f"Team {team_name} does not exist").to_json(), 400
+                user._teams.append(team)
+            user.save()
+            return None, 204
+        except ValidationError as err:
+            return Error(str(err)).to_json(), 400
 
     def put(self, username):
-        user = User.get_user(username)
-        if user is None:
-            return Fail(f"User with username {username} not found").to_json(), 404
-        user._teams = []
-        teams = users_post_schema.load(request.get_json())["teams"]
-        current_app.logger.debug(teams)
-        for t in teams:
-            team_name = t["name"]
-            team = Team.get_team(team_name)
-            if team is None:
-                return Fail(f"Team {team_name} does not exist").to_json(), 400
-            user._teams.append(team)
-        user.save()
-        return None, 204
+        try:
+            user = User.get_user(username)
+            if user is None:
+                return Fail(f"User with username {username} not found").to_json(), 404
+            user._teams = []
+            teams = users_post_schema.load(request.get_json())["teams"]
+            current_app.logger.debug(teams)
+            for t in teams:
+                team_name = t["name"]
+                team = Team.get_team(team_name)
+                if team is None:
+                    return Fail(f"Team {team_name} does not exist").to_json(), 400
+                user._teams.append(team)
+            user.save()
+            return None, 204
+        except ValidationError as err:
+            return Error(str(err)).to_json(), 400
 
     def delete(self, username):
         user = User.get_user(username)

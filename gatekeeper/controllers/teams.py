@@ -11,7 +11,7 @@ class TeamApi(Resource):
         team = Team.get_team(team_name)
         if team is None:
             return Error(f"Team {team_name} does not exist.").to_json(), 404
-        result = team_schema.dumps(team).data
+        result = team_schema.dump(team)
         return Success(result).to_json(), 200
 
     def put(self, team_name):
@@ -20,7 +20,7 @@ class TeamApi(Resource):
     def delete(self, team_name):
         team = Team.get_team(team_name)
         if team is None:
-            return Error(f"Team {team_name} does not exist.").to_json(), 404
+            return Fail(f"Team {team_name} does not exist.").to_json(), 404
         team.delete()
         return None, 204
 
@@ -32,7 +32,7 @@ class TeamsApi(Resource):
         response = teams_schema.dump(teams)
 
         current_app.logger.debug(response)
-        return {"data": response}, 200
+        return Success(response).to_json(), 200
 
     def post(self):
         try:
