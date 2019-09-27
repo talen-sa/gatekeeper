@@ -1,8 +1,8 @@
 from flask import Flask, jsonify
 
 from gatekeeper.api import register_blueprints
-from gatekeeper.models import db, ma
 from gatekeeper.config import Config
+from gatekeeper.models import db, ma
 
 app = Flask(__name__)
 

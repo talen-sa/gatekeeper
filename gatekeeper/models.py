@@ -1,5 +1,5 @@
-from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow, fields
+from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 ma = Marshmallow()
