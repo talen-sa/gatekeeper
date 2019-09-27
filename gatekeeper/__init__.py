@@ -2,7 +2,7 @@ from flask import Flask, jsonify
 
 from gatekeeper.config import Config
 from gatekeeper.controllers import register_blueprints
-from gatekeeper.models import db, ma, base
+from gatekeeper.models import base, db, ma
 
 app = Flask(__name__)
 

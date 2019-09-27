@@ -1,9 +1,16 @@
-from flask import Blueprint, request
+from flask import Blueprint, current_app, request
 from flask_restful import Api, Resource
 from marshmallow import ValidationError
 
 from gatekeeper.controllers.response import Error, Fail, Success
-from gatekeeper.models import Team, User, user_schema, users_schema
+from gatekeeper.models.team import Team
+from gatekeeper.models.user import (
+    User,
+    user_post_schema,
+    user_schema,
+    users_post_schema,
+    users_schema,
+)
 
 
 class UserApi(Resource):
@@ -14,11 +21,43 @@ class UserApi(Resource):
         result = user_schema.dumps(user).data
         return {"data": result}, 200
 
+    def patch(self, username):
+        user = User.get_user(username)
+        if user is None:
+            return Fail(f"User with username {username} not found").to_json(), 404
+        teams = user_post_schema.load(request.get_json())["teams"]
+        current_app.logger.debug(teams)
+        for t in teams:
+            team_name = t["name"]
+            team = Team.get_team(team_name)
+            if team is None:
+                return Fail(f"Team {team_name} does not exist").to_json(), 400
+            user._teams.append(team)
+        user.save()
+        return None, 204
+
     def put(self, username):
-        pass
+        user = User.get_user(username)
+        if user is None:
+            return Fail(f"User with username {username} not found").to_json(), 404
+        user._teams = []
+        teams = users_post_schema.load(request.get_json())["teams"]
+        current_app.logger.debug(teams)
+        for t in teams:
+            team_name = t["name"]
+            team = Team.get_team(team_name)
+            if team is None:
+                return Fail(f"Team {team_name} does not exist").to_json(), 400
+            user._teams.append(team)
+        user.save()
+        return None, 204
 
     def delete(self, username):
-        pass
+        user = User.get_user(username)
+        if user is None:
+            return Fail(f"User with username {username} not found").to_json(), 404
+        user.delete()
+        return None, 204
 
 
 class UsersApi(Resource):
@@ -29,18 +68,22 @@ class UsersApi(Resource):
 
     def post(self):
         try:
-            data = user_schema.load(request.get_json())
-            teamname = data["team_id"]
+            data = user_post_schema.load(request.get_json())
             username = data["username"]
-            team = Team.get_team(teamname)
-            if team is None:
-                return Fail(f"Team {teamname} does not exist").to_json(), 400
             user = User.get_user(username)
-            if user is None:
-                new_user = User(username=username, team_id=team.id)
-                new_user.save()
-                return Success(f"user {username} created successfully").to_json(), 201
-            return Fail(f"User {username} already exists").to_json()
+            if user is not None:
+                return Fail(f"User {username} already exists").to_json()
+            new_user = User(username=username)
+            teams = data["teams"]
+            if len(teams) > 0:
+                for t in teams:
+                    team_name = t["name"]
+                    team = Team.get_team(team_name)
+                    if team is None:
+                        return Fail(f"Team {team_name} does not exist").to_json(), 400
+                    new_user._teams.append(team)
+            new_user.save()
+            return Success(f"user {username} created successfully").to_json(), 201
         except ValidationError as err:
             return Error(str(err)).to_json(), 400
 
