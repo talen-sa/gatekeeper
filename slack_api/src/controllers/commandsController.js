@@ -123,9 +123,8 @@ let handleEvents = async function(req, res) {
                 console.log('1',result.teams[0]);
                 message.sendShortMessage(user_id, "Who's Here");
                 for (var a = 0; a < result.teams.length; a++) {
-                    console.log(result.teams[a].name);
                     if (result.teams[a].status =='in') {
-                        message.sendShortMessage(user_id, `Team: ${result.teams[a].name}`);
+                        message.sendShortMessage(user_id, `Team: ${result.teams[a].team}`);
                     }
                 }
 
