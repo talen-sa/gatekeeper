@@ -7,8 +7,7 @@ let handleEvents = async function(req, res) {
             res.sendStatus(404);
             return;
         } else {
-            console.log(req.body);
-            const { user_id } = req.body;
+            const { user_id, trigger_id } = req.body;
             // message.postRegistrationMessage(user_id);
             try {
                 const result = await message.openDialog(trigger_id);
