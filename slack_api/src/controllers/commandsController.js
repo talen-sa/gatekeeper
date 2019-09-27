@@ -25,12 +25,9 @@ let handleEvents = async function(req, res) {
             res.sendStatus(404);
             return;
         } else {
-            const {
-                user_id
-            } = req.body;
+            const { user_id } = req.body;
             message.postInMessage(user_id);
         }
-        res.sendStatus(200);
     }
     if (req.body.command === '/out') {
         if (!signature.isVerified(req)) {
@@ -38,12 +35,9 @@ let handleEvents = async function(req, res) {
             return;
         } else {
             console.log(req.body);
-            const {
-                user_id
-            } = req.body;
+            const { user_id } = req.body;
             message.postOutMessage(user_id);
         }
-        res.sendStatus(200);
     }
 }
 module.exports.run = function(req, res) {
