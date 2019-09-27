@@ -2,7 +2,7 @@ const commandsController = require('./controllers/commandsController');
 const interactionsController = require('./controllers/interactionsController');
 const channels = require('./channels');
 const slackController = require('./controllers/slackController')
-
+const teamService = require('./services/teamService');
 let handleRoutes = function(app) {
     app.get('/', async (req, res) => {
         //let users = await slackController.getAllUsers();
@@ -21,23 +21,8 @@ let handleRoutes = function(app) {
     });
 
     app.post('/data', async (req, res) => {
-
-        res.status(200).send(JSON.stringify({
-            options: [
-              {
-                label: "team 1",
-                value: "1"
-              },
-              {
-                label: "team 2",
-                value: "2"
-              },
-              {
-                label: "team 3",
-                value: "3"
-              }
-            ]
-          }));
+        let teams = await teamService.getTeams();
+        res.status(200).send(JSON.stringify(teams));
 
         // let finalList = rawList.map(o => {
         //     return {
