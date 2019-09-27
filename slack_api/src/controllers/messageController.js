@@ -5,53 +5,22 @@ const qs = require('qs');
 
 const apiUrl = process.env.SLACK_API_URL;
 
-const openDialog = async (trigger_id) => {
-    const dialogData = {
+const postRegistrationMessage = (userId) => {
+    let messageData = {
         token: process.env.SLACK_ACCESS_TOKEN,
-        trigger_id: trigger_id,
-        dialog: JSON.stringify({
-            title: 'Create a Team',
-            callback_id: 'setupTeam',
-            submit_label: 'Request',
-            text: ' ',
-
-            elements: [{
-                    type: 'text',
-                    name: 'title',
-                    label: 'Team Name',
-                },
-
-                {
-                    type: 'select',
-                    name: 'team',
-                    label: 'Your team\'s slack channel',
-                    data_source: 'channels',
-                },
-                {
-                    type: 'text',
-                    name: 'time',
-                    label: 'Working Hours?',
-                    placeholder: '7:30-4:00'
-                }
-            ]
-        })
+        channel: userId,
+        attachments: JSON.stringify([{
+            text: 'Register your team',
+            callback_id: 'registerTeam',
+            actions: [{
+                name: 'start',
+                text: 'Register your team',
+                type: 'button',
+                value: 'register',
+            }]
+        }])
     };
-    return axios.post(`${apiUrl}/dialog.open`, qs.stringify(dialogData));
-};
-
-const postRegistrationMessage = async (userId) => {
-    try {
-        const result = await openDialog(trigger_id);
-        if (result.data.error) {
-            res.sendStatus(500);
-        } else {
-            //teamService.createTeam(data);
-            message.sendShortMessage(user.id, 'Thanks!');
-            res.sendStatus(200);
-        }
-    } catch (err) {
-        res.sendStatus(500);
-    }
+    send(messageData);
 };
 
 const postInMessage = (userId) => {
