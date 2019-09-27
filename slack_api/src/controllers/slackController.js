@@ -18,12 +18,12 @@ module.exports.getAllUsers = async function() {
 
 module.exports.getUserById = async function(user_id) {
     const payload = {
-        token: process.env.SLACK_USER_TOKEN,
+        token: process.env.SLACK_ACCESS_TOKEN,
         user: user_id
     };
     let result;
     try {
-        result = await axios.get(`${apiUrl}/users.profile.get`, qs.stringify(payload));
+        result = await axios.get(`${apiUrl}/users.info`, qs.stringify(payload));
     } catch (e) {
         console.log(e);
         result = e;

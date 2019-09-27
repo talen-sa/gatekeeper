@@ -1,6 +1,6 @@
 ### VsCode ### 
 .vscode 
-
+.env
 ### Flask ###
 instance/*
 !instance/.gitignore
