@@ -70,11 +70,11 @@ let handleInteractions = async function(req, res) {
                     res.sendStatus(500);
                 }
             } else if (callback_id === 'setStatusAsIn') {
-                //teamService.setStatus(data);
+                //teamService.setUserStatus(data);
                 message.sendShortMessage(user.id, 'Thanks! Don\'t forget to sign out when you leave');
                 res.sendStatus(200);
             } else if (callback_id === 'setStatusAsOut') {
-                //teamService.setStatus(data);
+                //teamService.setUserStatus(data);
                 message.sendShortMessage(user.id, 'Thanks! Have a great rest of your day.');
                 res.sendStatus(200);
             }
