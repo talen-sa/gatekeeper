@@ -26,7 +26,6 @@ let handleRoutes = function(app) {
             options_groups: [
                 {
                     label: "Teams",
-                    action_id: '1',
                     options: [
                         {
                         label: "team 1",
@@ -43,7 +42,6 @@ let handleRoutes = function(app) {
                     ]
                 },
                 {
-                    action_id: '2',
                     label: "Users",
                     options: [
                         {
