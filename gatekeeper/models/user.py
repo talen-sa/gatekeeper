@@ -30,6 +30,10 @@ class User(base):
         db.session.delete(self)
         db.session.commit()
 
+    def to_json(self):
+        """Returns a JSON representation of the user."""
+        return {"id": self.id, "username": self.username}
+
     @staticmethod
     def get_all():
         """Returns a list of all User objects in the Users table"""

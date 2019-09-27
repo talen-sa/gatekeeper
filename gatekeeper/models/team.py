@@ -11,7 +11,7 @@ class Team(base):
     status = db.Column(db.Integer(), default=0)
     location = db.Column(db.String(30), default="vault")
     board_position = db.Column(db.Integer(), unique=True)
-    members = db.relationship("User", secondary="belongs_to")
+    _members = db.relationship("User", secondary="belongs_to")
 
     def save(self):
         """Addes the non-existing Team to the DB."""
@@ -66,6 +66,16 @@ class Team(base):
 
 
 class TeamSchema(ma.Schema):
+    members = fields.Method("get_members")
+
+    def get_members(self, team):
+        return [member.to_json() for member in team._members]
+
+    class Meta:
+        fields = ("name", "status", "location", "board_position", "members")
+
+
+class TeamsSchema(ma.Schema):
     class Meta:
         fields = ("name", "status", "location", "board_position")
 
@@ -80,7 +90,7 @@ class TeamPatchSchema(ma.Schema):
 
 
 team_schema = TeamSchema()
-teams_schema = TeamSchema(many=True)
+teams_schema = TeamsSchema(many=True)
 
 team_put_schema = TeamPutSchema()
 team_patch_schema = TeamPatchSchema()

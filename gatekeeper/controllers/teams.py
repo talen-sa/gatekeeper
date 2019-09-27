@@ -68,7 +68,7 @@ class TeamsApi(Resource):
 
     def post(self):
         try:
-            data = team_schema.load(request.get_json())
+            data = teams_schema.load(request.get_json())
             team = Team.get_team(data["name"])
             if team is not None:
                 return Fail(f"Team {team.name} already exists").to_json(), 400
