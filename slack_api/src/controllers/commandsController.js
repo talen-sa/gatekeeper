@@ -49,7 +49,6 @@ let handleEvents = async function(req, res) {
                 if (result.data.error) {
                     res.sendStatus(500);
                 } else {
-                    //teamService.createTeam(data);
                     res.send('');
                 }
             } catch (err) {
@@ -68,7 +67,6 @@ let handleEvents = async function(req, res) {
                 if (result.data.error) {
                     res.sendStatus(500);
                 } else {
-                    //teamService.createTeam(data);
                     res.send('');
                 }
             } catch (err) {

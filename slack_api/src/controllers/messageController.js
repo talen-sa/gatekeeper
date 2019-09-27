@@ -120,13 +120,13 @@ const openRemoveUserDialog = async (trigger_id) => {
             {
             title: 'Remove a user from a team',
             callback_id: 'removeUser',
-            submit_label: 'Delete',
+            submit_label: 'Remove',
             text: ' ',
             elements: [
                 {
                     type: 'select',
                     name: 'user',
-                    label: 'Choose the use',
+                    label: 'Choose the user to remove',
                     data_source: 'users',
                 },
                 {
