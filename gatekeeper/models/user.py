@@ -1,4 +1,5 @@
 from marshmallow import fields
+
 from gatekeeper.models import base, db, ma
 
 belongs_to = db.Table(
