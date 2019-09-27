@@ -54,7 +54,7 @@ let handleInteractions = async function(req, res) {
             response_url,
             submission
         } = JSON.parse(req.body.payload);
-        console.log(callback_id);
+        console.log(type,callback_id);
         if (type === 'interactive_message') {
             if (callback_id === 'registerTeam') {
                 try {
