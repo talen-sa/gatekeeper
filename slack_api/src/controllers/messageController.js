@@ -65,12 +65,13 @@ const openDeleteDialog = async (trigger_id) => {
         trigger_id: trigger_id,
         dialog: JSON.stringify({
             title: 'Delete a Team',
-            callback_id: 'setupTeam',
-            submit_label: 'Request',
+            callback_id: 'deleteTeam',
+            submit_label: 'Delete',
             text: ' ',
             elements: [
                 {
                     type: 'select',
+                    action_id: '1',
                     name: 'team',
                     label: 'Choose the team to delete',
                     data_source: 'external',
