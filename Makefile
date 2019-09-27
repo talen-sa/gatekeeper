@@ -30,3 +30,5 @@ format:
 
 test:
 	python3 -m coverage run --source gatekeeper -m pytest tests -p no:warnings
+
+review: format test
