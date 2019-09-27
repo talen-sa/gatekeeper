@@ -1,5 +1,15 @@
 const message = require('./messageController');
 const signature = require('../verifySignature');
+const teamService = require('../services/teamService')
+
+function json2array(json){
+    var result = [];
+    var keys = Object.keys(json);
+    keys.forEach(function(key){
+        result.push(json[key] + "\n");
+    });
+    return result;
+}
 
 let handleEvents = async function(req, res) {
     if (req.body.command === '/create_team') {
@@ -108,6 +118,23 @@ let handleEvents = async function(req, res) {
                 }
             } catch (err) {
                 res.sendStatus(500);
+            }
+        }
+    }
+    if (req.body.command === '/whos_here') {
+        if (!signature.isVerified(req)) {
+            res.sendStatus(404);
+            return;
+        } else {
+            const { user_id, trigger_id } = req.body;
+            try {
+                let result = await teamService.getAllTeamsStatus();
+                result = json2array(result);
+                message.sendShortMessage(user.id, `Who's Here:` + result.toString().replace(/[,]/g, ""));
+                res.send('');
+            } catch (e) {
+                console.log('error');
+                res.send(500);
             }
         }
     }

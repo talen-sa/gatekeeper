@@ -3,7 +3,7 @@
 const axios = require('axios');
 const qs = require('qs');
 const apiUrl = process.env.SLACK_API_URL;
-const teamService = require('../services/teamService')
+const teamService = require('../services/teamService');
 
 const postInMessage = (userId) => {
     sendShortMessage(userId, 'Thanks! Don\'t forget to sign out when you leave');
@@ -120,7 +120,7 @@ const openInOutDialog = async (trigger_id) => {
             {
             title: 'Change Team\'s Status',
             callback_id: 'inout',
-            submit_label: 'Delete',
+            submit_label: 'Set',
             text: ' ',
             elements: [
                 {
