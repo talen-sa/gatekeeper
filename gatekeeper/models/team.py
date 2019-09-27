@@ -6,9 +6,10 @@ class Team(base):
     __tablename__ = "teams"
 
     name = db.Column(db.String(30), primary_key=True, nullable=False)
-    in_office = db.Column(db.Boolean(), default=False)
+    status = db.Column(db.Integer(), default=0)
     location = db.Column(db.String(30), default="vault")
     board_position = db.Column(db.Integer(), unique=True)
+    members = db.relationship("User", secondary="belongs_to")
 
     def save(self):
         """Addes the non-existing Team to the DB."""
@@ -33,6 +34,15 @@ class Team(base):
             old.save()
         self.board_position = position
         self.save()
+
+    def to_json(self):
+        """Returns a JSON representation of the team."""
+        return {
+            "name": self.name,
+            "status": self.status,
+            "location": self.location,
+            "board_position": self.board_position,
+        }
 
     @staticmethod
     def get_all():
@@ -60,4 +70,3 @@ class TeamSchema(ma.Schema):
 
 team_schema = TeamSchema()
 teams_schema = TeamSchema(many=True)
-

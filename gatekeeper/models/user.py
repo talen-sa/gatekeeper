@@ -1,3 +1,4 @@
+from marshmallow import fields
 from gatekeeper.models import base, db, ma
 
 belongs_to = db.Table(
@@ -14,7 +15,7 @@ class User(base):
 
     id = db.Column(db.Integer(), primary_key=True)
     username = db.Column(db.String(30), nullable=False, unique=True)
-    teams = db.relationship("Team", secondary="belongs_to", backref="_users")
+    _teams = db.relationship("Team", secondary="belongs_to", backref="_users")
 
     def save(self):
         """Addes the non-existing user to the DB."""
@@ -41,10 +42,34 @@ class User(base):
         return User.query.filter_by(username=username).first()
 
 
-class UserSchema(ma.ModelSchema):
+class UserTeamSchema(ma.Schema):
+    name = fields.String(required=True)
+
+
+class UserSchema(ma.Schema):
+    teams = fields.Method("get_teams")
+
+    def get_teams(self, user):
+        return [team.to_json() for team in user._teams]
+
     class Meta:
-        model = User
+        fields = ("id", "username", "teams")
+
+
+class UserPostSchema(ma.Schema):
+    teams = fields.List(fields.Nested(UserTeamSchema))
+
+
+class UsersPostSchema(ma.Schema):
+    username = fields.String(required=True)
+    teams = fields.List(fields.Nested(UserTeamSchema))
+
+
+class UserPatchSchema(ma.Schema):
+    teams = fields.List(fields.Nested(UserTeamSchema))
 
 
 user_schema = UserSchema()
 users_schema = UserSchema(many=True)
+users_post_schema = UsersPostSchema()
+user_post_schema = UserPostSchema()
