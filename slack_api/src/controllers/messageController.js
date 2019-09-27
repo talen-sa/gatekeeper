@@ -79,7 +79,42 @@ const send = async (data) => {
     }
 };
 
+const openDialog = async (trigger_id) => {
+    const dialogData = {
+        token: process.env.SLACK_ACCESS_TOKEN,
+        trigger_id: trigger_id,
+        dialog: JSON.stringify({
+            title: 'Create a Team',
+            callback_id: 'setupTeam',
+            submit_label: 'Request',
+            text: ' ',
+
+            elements: [{
+                    type: 'text',
+                    name: 'title',
+                    label: 'Team Name',
+                },
+
+                {
+                    type: 'select',
+                    name: 'team',
+                    label: 'Your team\'s slack channel',
+                    data_source: 'channels',
+                },
+                {
+                    type: 'text',
+                    name: 'time',
+                    label: 'Working Hours?',
+                    placeholder: '7:30-4:00'
+                }
+            ]
+        })
+    };
+    return axios.post(`${apiUrl}/dialog.open`, qs.stringify(dialogData));
+};
+
 module.exports = {
+    openDialog,
     postInMessage,
     postOutMessage,
     sendShortMessage

@@ -10,7 +10,7 @@ let handleEvents = async function(req, res) {
             const { user_id } = req.body;
             // message.postRegistrationMessage(user_id);
             try {
-                const result = await openDialog(trigger_id);
+                const result = await message.openDialog(trigger_id);
                 if (result.data.error) {
                     res.sendStatus(500);
                 } else {
