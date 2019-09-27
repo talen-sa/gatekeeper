@@ -46,7 +46,7 @@ let handleEvents = async function(req, res) {
             const { user_id, trigger_id } = req.body;
             try {
                 const result = await message.openRemoveUserDialog(trigger_id);
-                console.log('deb',result);
+                console.log('deb',result.data.response_metadata);
                 if (result.data.error) {
                     res.sendStatus(500);
                 } else {
