@@ -23,7 +23,7 @@ let handleRoutes = function(app) {
     });
 
     app.post('/data', async (req, res) => {
-        const rawList = await channels.findAuthedChannels(bot);
+        // const rawList = await channels.findAuthedChannels(bot);
 
         res.sendStatus(JSON.stringify({
             options: ['1','2','3']
