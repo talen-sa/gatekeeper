@@ -150,19 +150,15 @@ let handleEvents = async function(req, res) {
                 }
                 else {
                     try {
-                        let result = await teamService.getAllTeamsStatus();
-                        console.log('1',result.teams[0]);
-                        message.sendShortMessage(user_id, "Who's Here");
-                        for (var a = 0; a < result.teams.length; a++) {
-                            if (result.teams[a].status =='in') {
-                                message.sendShortMessage(user_id, `${result.teams[a].team}`);
-                            }
+                        const result = await message.openInOutDialog(trigger_id);
+                        console.log('asd', result);
+                        if (result.data.error) {
+                            res.sendStatus(500);
+                        } else {
+                            res.send('');
                         }
-        
-                        res.send('');
-                    } catch (e) {
-                        console.log('error');
-                        res.send(500);
+                    } catch (err) {
+                        res.sendStatus(500);
                     }
                 }
             } catch (e) {
@@ -187,19 +183,15 @@ let handleEvents = async function(req, res) {
                 }
                 else {
                     try {
-                        let result = await teamService.getAllTeamsStatus();
-                        console.log('1',result.teams[0]);
-                        message.sendShortMessage(user_id, "Who's Here");
-                        for (var a = 0; a < result.teams.length; a++) {
-                            if (result.teams[a].status =='in') {
-                                message.sendShortMessage(user_id, `${result.teams[a].team}`);
-                            }
+                        const result = await message.openInOutDialog(trigger_id);
+                        console.log('asd', result);
+                        if (result.data.error) {
+                            res.sendStatus(500);
+                        } else {
+                            res.send('');
                         }
-        
-                        res.send('');
-                    } catch (e) {
-                        console.log('error');
-                        res.send(500);
+                    } catch (err) {
+                        res.sendStatus(500);
                     }
                 }
             } catch (e) {
