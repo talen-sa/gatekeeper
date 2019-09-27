@@ -15,16 +15,24 @@ let handleInteractions = async function(req, res) {
         console.log(type);
         if (type === 'dialog_submission') {
             if (callback_id === 'setupTeam') {
-                teamService.createTeam(submission.name);
-
-                message.sendShortMessage(user.id, 'Thanks! Your team has been registered.');
-                res.send('');
+                try {
+                    teamService.createTeam(submission.name);
+                    message.sendShortMessage(user.id, 'Thanks! Your team has been registered.');
+                    res.send('');
+                } catch (e) {
+                    console.log('error');
+                    res.send(500);
+                }
             }
             else if (callback_id === 'deleteTeam') {
-                teamService.deleteTeam(submission.team);
-
-                message.sendShortMessage(user.id, 'Deleted team: ' + submission.team);
-                res.send('');
+                try {
+                    teamService.deleteTeam(submission.team);
+                    message.sendShortMessage(user.id, 'Deleted team: ' + submission.team);
+                    res.send('');
+                } catch (e) {
+                    console.log('error');
+                    res.send(500);
+                }
             }
         }
     }
