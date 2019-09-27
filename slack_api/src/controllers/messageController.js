@@ -39,7 +39,7 @@ const openDialog = async (trigger_id) => {
     return axios.post(`${apiUrl}/dialog.open`, qs.stringify(dialogData));
 };
 
-const postRegistrationMessage = (userId) => {
+const postRegistrationMessage = async (userId) => {
     try {
         const result = await openDialog(trigger_id);
         if (result.data.error) {
