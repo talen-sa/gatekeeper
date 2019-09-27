@@ -8,14 +8,12 @@ let handleEvents = async function(req, res) {
             return;
         } else {
             const { user_id, trigger_id } = req.body;
-            // message.postRegistrationMessage(user_id);
             try {
                 const result = await message.openDialog(trigger_id);
                 if (result.data.error) {
                     res.sendStatus(500);
                 } else {
                     //teamService.createTeam(data);
-                    message.sendShortMessage(user.id, 'Thanks!');
                     res.sendStatus(200);
                 }
             } catch (err) {

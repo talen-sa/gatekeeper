@@ -22,22 +22,11 @@ let handleInteractions = async function(req, res) {
             response_url,
             submission
         } = JSON.parse(req.body.payload);
-        console.log(type,callback_id);
+
+        console.log(type, callback_id);
+
         if (type === 'interactive_message') {
-            if (callback_id === 'registerTeam') {
-                // try {
-                //     const result = await openDialog(trigger_id);
-                //     if (result.data.error) {
-                //         res.sendStatus(500);
-                //     } else {
-                //         //teamService.createTeam(data);
-                //         message.sendShortMessage(user.id, 'Thanks!');
-                //         res.sendStatus(200);
-                //     }
-                // } catch (err) {
-                //     res.sendStatus(500);
-                // }
-            } else if (callback_id === 'setStatusAsIn') {
+            if (callback_id === 'setStatusAsIn') {
                 //teamService.setUserStatus(data);
                 message.sendShortMessage(user.id, 'Thanks! Don\'t forget to sign out when you leave');
                 res.sendStatus(200);
@@ -48,8 +37,10 @@ let handleInteractions = async function(req, res) {
             }
         }
         else if (type === 'dialog_submission') {
-            message.sendShortMessage(user.id, 'Thanks! Your team has been registered.');
-            res.send('');
+            if (callback_id === 'setupTeam') {
+                message.sendShortMessage(user.id, 'Thanks! Your team has been registered.');
+                res.send('');
+            }
         }
     }
 }
