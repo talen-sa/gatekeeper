@@ -22,7 +22,6 @@ let handleEvents = async function(req, res) {
                 res.sendStatus(500);
             }
         }
-        res.sendStatus(200);
     } else if (req.body.command === '/in') {
         if (!signature.isVerified(req)) {
             res.sendStatus(404);
