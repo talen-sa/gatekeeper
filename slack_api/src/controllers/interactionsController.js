@@ -34,10 +34,20 @@ let handleInteractions = async function(req, res) {
                     res.send(500);
                 }
             }
+            else if (callback_id === 'listTeam') {
+                try {
+                    let result = teamService.listUsersOnTeam(submission.team);
+                    message.sendShortMessage(user.id, 'Teammates:\n' + result);
+                    res.send('');
+                } catch (e) {
+                    console.log('error');
+                    res.send(500);
+                }
+            }
             else if (callback_id === 'addUser') {
                 try {
                     teamService.addUserToTeam(submission.user, submission.team);
-                    message.sendShortMessage(user.id, `Added ${submission.user} to team: ${submission.team}`);
+                    message.sendShortMessage(user.id, `Successfully added user to the team: ${submission.team}`);
                     res.send('');
                 } catch (e) {
                     console.log('error');
@@ -47,7 +57,7 @@ let handleInteractions = async function(req, res) {
             else if (callback_id === 'removeUser') {
                 try {
                     teamService.removeUserFromTeam(submission.user, submission.team);
-                    message.sendShortMessage(user.id, `Removed ${submission.user} from team: ${submission.team}`);
+                    message.sendShortMessage(user.id, `Successfully removed user from the team: ${submission.team}`);
                     res.send('');
                 } catch (e) {
                     console.log('error');

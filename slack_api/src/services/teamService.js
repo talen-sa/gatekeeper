@@ -77,3 +77,9 @@ module.exports.addUserToTeam = async function(user, team) {
 }
 module.exports.removeUserFromTeam = async function(user, team) {
 }
+module.exports.listUsersOnTeam = async function(user, team) {
+    return {
+        1: michael,
+        2: test
+    }
+}

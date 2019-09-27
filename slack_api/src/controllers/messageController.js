@@ -3,6 +3,7 @@
 const axios = require('axios');
 const qs = require('qs');
 const apiUrl = process.env.SLACK_API_URL;
+const teamService = require('../services/teamService')
 
 const postInMessage = (userId) => {
     sendShortMessage(userId, 'Thanks! Don\'t forget to sign out when you leave');
@@ -11,6 +12,11 @@ const postInMessage = (userId) => {
 const postOutMessage = (userId) => {
     sendShortMessage(userId, 'Thanks! Have a great rest of your day.');
 };
+
+const sendListOfTeammates = async (userId) => {
+    let teammates = await teamService.getTeams
+    sendShortMessage(userId, 'Thanks! Have a great rest of your day.');
+}
 
 
 
@@ -83,6 +89,29 @@ const openDeleteTeamDialog = async (trigger_id) => {
     return axios.post(`${apiUrl}/dialog.open`, qs.stringify(dialogData));
 };
 
+const openListTeamDialog = async (trigger_id) => {
+    const dialogData = {
+        token: process.env.SLACK_ACCESS_TOKEN,
+        trigger_id: trigger_id,
+        dialog: JSON.stringify(
+            {
+            title: 'List Teammates',
+            callback_id: 'listTeam',
+            submit_label: 'Go',
+            text: ' ',
+            elements: [
+                {
+                    type: 'select',
+                    name: 'team',
+                    label: 'Choose the team to list',
+                    data_source: 'external',
+                }
+            ]
+        })
+    };
+    return axios.post(`${apiUrl}/dialog.open`, qs.stringify(dialogData));
+};
+
 const openAddUserDialog = async (trigger_id) => {
     const dialogData = {
         token: process.env.SLACK_ACCESS_TOKEN,
@@ -144,6 +173,7 @@ const openRemoveUserDialog = async (trigger_id) => {
 module.exports = {
     openCreateTeamDialog,
     openDeleteTeamDialog,
+    openListTeamDialog,
     openAddUserDialog,
     openRemoveUserDialog,
     postInMessage,
