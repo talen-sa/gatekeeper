@@ -237,7 +237,6 @@ module.exports = {
     openListUsersOnTeamDialog,
     openAddUserDialog,
     openRemoveUserDialog,
-    postInMessage,
-    postOutMessage,
+    openInOutDialog,
     sendShortMessage
 };
