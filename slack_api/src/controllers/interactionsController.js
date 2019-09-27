@@ -37,7 +37,6 @@ const openDialog = async (trigger_id) => {
             ]
         })
     };
-    console.log(dialogData);
     return axios.post(`${apiUrl}/dialog.open`, qs.stringify(dialogData));
 };
 
@@ -55,7 +54,7 @@ let handleInteractions = async function(req, res) {
             response_url,
             submission
         } = JSON.parse(req.body.payload);
-
+        console.log(callback_id);
         if (type === 'interactive_message') {
             if (callback_id === 'registerTeam') {
                 try {
