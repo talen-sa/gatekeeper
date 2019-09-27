@@ -16,7 +16,7 @@ let handleInteractions = async function(req, res) {
         if (type === 'dialog_submission') {
             if (callback_id === 'setupTeam') {
                 try {
-                    teamService.createTeam(submission.name);
+                    await teamService.createTeam(submission.name);
                     message.sendShortMessage(user.id, 'Thanks! Your team has been registered.');
                     res.send('');
                 } catch (e) {
@@ -26,7 +26,7 @@ let handleInteractions = async function(req, res) {
             }
             else if (callback_id === 'deleteTeam') {
                 try {
-                    teamService.deleteTeam(submission.team);
+                    await teamService.deleteTeam(submission.team);
                     message.sendShortMessage(user.id, 'Deleted team: ' + submission.team);
                     res.send('');
                 } catch (e) {
@@ -36,7 +36,7 @@ let handleInteractions = async function(req, res) {
             }
             else if (callback_id === 'listTeam') {
                 try {
-                    let result = teamService.listUsersOnTeam(submission.team);
+                    let result = await teamService.listUsersOnTeam(submission.team);
                     message.sendShortMessage(user.id, 'Teammates:\n' + result);
                     res.send('');
                 } catch (e) {
@@ -46,7 +46,7 @@ let handleInteractions = async function(req, res) {
             }
             else if (callback_id === 'addUser') {
                 try {
-                    teamService.addUserToTeam(submission.user, submission.team);
+                    await teamService.addUserToTeam(submission.user, submission.team);
                     message.sendShortMessage(user.id, `Successfully added user to the team: ${submission.team}`);
                     res.send('');
                 } catch (e) {
@@ -56,7 +56,7 @@ let handleInteractions = async function(req, res) {
             }
             else if (callback_id === 'removeUser') {
                 try {
-                    teamService.removeUserFromTeam(submission.user, submission.team);
+                    await teamService.removeUserFromTeam(submission.user, submission.team);
                     message.sendShortMessage(user.id, `Successfully removed user from the team: ${submission.team}`);
                     res.send('');
                 } catch (e) {
