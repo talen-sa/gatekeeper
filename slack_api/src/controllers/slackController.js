@@ -28,7 +28,6 @@ module.exports.getUserById = async function(user_id) {
         console.log(e);
         result = e;
     }
-    console.log(result);
     return result.data;
 };
 
@@ -44,6 +43,5 @@ module.exports.getUsersInChannel = async function(channel) {
         console.log(e);
         result = e;
     }
-    console.log(result);
-    return result.data;
+    return result.channel.members;
 };
