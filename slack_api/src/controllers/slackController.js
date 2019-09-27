@@ -1,4 +1,5 @@
 const axios = require('axios');
+const apiUrl = process.env.SLACK_API_URL;
 
 module.exports.getUsersInOrganization = async function() {
     const payload = {
