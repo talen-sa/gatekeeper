@@ -1,6 +1,5 @@
 ### VsCode ### 
 .vscode 
-.env
 
 ### Flask ###
 instance/*

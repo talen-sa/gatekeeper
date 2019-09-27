@@ -2,8 +2,10 @@ const message = require('./messageController');
 const signature = require('../verifySignature');
 const axios = require('axios');
 const qs = require('querystring');
-const apiUrl = process.env.SLACK_API_URL;
+const teamService = require('../services/teamService');
 
+
+const apiUrl = process.env.SLACK_API_URL;
 const openDialog = async (trigger_id) => {
     const dialogData = {
         token: process.env.SLACK_ACCESS_TOKEN,
@@ -60,24 +62,21 @@ let handleInteractions = async function(req, res) {
                     if (result.data.error) {
                         res.sendStatus(500);
                     } else {
+                        //teamService.createTeam(data);
                         message.sendShortMessage(user.id, 'Thanks!');
                         res.sendStatus(200);
-                        //#TODO
-                        //POST TO SERVER that they are in
                     }
                 } catch (err) {
                     res.sendStatus(500);
                 }
             } else if (callback_id === 'setStatusAsIn') {
+                //teamService.setStatus(data);
                 message.sendShortMessage(user.id, 'Thanks! Don\'t forget to sign out when you leave');
                 res.sendStatus(200);
-                //#TODO
-                //POST TO SERVER that they are in
             } else if (callback_id === 'setStatusAsOut') {
+                //teamService.setStatus(data);
                 message.sendShortMessage(user.id, 'Thanks! Have a great rest of your day.');
                 res.sendStatus(200);
-                //#TODO
-                //POST TO SERVER that they are in
             }
         }
     }
