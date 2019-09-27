@@ -1,4 +1,5 @@
-from flask_marshmallow import Marshmallow, fields
+from flask_marshmallow import Marshmallow
+from marshmallow import fields
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
@@ -11,7 +12,7 @@ class User(db.Model):
 
     id = db.Column(db.Integer(), primary_key=True)
     username = db.Column(db.String(30), nullable=False, unique=True)
-    is_admin = db.Column(db.Boolean(), default=False)
+    # is_admin = db.Column(db.Boolean(), default=False)
     team_id = db.Column(db.Integer(), db.ForeignKey("teams.id"))
     checked_in = db.Column(db.Boolean(), default=False)
 
@@ -42,12 +43,18 @@ class User(db.Model):
         return User.query.filter_by(username=username).first()
 
 
-class UserSchema(ma.ModelSchema):
+class UserSchema(ma.Schema):
+    team_name = fields.Method("get_team_name")
+
+    def get_team_name(self, user):
+        return Team.get_team_by_id(user.id).name
+
     class Meta:
-        model = User
+        fields = ("id", "username", "team_id", "team_name", "checked_in")
 
 
 user_schema = UserSchema()
+users_schema = UserSchema(many=True)
 
 
 class Team(db.Model):
@@ -79,13 +86,22 @@ class Team(db.Model):
         return Team.query.all()
 
     @staticmethod
-    def get_team(teamname):
+    def get_team_by_id(id):
         """Returns a Team Object for a specific Team, if it exists.
 
         Args:
             teamname: teamname to search for
         """
-        return Team.query.filter_by(name=teamname).first()
+        return Team.query.filter_by(id=id).first()
+
+    @staticmethod
+    def get_team_by_name(name):
+        """Returns a Team Object for a specific Team, if it exists.
+
+        Args:
+            teamname: teamname to search for
+        """
+        return Team.query.filter_by(name=name).first()
 
 
 class TeamSchema(ma.ModelSchema):

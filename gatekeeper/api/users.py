@@ -3,7 +3,7 @@ from flask_restful import Api, Resource
 from marshmallow import ValidationError
 
 from gatekeeper.api.response import Error, Fail, Success
-from gatekeeper.models import Team, User, user_schema
+from gatekeeper.models import Team, User, user_schema, users_schema
 
 
 class UserApi(Resource):
@@ -24,20 +24,21 @@ class UserApi(Resource):
 class UsersApi(Resource):
     def get(self):
         users = User.get_all()
-        users_json = [res.to_json() for res in users]
-        return {"status": "success", "data": users_json}, 200
+        users_json = users_schema.dump(users)
+        return Success(users_json).to_json(), 200
 
     def post(self):
         try:
             data = user_schema.load(request.get_json())
-            teamname = data.team
-            username = data.username
-            team = Team.get_team(teamname)
+            current_app.logger.debug(str(data))
+            team_id = data["team_id"]
+            username = data["username"]
+            team = Team.get_team_by_id(team_id)
             if team is None:
-                return Fail(f"Team {teamname} does not exist").to_json(), 400
+                return Fail(f"Team {team_id} does not exist").to_json(), 400
             user = User.get_user(username)
             if user is None:
-                new_user = User(username=username, team=team.id)
+                new_user = User(username=username, team_id=team.id)
                 new_user.save()
                 return Success(f"user {username} created successfully").to_json(), 201
         except ValidationError as err:

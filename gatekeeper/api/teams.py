@@ -26,7 +26,7 @@ class TeamsApi(Resource):
     def post(self):
         try:
             data = team_schema.load(request.get_json())
-            team = Team.get_team(str(data.name))
+            team = Team.get_team_by_name(str(data.name))
             if team is None:
                 team = Team(name=data.name)
                 team.save()
