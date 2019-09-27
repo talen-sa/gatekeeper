@@ -10,7 +10,7 @@ const postInMessage = (userId) => {
 };
 
 const postOutMessage = (userId) => {
-    message.sendShortMessage(userId, 'Thanks! Have a great rest of your day.');
+    sendShortMessage(userId, 'Thanks! Have a great rest of your day.');
     res.sendStatus(200);
 };
 
