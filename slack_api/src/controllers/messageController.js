@@ -3,7 +3,7 @@
 const axios = require('axios');
 const qs = require('qs');
 const apiUrl = process.env.SLACK_API_URL;
-const teamService = require('../services/teamService')
+const teamService = require('../services/teamService');
 
 const postInMessage = (userId) => {
     sendShortMessage(userId, 'Thanks! Don\'t forget to sign out when you leave');
@@ -58,7 +58,7 @@ const openCreateTeamDialog = async (trigger_id) => {
                     type: 'text',
                     name: 'time',
                     label: 'Working Hours?',
-                    placeholder: '7:30-4:00'
+                    placeholder: '8:00-5:00'
                 }
             ]
         })
@@ -82,6 +82,67 @@ const openDeleteTeamDialog = async (trigger_id) => {
                     name: 'team',
                     label: 'Choose the team to delete',
                     data_source: 'external',
+                }
+            ]
+        })
+    };
+    return axios.post(`${apiUrl}/dialog.open`, qs.stringify(dialogData));
+};
+
+const openInDialog = async (trigger_id) => {
+    const dialogData = {
+        token: process.env.SLACK_ACCESS_TOKEN,
+        trigger_id: trigger_id,
+        dialog: JSON.stringify(
+            {
+            title: 'Delete a Team',
+            callback_id: 'deleteTeam',
+            submit_label: 'Delete',
+            text: ' ',
+            elements: [
+                {
+                    type: 'select',
+                    name: 'team',
+                    label: 'Choose the team to delete',
+                    data_source: 'external',
+                }
+            ]
+        })
+    };
+    return axios.post(`${apiUrl}/dialog.open`, qs.stringify(dialogData));
+};
+
+const openInOutDialog = async (trigger_id) => {
+    const dialogData = {
+        token: process.env.SLACK_ACCESS_TOKEN,
+        trigger_id: trigger_id,
+        dialog: JSON.stringify(
+            {
+            title: 'Change Team\'s Status',
+            callback_id: 'inout',
+            submit_label: 'Set',
+            text: ' ',
+            elements: [
+                {
+                    type: 'select',
+                    name: 'team',
+                    label: 'Choose the team to update',
+                    data_source: 'external',
+                },
+                {
+                    type: 'select',
+                    name: 'status',
+                    label: 'Set team\'s status',
+                    options: [
+                        {
+                            label: "In",
+                            value: "in"
+                        },
+                        {
+                            label: "Out",
+                            value: "out"
+                        }
+                    ]
                 }
             ]
         })
@@ -176,7 +237,6 @@ module.exports = {
     openListUsersOnTeamDialog,
     openAddUserDialog,
     openRemoveUserDialog,
-    postInMessage,
-    postOutMessage,
+    openInOutDialog,
     sendShortMessage
 };

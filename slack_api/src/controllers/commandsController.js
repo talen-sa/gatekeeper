@@ -1,5 +1,6 @@
 const message = require('./messageController');
 const signature = require('../verifySignature');
+const teamService = require('../services/teamService')
 
 let handleEvents = async function(req, res) {
     if (req.body.command === '/create_team') {
@@ -92,25 +93,46 @@ let handleEvents = async function(req, res) {
             }
         }
     }
-    if (req.body.command === '/in') {
+    if (req.body.command === '/set_status') {
         if (!signature.isVerified(req)) {
             res.sendStatus(404);
             return;
         } else {
-            const { user_id } = req.body;
-            message.postInMessage(user_id);
-            res.send('');
+            const { user_id, trigger_id } = req.body;
+            try {
+                const result = await message.openInOutDialog(trigger_id);
+                console.log('asd', result);
+                if (result.data.error) {
+                    res.sendStatus(500);
+                } else {
+                    res.send('');
+                }
+            } catch (err) {
+                res.sendStatus(500);
+            }
         }
     }
-    if (req.body.command === '/out') {
+    if (req.body.command === '/whos_here') {
         if (!signature.isVerified(req)) {
             res.sendStatus(404);
             return;
         } else {
-            console.log(req.body);
-            const { user_id } = req.body;
-            message.postOutMessage(user_id);
-            res.send('');
+            const { user_id, trigger_id } = req.body;
+            try {
+                let result = await teamService.getAllTeamsStatus();
+                console.log('1',result.teams[0]);
+                message.sendShortMessage(user_id, "Who's Here");
+                for (var a = 0; a < result.teams.length; a++) {
+                    if (result.teams[a].status =='in') {
+                        message.sendShortMessage(user_id, `${result.teams[a].team}`);
+                    }
+                }
+
+                res.send('');
+            } catch (e) {
+                console.log('error');
+                res.send(500);
+            }
         }
     }
 }

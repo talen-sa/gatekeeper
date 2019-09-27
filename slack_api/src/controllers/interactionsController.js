@@ -1,6 +1,7 @@
 const message = require('./messageController');
 const signature = require('../verifySignature');
 const teamService = require('../services/teamService');
+
 function json2array(json){
     var result = [];
     var keys = Object.keys(json);
@@ -46,8 +47,9 @@ let handleInteractions = async function(req, res) {
             else if (callback_id === 'listTeam') {
                 try {
                     let result = await teamService.listUsersOnTeam(submission.team);
+                    result = json2array(result);
                     
-                    message.sendShortMessage(user.id, 'Teammates:\n' + json2array(result));
+                    message.sendShortMessage(user.id, `The teammates on team ${submission.team} are:\n` + result.toString().replace(/[,]/g, ""));
                     res.send('');
                 } catch (e) {
                     console.log('error');
@@ -68,6 +70,16 @@ let handleInteractions = async function(req, res) {
                 try {
                     await teamService.removeUserFromTeam(submission.user, submission.team);
                     message.sendShortMessage(user.id, `Successfully removed user from the team: ${submission.team}`);
+                    res.send('');
+                } catch (e) {
+                    console.log('error');
+                    res.send(500);
+                }
+            }
+            else if (callback_id === 'inout') {
+                try {
+                    await teamService.updateTeamStatus(submission.team, submission.status);
+                    message.sendShortMessage(user.id, `Successfully set status to: ${submission.status}`);
                     res.send('');
                 } catch (e) {
                     console.log('error');

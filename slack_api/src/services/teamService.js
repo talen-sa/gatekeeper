@@ -23,6 +23,31 @@ module.exports.getTeams = async function(data) {
       };
     return testData;
 }
+module.exports.getAllTeamsStatus = async function() {
+    // axios.get('/team')
+    // .then(function (response) {
+    //     console.log(response);
+    // }).catch(function (error) {
+    //     console.log(error);
+    // });
+    var testData = {
+        teams: [
+          {
+            team: "team 1",
+            status: "in"
+          },
+          {
+            team: "team 2",
+            status: "out"
+          },
+          {
+            team: "team 3",
+            status: "in"
+          }
+        ]
+      };
+    return testData;
+}
 module.exports.createTeam = async function(data) {
     // axios.post('/team')
     // .then(function (response) {
@@ -31,7 +56,7 @@ module.exports.createTeam = async function(data) {
     //     console.log(error);
     // });
 }
-module.exports.updateTeam = async function(data) {
+module.exports.updateTeamStatus = async function(data) {
     // axios.put('/team')
     // .then(function (response) {
     //     console.log(response);
@@ -49,14 +74,6 @@ module.exports.deleteTeam = async function(data) {
     // });
 }
 
-module.exports.setUserStatus = async function(data) {
-    // axios.post('/users')
-    // .then(function (response) {
-    //     console.log(response);
-    // }).catch(function (error) {
-    //     console.log(error);
-    // });
-}
 module.exports.getUser = async function(data) {
     // axios.get('/users/1')
     // .then(function (response) {

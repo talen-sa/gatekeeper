@@ -1,4 +1,5 @@
 from marshmallow import fields
+
 from gatekeeper.models import base, db, ma
 
 
@@ -60,8 +61,8 @@ class Team(base):
         return Team.query.filter_by(name=name).first()
 
     @staticmethod
-    def get_at_board_position(position):
-        return Team.query.filter_by(board_position=position)
+    def is_team_at_board_position(position):
+        return Team.query.filter_by(board_position=position).first() is not None
 
 
 class TeamSchema(ma.Schema):
@@ -71,11 +72,15 @@ class TeamSchema(ma.Schema):
 
 class TeamPutSchema(ma.Schema):
     location = fields.String(required=True)
-    status = fields.Integer(required=True)
     board_position = fields.Integer(required=True)
+
+
+class TeamPatchSchema(ma.Schema):
+    status = fields.Integer(required=True)
 
 
 team_schema = TeamSchema()
 teams_schema = TeamSchema(many=True)
 
 team_put_schema = TeamPutSchema()
+team_patch_schema = TeamPatchSchema()
