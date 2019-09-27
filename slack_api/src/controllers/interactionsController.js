@@ -27,8 +27,8 @@ let handleInteractions = async function(req, res) {
 
         if (type === 'dialog_submission') {
             if (callback_id === 'setupTeam') {
-                // message.sendShortMessage(user.id, 'Thanks! Your team has been registered.');
-                res.sendStatus('');
+                message.sendShortMessage(user.id, 'Thanks! Your team has been registered.');
+                res.send('');
             }
         }
     }
