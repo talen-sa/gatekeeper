@@ -71,7 +71,7 @@ const openDeleteDialog = async (trigger_id) => {
             elements: [
                 {
                     type: 'select',
-                    initial_option: 'Teams',
+                    initial_option: '1',
                     name: 'team',
                     label: 'Choose the team to delete',
                     data_source: 'external',
