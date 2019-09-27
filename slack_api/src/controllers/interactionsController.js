@@ -37,7 +37,8 @@ let handleInteractions = async function(req, res) {
             else if (callback_id === 'listTeam') {
                 try {
                     let result = await teamService.listUsersOnTeam(submission.team);
-                    message.sendShortMessage(user.id, 'Teammates:\n' + result);
+                    
+                    message.sendShortMessage(user.id, 'Teammates:\n' + JSON.parse(result));
                     res.send('');
                 } catch (e) {
                     console.log('error');
