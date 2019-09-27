@@ -80,7 +80,6 @@ const send = async (data) => {
 };
 
 module.exports = {
-    postRegistrationMessage,
     postInMessage,
     postOutMessage,
     sendShortMessage
