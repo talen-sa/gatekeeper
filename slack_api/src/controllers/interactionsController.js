@@ -9,10 +9,7 @@ let handleInteractions = async function(req, res) {
         const {
             type,
             user,
-            trigger_id,
             callback_id,
-            actions,
-            response_url,
             submission
         } = JSON.parse(req.body.payload);
 
@@ -24,7 +21,7 @@ let handleInteractions = async function(req, res) {
                 res.send('');
             }
             else if (callback_id === 'deleteTeam') {
-                message.sendShortMessage('Deleted team:');
+                message.sendShortMessage('Deleted team:', submission.team);
             }
         }
     }
