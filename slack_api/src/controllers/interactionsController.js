@@ -12,7 +12,7 @@ const openDialog = async (trigger_id) => {
         trigger_id: trigger_id,
         dialog: JSON.stringify({
             title: 'Create a Team',
-            callback_id: 'setup_team',
+            callback_id: 'setupTeam',
             submit_label: 'Request',
             text: ' ',
 
@@ -76,6 +76,10 @@ let handleInteractions = async function(req, res) {
             } else if (callback_id === 'setStatusAsOut') {
                 //teamService.setUserStatus(data);
                 message.sendShortMessage(user.id, 'Thanks! Have a great rest of your day.');
+                res.sendStatus(200);
+            } else if (callback_id === 'setupTeam') {
+                //teamService.setUserStatus(data);
+                message.sendShortMessage(user.id, 'Thanks! Your team has been registered.');
                 res.sendStatus(200);
             }
         }
