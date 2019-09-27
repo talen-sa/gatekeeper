@@ -89,7 +89,7 @@ const openDeleteTeamDialog = async (trigger_id) => {
     return axios.post(`${apiUrl}/dialog.open`, qs.stringify(dialogData));
 };
 
-const openListTeamDialog = async (trigger_id) => {
+const openListUsersOnTeamDialog = async (trigger_id) => {
     const dialogData = {
         token: process.env.SLACK_ACCESS_TOKEN,
         trigger_id: trigger_id,
@@ -173,7 +173,7 @@ const openRemoveUserDialog = async (trigger_id) => {
 module.exports = {
     openCreateTeamDialog,
     openDeleteTeamDialog,
-    openListTeamDialog,
+    openListUsersOnTeamDialog,
     openAddUserDialog,
     openRemoveUserDialog,
     postInMessage,
