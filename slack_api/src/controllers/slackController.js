@@ -32,10 +32,10 @@ module.exports.getUserById = async function(user_id) {
     return result.data;
 };
 
-module.exports.getUsersInChannel = async function(user_id) {
+module.exports.getUsersInChannel = async function(channel) {
     const payload = {
         token: process.env.SLACK_USER_TOKEN,
-        user: user_id
+        channel: channel
     };
     let result;
     try {
