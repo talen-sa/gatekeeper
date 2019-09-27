@@ -20,8 +20,6 @@ app.use(bodyParser.json({
     verify: rawBodyBuffer
 }));
 
-let users = await slackController.getUsersInOrganization();
-console.log(users);
 routes.use(app);
 
 

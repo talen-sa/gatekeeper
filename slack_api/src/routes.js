@@ -3,9 +3,11 @@ const interactionsController = require('./controllers/interactionsController');
 const channels = require('./channels');
 let bot = '';
 
-let handleRoutes = function(app) {
+let handleRoutes = async function(app) {
     app.get('/', (req, res) => {
         res.sendStatus('<h2>Running</h2>');
+        let users = await slackController.getUsersInOrganization();
+        console.log(users);
     });
 
     app.post('/events', (req, res) => {
