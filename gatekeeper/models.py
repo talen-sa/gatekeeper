@@ -1,6 +1,6 @@
 from flask_marshmallow import Marshmallow
-from marshmallow import fields
 from flask_sqlalchemy import SQLAlchemy
+from marshmallow import fields
 
 db = SQLAlchemy()
 ma = Marshmallow()
