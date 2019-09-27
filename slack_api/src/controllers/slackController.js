@@ -6,5 +6,12 @@ module.exports.getUsersInOrganization = async function() {
     const payload = {
         token: process.env.SLACK_ACCESS_TOKEN,
     };
-    return axios.post(`${apiUrl}/users.list`, qs.stringify(payload));
+    let result;
+    try {
+        result = await axios.post(`${apiUrl}/users.list`, qs.stringify(payload));
+    } catch (e) {
+        console.log(e);
+        result = e;
+    }
+    return result;
 };
