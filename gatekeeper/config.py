@@ -14,3 +14,5 @@ class Config(object):
         os.getenv("API_DB_PORT", "5432"),
         os.getenv("API_DB_NAME", "gate_db"),
     )
+
+    BOARD_RANGE = os.getenv("BOARD_RANGE", 10)

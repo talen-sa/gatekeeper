@@ -4,13 +4,8 @@ from marshmallow import ValidationError
 
 from gatekeeper.controllers.response import Error, Fail, Success
 from gatekeeper.models.team import Team
-from gatekeeper.models.user import (
-    User,
-    user_post_schema,
-    user_schema,
-    users_post_schema,
-    users_schema,
-)
+from gatekeeper.models.user import (User, user_post_schema, user_schema,
+                                    users_post_schema, users_schema)
 
 
 class UserApi(Resource):
