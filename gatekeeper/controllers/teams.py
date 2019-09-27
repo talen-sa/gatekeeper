@@ -22,7 +22,7 @@ class TeamApi(Resource):
         if team is None:
             return Error(f"Team {team_name} does not exist.").to_json(), 404
         team.delete()
-        return Success().to_json(), 204
+        return None, 204
 
 
 class TeamsApi(Resource):

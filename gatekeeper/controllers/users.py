@@ -18,7 +18,11 @@ class UserApi(Resource):
         pass
 
     def delete(self, username):
-        pass
+        user = User.get_user(username)
+        if user is None:
+            return Fail(f"User with username {username} not found").to_json(), 404
+        user.delete()
+        return None, 204
 
 
 class UsersApi(Resource):
