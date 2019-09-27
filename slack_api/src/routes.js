@@ -5,9 +5,14 @@ let bot = '';
 
 let handleRoutes = function(app) {
     app.get('/', async (req, res) => {
+        try {
+            let users = await slackController.getUsersInOrganization();
+            console.log(users);
+        } catch(e) {
+            console.log(e);
+        }
+        
         res.sendStatus('<h2>Running</h2>');
-        let users = await slackController.getUsersInOrganization();
-        console.log(users);
     });
 
     app.post('/events', (req, res) => {
