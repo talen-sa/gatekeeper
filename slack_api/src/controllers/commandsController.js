@@ -8,7 +8,6 @@ function json2array(json){
     keys.forEach(function(key){
         result.push(`team: ${json[key]} status: ${json[key].status} \n`);
     });
-    console.log(result);
     return result;
 }
 
@@ -130,6 +129,7 @@ let handleEvents = async function(req, res) {
             const { user_id, trigger_id } = req.body;
             try {
                 let result = await teamService.getAllTeamsStatus();
+                console.log('1',result);
                 result = json2array(result);
                 message.sendShortMessage(user_id, `Who's Here:` + result.toString().replace(/[,]/g, ""));
                 res.send('');
