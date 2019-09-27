@@ -49,7 +49,7 @@ let handleInteractions = async function(req, res) {
                     let result = await teamService.listUsersOnTeam(submission.team);
                     result = json2array(result);
                     
-                    message.sendShortMessage(user.id, 'Teammates:\n' + result.toString());
+                    message.sendShortMessage(user.id, 'Teammates:\n' + result.toString().replace(/[,]/g, ""));
                     res.send('');
                 } catch (e) {
                     console.log('error');
