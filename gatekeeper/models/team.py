@@ -90,7 +90,7 @@ class TeamPatchSchema(ma.Schema):
 
 
 team_schema = TeamSchema()
-teams_schema = TeamSchema(many=True)
+teams_schema = TeamsSchema(many=True)
 
 team_put_schema = TeamPutSchema()
 team_patch_schema = TeamPatchSchema()
