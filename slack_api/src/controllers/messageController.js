@@ -82,7 +82,8 @@ const openDeleteDialog = async (trigger_id) => {
 };
 
 module.exports = {
-    openDialog,
+    openCreateDialog,
+    openDeleteDialog,
     postInMessage,
     postOutMessage,
     sendShortMessage
