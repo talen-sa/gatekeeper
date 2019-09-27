@@ -3,7 +3,7 @@ from flask_restful import Api, Resource
 from marshmallow import ValidationError
 
 from gatekeeper.controllers.response import Error, Fail, Success
-from gatekeeper.models import Team, team_schema, teams_schema
+from gatekeeper.models.team import Team, team_schema, teams_schema
 
 
 class TeamApi(Resource):
