@@ -25,7 +25,22 @@ let handleRoutes = function(app) {
     app.post('/data', async (req, res) => {
         // const rawList = await channels.findAuthedChannels(bot);
 
-        res.sendStatus(JSON.stringify({ x: 5, y: 6 }));
+        res.sendStatus(JSON.stringify({
+            "options": [
+              {
+                "label": "[UXD-342] The button color should be artichoke green, not jalapeño",
+                "value": "UXD-342"
+              },
+              {
+                "label": "[FE-459] Remove the marquee tag",
+                "value": "FE-459"
+              },
+              {
+                "label": "[FE-238] Too many shades of gray in master CSS",
+                "value": "FE-238"
+              }
+            ]
+          }));
 
         // let finalList = rawList.map(o => {
         //     return {
