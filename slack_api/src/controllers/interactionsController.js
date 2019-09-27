@@ -1,6 +1,7 @@
 const message = require('./messageController');
 const signature = require('../verifySignature');
 const teamService = require('../services/teamService');
+
 function json2array(json){
     var result = [];
     var keys = Object.keys(json);
@@ -47,7 +48,7 @@ let handleInteractions = async function(req, res) {
                 try {
                     let result = await teamService.listUsersOnTeam(submission.team);
                     
-                    message.sendShortMessage(user.id, 'Teammates:\n' + json2array(result));
+                    message.sendShortMessage(user.id, 'Teammates:\n' + json2array(result).replace(/[,]/g, ""));
                     res.send('');
                 } catch (e) {
                     console.log('error');
