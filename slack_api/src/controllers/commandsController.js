@@ -74,7 +74,7 @@ let handleEvents = async function(req, res) {
             }
         }
     }
-    else if (req.body.command === '/in') {
+    if (req.body.command === '/in') {
         if (!signature.isVerified(req)) {
             res.sendStatus(404);
             return;
@@ -84,7 +84,7 @@ let handleEvents = async function(req, res) {
             res.send('');
         }
     }
-    else if (req.body.command === '/out') {
+    if (req.body.command === '/out') {
         if (!signature.isVerified(req)) {
             res.sendStatus(404);
             return;
