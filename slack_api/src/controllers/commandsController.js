@@ -6,7 +6,7 @@ function json2array(json){
     var result = [];
     var keys = Object.keys(json);
     keys.forEach(function(key){
-        result.push(json[key] + "\n");
+        result.push(json[key].toString() + "\n");
     });
     return result;
 }
