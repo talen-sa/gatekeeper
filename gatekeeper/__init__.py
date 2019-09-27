@@ -1,8 +1,7 @@
 from flask import Flask, jsonify
 
-from gatekeeper.models import db
 from gatekeeper.api import register_blueprints
-
+from gatekeeper.models import db
 
 app = Flask(__name__)
 app.config.from_object("gatekeeper.settings")
@@ -17,6 +16,6 @@ def init_forum():
     db.create_all()
 
 
-@app.route("/api/status")
+@app.route("/status")
 def healthcheck():
     return jsonify({"Status": "Online"})
