@@ -14,7 +14,7 @@ let handleEvents = async function(req, res) {
                     res.sendStatus(500);
                 } else {
                     //teamService.createTeam(data);
-                    res.sendStatus(200);
+                    res.send('');
                 }
             } catch (err) {
                 res.sendStatus(500);
@@ -38,7 +38,7 @@ let handleEvents = async function(req, res) {
             console.log(req.body);
             const { user_id } = req.body;
             message.postOutMessage(user_id);
-            res.sendStatus(200);
+            res.send('');
         }
     }
 }
