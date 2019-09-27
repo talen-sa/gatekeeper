@@ -29,7 +29,6 @@ const findAuthedChannels = async (id, cursor) => {
     } else {
         return channels;
     }
-
 };
 
 module.exports = {

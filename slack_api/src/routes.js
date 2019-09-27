@@ -3,12 +3,12 @@ const interactionsController = require('./controllers/interactionsController');
 const channels = require('./channels');
 const slackController = require('./controllers/slackController')
 
-let bot = '';
-
 let handleRoutes = function(app) {
     app.get('/', async (req, res) => {
-        let user = await slackController.getUserById('UNTP2M55W');//
-        console.log(user);
+        //let users = await slackController.getAllUsers();
+        //let users = await slackController.getUserById('UNTP2M55W');
+        //let test = await slackController.getUsersInChannel('CNH967BPB');
+        // console.log(users);
         res.send(200);
     });
 
@@ -20,19 +20,35 @@ let handleRoutes = function(app) {
         interactionsController.run(req, res);
     });
 
-    app.post('/channels', async (req, res) => {
-        const rawList = await channels.findAuthedChannels(bot);
+    app.post('/data', async (req, res) => {
 
-        let finalList = rawList.map(o => {
-            return {
-                value: o.id,
-                label: `#${o.name}`
-            };
-        });
+        res.status(200).send(JSON.stringify({
+            options: [
+              {
+                label: "team 1",
+                value: "1"
+              },
+              {
+                label: "team 2",
+                value: "2"
+              },
+              {
+                label: "team 3",
+                value: "3"
+              }
+            ]
+          }));
 
-        res.sendStatus(JSON.stringify({
-            options: finalList
-        }));
+        // let finalList = rawList.map(o => {
+        //     return {
+        //         value: o.id,
+        //         label: `#${o.name}`
+        //     };
+        // });
+
+        // res.sendStatus(JSON.stringify({
+        //     options: finalList
+        // }));
     });
 }
 
