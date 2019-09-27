@@ -1,8 +1,8 @@
 from flask import Flask, jsonify
 
-from gatekeeper.api import register_blueprints
+from gatekeeper.controllers import register_blueprints
 from gatekeeper.config import Config
-from gatekeeper.models import db, ma
+from gatekeeper.models import db, ma, init_db
 
 app = Flask(__name__)
 
@@ -16,7 +16,7 @@ ma.init_app(app)
 
 @app.before_first_request
 def init_forum():
-    db.create_all()
+    init_db()
 
 
 @app.route("/status")

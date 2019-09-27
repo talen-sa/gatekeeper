@@ -1,9 +1,9 @@
-from flask import Blueprint, current_app, request
+from flask import Blueprint, request
 from flask_restful import Api, Resource
 from marshmallow import ValidationError
 
-from gatekeeper.api.response import Error, Fail, Success
-from gatekeeper.models import Team, User, team_schema, teams_schema
+from gatekeeper.controllers.response import Error, Fail, Success
+from gatekeeper.models.team import Team, team_schema, teams_schema
 
 
 class TeamApi(Resource):

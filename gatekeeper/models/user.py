@@ -1,20 +1,20 @@
-from marshmallow import fields
-
-from gatekeeper.models import db, ma
-from gatekeeper.models.team import Team
+from gatekeeper.models import db, ma, Base
 
 
-class User(db.Model):
+# belongs_to = db.Table(
+#     "belongs_to",
+#     db.Column("user", db.Integer, db.ForeignKey("users.id"), primary_key=True),
+#     db.Column("team", db.String, db.ForeignKey("teams.name"), primary_key=True),
+# )
+
+
+class User(Base):
 
     __tablename__ = "users"
 
     id = db.Column(db.Integer(), primary_key=True)
     username = db.Column(db.String(30), nullable=False, unique=True)
-    # is_admin = db.Column(db.Boolean(), default=False)
-    team_id = db.Column(db.Integer(), db.ForeignKey("teams.id"))
-    checked_in = db.Column(db.Boolean(), default=False)
-
-    # team = db.relationship("Team", backref="team")
+    # teams = db.relationship("teams", secondary=belongs_to, backref="_users")
 
     def save(self):
         """Addes the non-existing user to the DB."""
@@ -41,14 +41,9 @@ class User(db.Model):
         return User.query.filter_by(username=username).first()
 
 
-class UserSchema(ma.Schema):
-    team_name = fields.Method("get_team_name")
-
-    def get_team_name(self, user):
-        return Team.get_team_by_id(user.id).name
-
+class UserSchema(ma.ModelSchema):
     class Meta:
-        fields = ("id", "username", "team_id", "team_name", "checked_in")
+        model = User
 
 
 user_schema = UserSchema()

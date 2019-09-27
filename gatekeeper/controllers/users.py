@@ -2,7 +2,7 @@ from flask import Blueprint, current_app, request
 from flask_restful import Api, Resource
 from marshmallow import ValidationError
 
-from gatekeeper.api.response import Error, Fail, Success
+from gatekeeper.controllers.response import Error, Fail, Success
 from gatekeeper.models.team import Team
 from gatekeeper.models.user import User, user_schema, users_schema
 

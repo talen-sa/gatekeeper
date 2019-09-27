@@ -1,12 +1,19 @@
-from gatekeeper.models import db, ma
+from gatekeeper.models import db, ma, Base
+
+# from gatekeeper.models.user import belongs_to
 
 
-class Team(db.Model):
+class Team(Base):
 
     __tablename__ = "teams"
 
-    id = db.Column(db.Integer(), primary_key=True)
-    name = db.Column(db.String(30), nullable=False, unique=True)
+    name = db.Column(db.String(30), primary_key=True, nullable=False)
+    in_office = db.Column(db.Boolean(), default=False)
+    location = db.Column(db.String(30), default="vault")
+    board_position = db.Column(db.Integer(), unique=True)
+    # members = db.relationship(
+    #     "users", secondary=belongs_to, backref=db.backref("_teams")
+    # )
 
     def save(self):
         """Addes the non-existing Team to the DB."""
