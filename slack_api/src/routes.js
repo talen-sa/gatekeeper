@@ -7,8 +7,8 @@ let bot = '';
 
 let handleRoutes = function(app) {
     app.get('/', async (req, res) => {
-        let user = await slackController.getUserById('UNTP2M55W');//
-        console.log(user);
+        let test = await slackController.getUsersInChannel('CNH967BPB');//
+        console.log(test);
         res.send(200);
     });
 
