@@ -2,7 +2,7 @@ const axios = require('axios');
 const qs = require('qs');
 const apiUrl = process.env.SLACK_API_URL;
 
-module.exports.getUsersInOrganization = async function() {
+module.exports.getAllUsers = async function() {
     const payload = {
         token: process.env.SLACK_ACCESS_TOKEN,
     };
@@ -14,4 +14,19 @@ module.exports.getUsersInOrganization = async function() {
         result = e;
     }
     return result.data.members;
+};
+
+module.exports.getAllUserById = async function(user_id) {
+    const payload = {
+        token: process.env.SLACK_ACCESS_TOKEN,
+        user: user_id
+    };
+    let result;
+    try {
+        result = await axios.get(`${apiUrl}/users.profile.get`, qs.stringify(payload));
+    } catch (e) {
+        console.log(e);
+        result = e;
+    }
+    return result.data;
 };
