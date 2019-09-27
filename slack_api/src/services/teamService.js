@@ -31,7 +31,7 @@ module.exports.getAllTeamsStatus = async function() {
     //     console.log(error);
     // });
     var testData = {
-        options: [
+        teams: [
           {
             team: "team 1",
             status: "in"
