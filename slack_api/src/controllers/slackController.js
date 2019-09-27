@@ -31,3 +31,19 @@ module.exports.getUserById = async function(user_id) {
     console.log(result);
     return result.data;
 };
+
+module.exports.getUsersInChannel = async function(user_id) {
+    const payload = {
+        token: process.env.SLACK_USER_TOKEN,
+        user: user_id
+    };
+    let result;
+    try {
+        result = await axios.post(`${apiUrl}/channels.info`, qs.stringify(payload));
+    } catch (e) {
+        console.log(e);
+        result = e;
+    }
+    console.log(result);
+    return result.data;
+};
