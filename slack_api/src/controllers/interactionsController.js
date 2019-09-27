@@ -77,11 +77,11 @@ let handleInteractions = async function(req, res) {
                 //teamService.setUserStatus(data);
                 message.sendShortMessage(user.id, 'Thanks! Have a great rest of your day.');
                 res.sendStatus(200);
-            } else if (callback_id === 'setupTeam') {
-                //teamService.setUserStatus(data);
-                message.sendShortMessage(user.id, 'Thanks! Your team has been registered.');
-                res.sendStatus(200);
             }
+        }
+        else if (type === 'dialog_submission') {
+            message.sendShortMessage(user.id, 'Thanks! Your team has been registered.');
+            res.sendStatus(200);
         }
     }
 }
