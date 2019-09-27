@@ -22,6 +22,7 @@ let handleInteractions = async function(req, res) {
             }
             else if (callback_id === 'deleteTeam') {
                 message.sendShortMessage(user.id, 'Deleted team: ' + submission.team);
+                res.send('');
             }
         }
     }
