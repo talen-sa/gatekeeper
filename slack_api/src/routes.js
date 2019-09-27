@@ -23,20 +23,43 @@ let handleRoutes = function(app) {
     app.post('/data', async (req, res) => {
 
         res.status(200).send(JSON.stringify({
-            options: [
-              {
-                label: "team [1]",
-                value: "1"
-              },
-              {
-                label: "team [2]",
-                value: "2"
-              },
-              {
-                label: "team [3]",
-                value: "3"
-              }
+            options_groups: [
+                {
+                    label: "Teams",
+                    options: [
+                        {
+                        label: "team 1",
+                        value: "1"
+                        },
+                        {
+                        label: "team 2",
+                        value: "2"
+                        },
+                        {
+                        label: "team 3",
+                        value: "3"
+                        }
+                    ]
+                },
+                {
+                    label: "Users",
+                    options: [
+                        {
+                        label: "User 1",
+                        value: "1"
+                        },
+                        {
+                        label: "User 2",
+                        value: "2"
+                        },
+                        {
+                        label: "User 3",
+                        value: "3"
+                        }
+                    ]
+                }
             ]
+            
           }));
 
         // let finalList = rawList.map(o => {
