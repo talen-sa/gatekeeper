@@ -1,4 +1,3 @@
-from flask import current_app
 from marshmallow import fields
 
 from gatekeeper.models import base, db, ma
