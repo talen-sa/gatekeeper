@@ -1,5 +1,8 @@
-from flask import Blueprint
+from flask import Blueprint, request, current_app
 from flask_restful import Api, Resource
+from marshmallow import ValidationError
+from gatekeeper.models import Team, User, team_schema, teams_schema
+from gatekeeper.api.response import Fail, Success, Error
 
 
 class TeamApi(Resource):
@@ -15,10 +18,21 @@ class TeamApi(Resource):
 
 class TeamsApi(Resource):
     def get(self):
-        pass
+        teams = Team.get_all()
+        response = teams_schema.dump(teams)
+        return Success(response).to_json(), 200
 
     def post(self):
-        pass
+        try:
+            data = team_schema.load(request.get_json())
+            team = Team.get_team(str(data.name))
+            if team is None:
+                team = Team(name=data.name)
+                team.save()
+                return Success(f"Team {data.name} created").to_json(), 204
+            return Fail(f"Team {data.name} already exists").to_json(), 400
+        except ValidationError as err:
+            return Error(str(err)).to_json(), 400
 
     def delete(self):
         pass

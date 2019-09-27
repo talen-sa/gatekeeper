@@ -12,6 +12,9 @@ Flask-Restful = "^0.3.7"
 Gunicorn = "^19.9"
 Flask-SQLAlchemy = "^2.4"
 psycopg2-binary = "^2.8"
+marshmallow = "^3.2"
+flask_marshmallow = "^0.10.1"
+marshmallow-sqlalchemy = "^0.19.0"
 
 [tool.poetry.dev-dependencies]
 isort = "^4.3"

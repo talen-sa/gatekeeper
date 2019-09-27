@@ -1,16 +1,19 @@
-from flask import Blueprint
+from flask import Blueprint, request, current_app
 from flask_restful import Api, Resource
 
-from gatekeeper.api.response import Fail, Success
-from gatekeeper.models import User
+from marshmallow import ValidationError
+
+from gatekeeper.api.response import Fail, Success, Error
+from gatekeeper.models import User, Team, user_schema
 
 
 class UserApi(Resource):
     def get(self, username):
         user = User.get_user(username)
-        if not user:
+        if user is None:
             return Fail(f"User with username {username} not found").to_json(), 404
-        return Success({"user": user.to_json()}).to_json(), 200
+        result = user_schema.dumps(user).data
+        return {"data": result}, 200
 
     def put(self, username):
         pass
@@ -21,10 +24,25 @@ class UserApi(Resource):
 
 class UsersApi(Resource):
     def get(self):
-        pass
+        users = User.get_all()
+        users_json = [res.to_json() for res in users]
+        return {"status": "success", "data": users_json}, 200
 
     def post(self):
-        pass
+        try:
+            data = user_schema.load(request.get_json())
+            teamname = data.team
+            username = data.username
+            team = Team.get_team(teamname)
+            if team is None:
+                return Fail(f"Team {teamname} does not exist").to_json(), 400
+            user = User.get_user(username)
+            if user is None:
+                new_user = User(username=username, team=team.id)
+                new_user.save()
+                return Success(f"user {username} created successfully").to_json(), 201
+        except ValidationError as err:
+            return Error(str(err)).to_json(), 400
 
     def delete(self):
         pass

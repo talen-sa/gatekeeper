@@ -1,16 +1,21 @@
 from flask_sqlalchemy import SQLAlchemy
+from flask_marshmallow import Marshmallow, fields
 
 db = SQLAlchemy()
+ma = Marshmallow()
 
 
 class User(db.Model):
 
     __tablename__ = "users"
 
-    username = db.Column(db.String(30), nullable=False, primary_key=True)
-    is_admin = db.Column(db.Boolean(), nullable=False, default=False)
-    team = db.Column(db.String(30), db.ForeignKey("teams.team_name"))
+    id = db.Column(db.Integer(), primary_key=True)
+    username = db.Column(db.String(30), nullable=False, unique=True)
+    is_admin = db.Column(db.Boolean(), default=False)
+    team_id = db.Column(db.Integer(), db.ForeignKey("teams.id"))
     checked_in = db.Column(db.Boolean(), default=False)
+
+    # team = db.relationship("Team", backref="team")
 
     def save(self):
         """Addes the non-existing user to the DB."""
@@ -36,23 +41,21 @@ class User(db.Model):
         """
         return User.query.filter_by(username=username).first()
 
-    def to_json(self):
-        """Returns a JSON representation of the user."""
-        return {
-            "username": self.username,
-            "is_admin": self.is_admin,
-            "team": self.team,
-            "checked_in": self.checked_in,
-        }
+
+class UserSchema(ma.ModelSchema):
+    class Meta:
+        model = User
+
+
+user_schema = UserSchema()
 
 
 class Team(db.Model):
 
     __tablename__ = "teams"
 
-    team_name = db.Column(db.String(30), nullable=False, primary_key=True)
-
-    members = db.relationship("User", backref="team_name")
+    id = db.Column(db.Integer(), primary_key=True)
+    name = db.Column(db.String(30), nullable=False, unique=True)
 
     def save(self):
         """Addes the non-existing Team to the DB."""
@@ -64,7 +67,7 @@ class Team(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-    def is_in_office(self):
+    def in_office(self):
         for member in self.members:
             if member.checked_in:
                 return True
@@ -76,18 +79,19 @@ class Team(db.Model):
         return Team.query.all()
 
     @staticmethod
-    def get_user(teamname):
+    def get_team(teamname):
         """Returns a Team Object for a specific Team, if it exists.
 
         Args:
             teamname: teamname to search for
         """
-        return Team.query.filter_by(teamname=teamname).first()
+        return Team.query.filter_by(name=teamname).first()
 
-    def to_json(self):
-        """Returns a JSON representation of the Team."""
-        return {
-            "teamname": self.team_name,
-            "members": self.members,
-            "in_office": self.is_in_office(),
-        }
+
+class TeamSchema(ma.ModelSchema):
+    class Meta:
+        model = Team
+
+
+team_schema = TeamSchema()
+teams_schema = TeamSchema(many=True)
