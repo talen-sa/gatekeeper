@@ -9,18 +9,19 @@ let handleInteractions = async function(req, res) {
         const {
             type,
             user,
-            trigger_id,
             callback_id,
-            actions,
-            response_url,
             submission
         } = JSON.parse(req.body.payload);
 
-        console.log(req.body.payload);
+        console.log(submission.team);
 
         if (type === 'dialog_submission') {
             if (callback_id === 'setupTeam') {
                 message.sendShortMessage(user.id, 'Thanks! Your team has been registered.');
+                res.send('');
+            }
+            else if (callback_id === 'deleteTeam') {
+                message.sendShortMessage(user.id, 'Deleted team: ' + submission.team);
                 res.send('');
             }
         }

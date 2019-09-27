@@ -1,3 +1,28 @@
+module.exports.getTeams = function(data) {
+    // axios.get('/team')
+    // .then(function (response) {
+    //     console.log(response);
+    // }).catch(function (error) {
+    //     console.log(error);
+    // });
+    var testData = {
+        options: [
+          {
+            label: "team 1",
+            value: "1"
+          },
+          {
+            label: "team 2",
+            value: "2"
+          },
+          {
+            label: "team 3",
+            value: "3"
+          }
+        ]
+      };
+    return testData;
+}
 module.exports.createTeam = function(data) {
     axios.post('/team')
     .then(function (response) {
