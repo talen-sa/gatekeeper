@@ -120,9 +120,9 @@ let handleEvents = async function(req, res) {
             const { user_id, trigger_id } = req.body;
             try {
                 let result = await teamService.getAllTeamsStatus();
-                console.log('1',result);
+                console.log('1',result.teams);
 
-                message.sendShortMessage(user_id, `Who's Here:` + result);
+                message.sendShortMessage(user_id, `Who's Here:` + result.teams);
                 res.send('');
             } catch (e) {
                 console.log('error');
