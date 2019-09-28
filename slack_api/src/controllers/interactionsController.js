@@ -98,6 +98,26 @@ let handleInteractions = async function(req, res) {
                     res.send(500);
                 }
             }
+            else if (callback_id === 'in') {
+                try {
+                    await teamService.updateTeamStatus(submission.team, 'in');
+                    message.sendShortMessage(user.id, `*Successfully set \`${submission.team}'s\` status to:* \`in\``);
+                    res.send('');
+                } catch (e) {
+                    console.log('error');
+                    res.send(500);
+                }
+            }
+            else if (callback_id === 'out') {
+                try {
+                    await teamService.updateTeamStatus(submission.team, 'out');
+                    message.sendShortMessage(user.id, `*Successfully set \`${submission.team}'s\` status to:* \`out\``);
+                    res.send('');
+                } catch (e) {
+                    console.log('error');
+                    res.send(500);
+                }
+            }
         }
     }
 }

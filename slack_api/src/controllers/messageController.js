@@ -130,30 +130,15 @@ const openOutDialog = async (trigger_id) => {
         dialog: JSON.stringify(
             {
             title: 'Change Team\'s Status',
-            callback_id: 'inout',
+            callback_id: 'out',
             submit_label: 'Set',
             text: ' ',
             elements: [
                 {
                     type: 'select',
                     name: 'team',
-                    label: 'Choose the team to update',
+                    label: 'Choose the team to set to \`out\`',
                     data_source: 'external',
-                },
-                {
-                    type: 'select',
-                    name: 'status',
-                    label: 'Set team\'s status',
-                    options: [
-                        {
-                            label: "In",
-                            value: "in"
-                        },
-                        {
-                            label: "Out",
-                            value: "out"
-                        }
-                    ]
                 }
             ]
         })
@@ -168,31 +153,16 @@ const openInDialog = async (trigger_id) => {
         dialog: JSON.stringify(
             {
             title: 'Change Team\'s Status',
-            callback_id: 'inout',
+            callback_id: 'in',
             submit_label: 'Set',
             text: ' ',
             elements: [
                 {
                     type: 'select',
                     name: 'team',
-                    label: 'Choose the team to update',
+                    label: 'Choose the team to set to \`in\`',
                     data_source: 'external',
                 },
-                {
-                    type: 'select',
-                    name: 'status',
-                    label: 'Set team\'s status',
-                    options: [
-                        {
-                            label: "In",
-                            value: "in"
-                        },
-                        {
-                            label: "Out",
-                            value: "out"
-                        }
-                    ]
-                }
             ]
         })
     };
