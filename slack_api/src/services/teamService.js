@@ -193,6 +193,18 @@ module.exports.updateTeamPosition = async function(team, position) {
   });
 }
 
+module.exports.getMyTeams = async function(user_id) {
+  return new Promise(function(resolve, reject) {
+    axios.patch(`${PI_API_URL}/users/${user_id}`)
+    .then(function (response) {
+        console.log(response.data.data.teams);
+        resolve(response.data.data.teams)
+        resolve('success');
+    }).catch(function (error) {
+        reject(error.data);
+    });
+  });
+}
 
 module.exports.listUsersOnTeam = async function(team) {
   return new Promise(function(resolve, reject) {

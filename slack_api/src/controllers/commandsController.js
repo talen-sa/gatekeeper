@@ -101,7 +101,6 @@ let handleEvents = async function(req, res) {
             const { user_id, trigger_id } = req.body;
             try {
                 const result = await message.openUpdateTeamDialog(trigger_id);
-                console.log(result.data);
                 if (result.data.error) {
                     res.sendStatus(500);
                 } else {
@@ -119,8 +118,8 @@ let handleEvents = async function(req, res) {
         } else {
             const { user_id, trigger_id } = req.body;
             try {
-                const result = await message.openUpdateTeamDialog(trigger_id);
-                console.log(result.data);
+                // const result = await message.openMyTeamsDialog(trigger_id);
+                
                 if (result.data.error) {
                     res.sendStatus(500);
                 } else {
@@ -149,7 +148,7 @@ let handleEvents = async function(req, res) {
             }
         }
     }
-    if (req.body.command === '/whos_here') {
+    if (req.body.command === '`/who`s_here') {
         if (!signature.isVerified(req)) {
             res.sendStatus(404);
             return;
