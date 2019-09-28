@@ -109,7 +109,7 @@ module.exports.addUserToDB = async function(user) {
       console.log('success', response);
         resolve('success');
     }).catch(function (error) {
-        console.log('errors', error.data);
+        console.log('errors', error);
         reject(error.data);
     });
   });
