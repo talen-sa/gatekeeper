@@ -48,7 +48,7 @@ const openCreateTeamDialog = async (trigger_id) => {
                 },
                 {
                     type: 'text',
-                    name: 'board_location',
+                    name: 'board_position',
                     placeholder: '0',
                     label: 'Board Location (0-19)',
                 }
