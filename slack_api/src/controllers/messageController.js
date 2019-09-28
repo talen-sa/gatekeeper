@@ -49,10 +49,17 @@ const openCreateTeamDialog = async (trigger_id) => {
             callback_id: 'setupTeam',
             submit_label: 'Create',
             text: ' ',
-            elements: [{
+            elements: [
+                {
                     type: 'text',
-                    name: 'title',
+                    name: 'name',
                     label: 'Team Name',
+                },
+                {
+                    type: 'text',
+                    name: 'location',
+                    placeholder: 'The Vault',
+                    label: 'Location',
                 },
             ]
         })
