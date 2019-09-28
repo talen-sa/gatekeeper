@@ -26,18 +26,18 @@ let handleInteractions = async function(req, res) {
             if (callback_id === 'setupTeam') {
                 try {
                     let result = await teamService.createTeam(submission.name, submission.location, submission.board_location);
-                    message.sendShortMessage(user.id, `Your team has been registered.\n Your board position is: ${result.board_location}`);
+                    message.sendShortMessage(user.id, `*Your team has been registered.\n Your board position is:* ${result.board_location}`);
                     res.send('');
                 } catch (e) {
-                    console.log('error');
-                    message.sendShortMessage(user.id, 'Oops, the name ${submission.title} is already taken or an error has occured.');
+                    console.log('error', e);
+                    message.sendShortMessage(user.id, '*Oops, that name or board position is already taken.*');
                     res.send('');
                 }
             }
             else if (callback_id === 'deleteTeam') {
                 try {
                     await teamService.deleteTeam(submission.team);
-                    message.sendShortMessage(user.id, 'Deleted team: ' + submission.team);
+                    message.sendShortMessage(user.id, '*Deleted team:* ' + submission.team);
                     res.send('');
                 } catch (e) {
                     console.log('error');
@@ -82,7 +82,7 @@ let handleInteractions = async function(req, res) {
                     message.sendShortMessage(user.id, `*Successfully removed user from the team:* ${submission.team}`);
                     res.send('');
                 } catch (e) {
-                    message.sendShortMessage(user.id, `*They are currently no users on the team:* ${submission.team}`);
+                    message.sendShortMessage(user.id, `*That user is not currently on team:* ${submission.team}`);
                     res.send('');
                 }
             }
