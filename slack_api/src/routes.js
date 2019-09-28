@@ -1,7 +1,5 @@
 const commandsController = require('./controllers/commandsController');
 const interactionsController = require('./controllers/interactionsController');
-const channels = require('./channels');
-const slackService = require('./services/slackService')
 const teamService = require('./services/teamService');
 let handleRoutes = function(app) {
     app.get('/', async (req, res) => {
