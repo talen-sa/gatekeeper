@@ -134,19 +134,16 @@ module.exports.removeUserFromTeam = async function(user, team) {
     });
   });
 }
+
 module.exports.listUsersOnTeam = async function(team) {
   return new Promise(function(resolve, reject) {
     axios.get(PI_API_URL + '/teams/' + team)
-    .then(function (response) {
+    .then(async function (response) {
       let result = [];
       for (var member of response.data.data.members) {
-        console.log('push', member.username);
-
-        let user = await slackController.getUserById(member.username)
-
-        //get username from skype
-
-        result.push({name:user});
+        let user = await slackController.getUserById(member.username);
+        console.log('usr', user.user.real_name);
+        result.push({name:user.user.real_name});
       }
         resolve(result);
       }).catch(function (error) {

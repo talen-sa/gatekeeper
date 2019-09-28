@@ -22,16 +22,12 @@ module.exports.getUserById = async function(user_id) {
             token: process.env.SLACK_USER_TOKEN,
             user: user_id
         };
-        let result;
-        try {
-            result = await axios.post(`${apiUrl}/users.info`, qs.stringify(payload));
-            resolve(result.data);
-        } catch (e) {
-            console.log(e);
-            reject(e);
-        }
+        axios.post(`${apiUrl}/users.info`, qs.stringify(payload)).then(function (response) {
+            resolve(response.data);
+        }).catch(function (error) {
+            reject(error.data);
+        });
     });
-    
 };
 
 module.exports.getUsersInChannel = async function(channel) {
