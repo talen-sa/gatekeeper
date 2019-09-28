@@ -170,7 +170,7 @@ let handleEvents = async function(req, res) {
                     }
                 }
                 else {
-                    message.sendShortMessage(user_id, '*Please register for a team.*');
+                    message.sendShortMessage(user_id, '*Please register for a team by typing `/add_user`.*');
                     res.send('');
                 }
             } catch (e) {
