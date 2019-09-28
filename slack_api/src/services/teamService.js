@@ -114,7 +114,7 @@ module.exports.addUserToTeam = async function(user, team) {
     }).then(function (response) {
         resolve('success');
       }).catch(function (error) {
-          console.log(error.data);
+          console.log('error', error.data);
           reject(error);
     });
   });
