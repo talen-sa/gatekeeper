@@ -58,6 +58,7 @@ module.exports.createTeam = async function(team_name) {
         name: team_name
       }
     }).then(function (response) {
+      console.log(response);
         resolve('success');
       }).catch(function (error) {
           console.log(error.data);
