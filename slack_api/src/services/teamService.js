@@ -183,7 +183,7 @@ module.exports.removeUserFromTeam = async function(user, team) {
 
 module.exports.updateTeamPosition = async function(team, position) {
   return new Promise(function(resolve, reject) {
-    console.log(team, position);
+    console.log("FUCK", team, position);
     axios.patch(`${PI_API_URL}/teams/${team}`,{
       board_position:position
     }).then(function (response) {
