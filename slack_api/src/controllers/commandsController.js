@@ -121,8 +121,8 @@ let handleEvents = async function(req, res) {
                 let result = await teamService.getAllTeamsStatus();
                 let empty = true;
                 let msgList = [];
-                message.sendShortMessage(user_id, `*Whos's here?*`);
-                res.send('');
+                msgList.push(`*Whos's here?*\n`);
+                // message.sendShortMessage(user_id, `*Whos's here?*`);
 
                 for (var a = 0; a < result.teams.length; a++) {
                     if (result.teams[a].status =='1') {
