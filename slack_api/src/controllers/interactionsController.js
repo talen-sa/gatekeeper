@@ -30,7 +30,8 @@ let handleInteractions = async function(req, res) {
                     res.send('');
                 } catch (e) {
                     console.log('error');
-                    res.send(500);
+                    message.sendShortMessage(user.id, 'Oops, teamname already taken or an error has occured.');
+                    res.send('');
                 }
             }
             else if (callback_id === 'deleteTeam') {
