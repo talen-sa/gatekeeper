@@ -21,8 +21,8 @@ module.exports.getTeams = async function() {
 
   axios.get('http://0.0.0.0:5000/api/teams/')
   .then(function (response) {
-    console.log(response);
-    for (var team in response) {
+    console.log(response.data.data);
+    for (var team in response.data.data) {
       result.push({label:team.name, value:team.name});
     }
     var json = {
