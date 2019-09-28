@@ -4,14 +4,9 @@ from marshmallow import ValidationError
 
 from gatekeeper.controllers.response import Error, Fail, Success
 from gatekeeper.models.team import Team
-from gatekeeper.models.user import (
-    User,
-    user_patch_schema,
-    user_put_schema,
-    user_schema,
-    users_post_schema,
-    users_schema,
-)
+from gatekeeper.models.user import (User, user_patch_schema, user_put_schema,
+                                    user_schema, users_post_schema,
+                                    users_schema)
 
 
 class UserApi(Resource):
@@ -36,7 +31,6 @@ class UserApi(Resource):
                     return Fail(f"Team {team_name} does not exist").to_json(), 400
                 user._teams.append(team)
             user.save()
-            pass
             return None, 204
         except ValidationError as err:
             return Error(str(err)).to_json(), 400
