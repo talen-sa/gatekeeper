@@ -37,4 +37,4 @@ def set_status(position, status):
 
 def toggle_status(status):
     for i in range(len(_pixels)):
-        set_status(_pixels[i], status)
+        set_status(i, status)
