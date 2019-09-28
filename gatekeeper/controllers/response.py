@@ -1,6 +1,3 @@
-import json
-
-
 class Response:
     """Object for Forum API responses."""
 
