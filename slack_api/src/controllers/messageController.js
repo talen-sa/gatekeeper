@@ -61,6 +61,12 @@ const openCreateTeamDialog = async (trigger_id) => {
                     placeholder: 'The Vault',
                     label: 'Location',
                 },
+                {
+                    type: 'text',
+                    name: 'board_location',
+                    placeholder: '0-19',
+                    label: 'Board Location',
+                }
             ]
         })
     };
