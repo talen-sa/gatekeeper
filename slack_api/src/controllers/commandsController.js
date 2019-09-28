@@ -75,7 +75,7 @@ let handleEvents = async function(req, res) {
             }
         }
     }
-    if (req.body.command === '/list_teammates') {
+    if (req.body.command === '/list_team') {
         if (!signature.isVerified(req)) {
             res.sendStatus(404);
             return;
