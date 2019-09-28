@@ -125,7 +125,6 @@ let handleInteractions = async function(req, res) {
                 }
             }
             else if (callback_id === 'updatePosition') {
-                console.log('asd');
                 try {
                     await teamService.updateTeamPosition(submission.team, submission.board_position);
                     message.sendShortMessage(user.id, `*Successfully updated \`${submission.team}'s\` board position to:* \`${submission.board_position}\``);
