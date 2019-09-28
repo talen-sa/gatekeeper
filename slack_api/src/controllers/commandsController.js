@@ -130,6 +130,7 @@ let handleEvents = async function(req, res) {
                     }
                 }
                 msgList[result.teams.length + 2].push('`');
+                console.log(msgList.toString);
                 if (empty) {
                     msgList.push(`whos's here?`);
                     message.sendShortMessage(user_id, `Nobody is here.`);
