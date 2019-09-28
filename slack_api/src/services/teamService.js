@@ -41,10 +41,7 @@ module.exports.getAllTeamsStatus = async function() {
           console.log(team);
           result.push({team:team.name, status:team.status});
         }
-        var json = {
-          options: result
-        }
-        resolve(json);
+        resolve(result);
       }).catch(function (error) {
           console.log(error);
           reject(error);
