@@ -93,6 +93,25 @@ let handleEvents = async function(req, res) {
             }
         }
     }
+    if (req.body.command === '/update_team') {
+        if (!signature.isVerified(req)) {
+            res.sendStatus(404);
+            return;
+        } else {
+            const { user_id, trigger_id } = req.body;
+            try {
+                console.log('dialog');
+                const result = await message.openUpdateTeamDialog(trigger_id);
+                if (result.data.error) {
+                    res.sendStatus(500);
+                } else {
+                    res.send('');
+                }
+            } catch (err) {
+                res.sendStatus(500);
+            }
+        }
+    }
     if (req.body.command === '/set_status') {
         if (!signature.isVerified(req)) {
             res.sendStatus(404);

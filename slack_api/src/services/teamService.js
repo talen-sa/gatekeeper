@@ -181,6 +181,34 @@ module.exports.removeUserFromTeam = async function(user, team) {
   });
 }
 
+module.exports.updateTeamPosition = async function(team, position) {
+  return new Promise(function(resolve, reject) {
+    axios.patch(`${PI_API_URL}/teams/${team}`,{
+      board_position:position
+    }).then(function (response) {
+        resolve('success');
+    }).catch(function (error) {
+        reject(error.data);
+    });
+  });
+}
+
+module.exports.listUsersOnTeam = async function(team) {
+  return new Promise(function(resolve, reject) {
+    axios.get(PI_API_URL + '/teams/' + team)
+    .then(async function (response) {
+      let result = [];
+      for (var member of response.data.data.members) {
+        let user = await slackService.getUserById(member.username);
+        result.push({name:user.user.real_name});
+      }
+        resolve(result);
+      }).catch(function (error) {
+          console.log(error.data);
+          reject(error);
+    });
+  });
+}
 module.exports.listUsersOnTeam = async function(team) {
   return new Promise(function(resolve, reject) {
     axios.get(PI_API_URL + '/teams/' + team)

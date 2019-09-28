@@ -41,7 +41,8 @@ let handleInteractions = async function(req, res) {
                     res.send('');
                 } catch (e) {
                     console.log('error');
-                    res.send(500);
+                    message.sendShortMessage(user.id, `*Failed To Delete Team*`);
+                    res.send('');
                 }
             }
             else if (callback_id === 'listTeam') {
@@ -65,7 +66,8 @@ let handleInteractions = async function(req, res) {
                     res.send('');
                 } catch (e) {
                     console.log('error');
-                    res.send(500);
+                    message.sendShortMessage(user.id, `*Failed To List Teams*`);
+                    res.send('');
                 }
             }
             else if (callback_id === 'addUser') {
@@ -75,7 +77,8 @@ let handleInteractions = async function(req, res) {
                     res.send('');
                 } catch (e) {
                     console.log('error');
-                    res.send(500);
+                    message.sendShortMessage(user.id, `*Failed to add user*`);
+                    res.send('');
                 }
             }
             else if (callback_id === 'removeUser') {
@@ -95,7 +98,8 @@ let handleInteractions = async function(req, res) {
                     res.send('');
                 } catch (e) {
                     console.log('error');
-                    res.send(500);
+                    message.sendShortMessage(user.id, `*Failed To Set Status*`);
+                    res.send('');
                 }
             }
             else if (callback_id === 'in') {
@@ -105,7 +109,8 @@ let handleInteractions = async function(req, res) {
                     res.send('');
                 } catch (e) {
                     console.log('error');
-                    res.send(500);
+                    message.sendShortMessage(user.id, `*Failed To Set Status*`);
+                    res.send('');
                 }
             }
             else if (callback_id === 'out') {
@@ -115,7 +120,19 @@ let handleInteractions = async function(req, res) {
                     res.send('');
                 } catch (e) {
                     console.log('error');
-                    res.send(500);
+                    message.sendShortMessage(user.id, `*Failed To Set Status*`);
+                    res.send('');
+                }
+            }
+            else if (callback_id === 'updatePosition') {
+                try {
+                    await teamService.updateTeamPosition(submission.team, submission.board_position);
+                    message.sendShortMessage(user.id, `*Successfully updated \`${submission.team}'s\` board position to:* \`${submission.board_position}\``);
+                    res.send('');
+                } catch (e) {
+                    console.log('error');
+                    message.sendShortMessage(user.id, `*Failed Updating Board Position*`);
+                    res.send('');
                 }
             }
         }
