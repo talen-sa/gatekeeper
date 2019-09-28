@@ -54,12 +54,6 @@ const openCreateTeamDialog = async (trigger_id) => {
                     name: 'title',
                     label: 'Team Name',
                 },
-                {
-                    type: 'text',
-                    name: 'time',
-                    label: 'Working Hours?',
-                    placeholder: '8:00-5:00'
-                }
             ]
         })
     };
