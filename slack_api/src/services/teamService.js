@@ -108,7 +108,7 @@ module.exports.addUserToDB = async function(user) {
     }).then(function (response) {
         resolve('success');
     }).catch(function (error) {
-        reject(error.data);
+        resolve("user already exists");
     });
   });
 }
