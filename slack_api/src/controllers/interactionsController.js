@@ -55,10 +55,10 @@ let handleInteractions = async function(req, res) {
                     }
                     console.log(result);
                     if (result.length != 0) {
-                        message.sendShortMessage(user.id, `*The teammates on team ${submission.team} are:*\n` +  formattedList.toString().replace(/[,]/g, ""));
+                        message.sendShortMessage(user.id, `*The teammates on team \`${submission.team}\` are:*\n` +  formattedList.toString().replace(/[,]/g, ""));
                     }
                     else {
-                        message.sendShortMessage(user.id, `*The team \'${submission.team}\' has no teammates yet.*`);
+                        message.sendShortMessage(user.id, `*The team \`${submission.team}\` has no teammates yet.*`);
                     }
                     res.send('');
                 } catch (e) {
