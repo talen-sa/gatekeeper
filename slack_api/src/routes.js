@@ -1,13 +1,13 @@
 const commandsController = require('./controllers/commandsController');
 const interactionsController = require('./controllers/interactionsController');
 const channels = require('./channels');
-const slackController = require('./controllers/slackController')
+const slackService = require('./services/slackService')
 const teamService = require('./services/teamService');
 let handleRoutes = function(app) {
     app.get('/', async (req, res) => {
-        //let users = await slackController.getAllUsers();
-        //let users = await slackController.getUserById('UNTP2M55W');
-        //let test = await slackController.getUsersInChannel('CNH967BPB');
+        //let users = await slackService.getAllUsers();
+        //let users = await slackService.getUserById('UNTP2M55W');
+        //let test = await slackService.getUsersInChannel('CNH967BPB');
         // console.log(users);
         res.send(200);
     });

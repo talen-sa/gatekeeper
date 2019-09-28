@@ -1,6 +1,6 @@
 const axios = require('axios');
 const PI_API_URL = process.env.PI_API_URL;
-const slackController = require('./slackService');
+const slackService = require('./slackService');
 
 module.exports.getTeams = async function() {
   var result = [];
@@ -148,7 +148,7 @@ module.exports.listUsersOnTeam = async function(team) {
     .then(async function (response) {
       let result = [];
       for (var member of response.data.data.members) {
-        let user = await slackController.getUserById(member.username);
+        let user = await slackService.getUserById(member.username);
         console.log('usr', user.user.real_name);
         result.push({name:user.user.real_name});
       }
