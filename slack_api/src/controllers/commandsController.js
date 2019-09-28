@@ -141,12 +141,12 @@ let handleEvents = async function(req, res) {
             const { user_id, trigger_id } = req.body;
             try {
                 let result = await teamService.checkIfUserHasMultipleTeams(user_id);
-                if (result.multiple === false) {
+                if (result.multiple === 'false') {
                     await teamService.updateTeamStatus(result.team_id, 'in');
                     message.sendShortMessage(user_id, "Team Status Set to \'in\'");
                     res.send('');
                 }
-                else {
+                else if (result.multiple === 'true') {
                     try {
                         const result = await message.openInOutDialog(trigger_id);
                         console.log('asd', result);
@@ -158,6 +158,10 @@ let handleEvents = async function(req, res) {
                     } catch (err) {
                         res.sendStatus(500);
                     }
+                }
+                else {
+                    message.sendShortMessage(user_id, 'Please register for a team.');
+                    res.send('');
                 }
             } catch (e) {
                 console.log('error');

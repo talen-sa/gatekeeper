@@ -86,13 +86,17 @@ module.exports.deleteTeam = async function(team_name) {
   });
 }
 
-module.exports.getUser = async function(data) {
-    // axios.get('/users/1')
-    // .then(function (response) {
-    //     console.log(response);
-    // }).catch(function (error) {
-    //     console.log(error);
-    // });
+module.exports.getUser = async function(user_id) {
+  return new Promise(function(resolve, reject) {
+    axios.get(PI_API_URL + '/users/' + user_id)
+    .then(function (response) {
+      console.log('got user', response);
+        resolve(response.data);
+      }).catch(function (error) {
+          console.log(error.data);
+          reject(error);
+    });
+  });
 }
 module.exports.deleteUser = async function(data) {
     // axios.delete('/user/1')
@@ -114,11 +118,24 @@ module.exports.listUsersOnTeam = async function(user, team) {
     return testData;
 }
 module.exports.checkIfUserHasMultipleTeams = async function(user_id) {
-    // axios.get('/team')
-    // .then(function (response) {
-    //     console.log(response);
-    // }).catch(function (error) {
-    //     console.log(error);
-    // });
-    return {multiple: false, team_id: 'team_id'};
+  return new Promise(function(resolve, reject) {
+    axios.get(PI_API_URL + '/users/' + user_id)
+      .then(function (response) {
+        console.log(response.data);
+        let teams = response.data.data.teams;
+
+        if (teams.length == 1) {
+          resolve({multiple: 'false'});
+        }
+        else if (teams.length > 1){
+          resolve({multiple: 'true'});
+        }
+        else {
+          resolve({multiple: 'error'});
+        }
+      }).catch(function (error) {
+          console.log(error);
+          reject(error);
+    });
+  });
 }
