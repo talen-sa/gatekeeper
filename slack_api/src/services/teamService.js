@@ -134,19 +134,14 @@ module.exports.removeUserFromTeam = async function(user, team) {
     });
   });
 }
-let getUsernameFromSlack = async function(user_id) {
-  return await slackController.getUserById(user_id);
-}
+
 module.exports.listUsersOnTeam = async function(team) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(async function(resolve, reject) {
     axios.get(PI_API_URL + '/teams/' + team)
     .then(function (response) {
       let result = [];
       for (var member of response.data.data.members) {
-        console.log('asd',member);
-        let user = await getUsernameFromSlack(member.username);
-        
-        
+        let user = await slackController.getUserById(member.username);
         result.push({name:user});
       }
         resolve(result);
