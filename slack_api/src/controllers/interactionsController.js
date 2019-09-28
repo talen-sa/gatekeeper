@@ -82,7 +82,7 @@ let handleInteractions = async function(req, res) {
                     message.sendShortMessage(user.id, `*Successfully removed user from the team:* ${submission.team}`);
                     res.send('');
                 } catch (e) {
-                    message.sendShortMessage(user.id, `*They are currently no users on the team:* ${submission.team}`);
+                    message.sendShortMessage(user.id, `*That user is not currently on team:* ${submission.team}`);
                     res.send('');
                 }
             }
