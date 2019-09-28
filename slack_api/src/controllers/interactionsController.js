@@ -57,7 +57,6 @@ let handleInteractions = async function(req, res) {
                     }
                     console.log(result);
                     if (result.length != 0) {
-                        message.sendShortMessage(user.id, `*The board location for team: ${submission.team} is:* \`${team.board_position}\``);
                         message.sendShortMessage(user.id, `*The teammates on team \`${submission.team}\` (board position: \`${team.board_position}\`) are:*\n` +  formattedList.toString().replace(/[,]/g, ""));
                     }
                     else {
