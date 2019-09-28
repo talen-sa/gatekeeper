@@ -50,7 +50,7 @@ let handleInteractions = async function(req, res) {
                     result = json2array(result);
                     console.log(result.length);
                     if (result.length != 0) {
-                        message.sendShortMessage(user.id, `*The teammates on team ${submission.team} are:*\n` + '`' + result.toString().replace(/[,]/g, "") + `'`);
+                        message.sendShortMessage(user.id, `*The teammates on team ${submission.team} are:*\n` + '`' + result.toString().replace(/[,]/g, "") + '`');
                     }
                     else {
                         message.sendShortMessage(user.id, `*The team \'${submission.team}\' has no teammates yet.*`);
