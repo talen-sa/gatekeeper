@@ -73,15 +73,6 @@ class TeamsApi(Resource):
             if team is not None:
                 return Fail(f"Team {team.name} already exists").to_json(), 400
 
-            board_position = data["board_position"]
-            if Team.is_team_at_board_position(board_position):
-                return (
-                    Fail(
-                        f"Team already exists at board_position {board_position}"
-                    ).to_json(),
-                    400,
-                )
-
             team = Team()
             for k, v in data.items():
                 setattr(team, k, v)
