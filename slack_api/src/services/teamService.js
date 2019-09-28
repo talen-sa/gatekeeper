@@ -55,7 +55,7 @@ module.exports.createTeam = async function(team_name) {
         'Content-Type': 'application/json'
       },
       body: {
-        name: team_name
+        "name":"test"
       }
     }).then(function (response) {
       console.log(response);
