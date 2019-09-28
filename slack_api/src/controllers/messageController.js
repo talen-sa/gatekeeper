@@ -5,21 +5,6 @@ const qs = require('qs');
 const apiUrl = process.env.SLACK_API_URL;
 const teamService = require('../services/teamService');
 
-const postInMessage = (userId) => {
-    sendShortMessage(userId, 'Thanks! Don\'t forget to sign out when you leave');
-};
-
-const postOutMessage = (userId) => {
-    sendShortMessage(userId, 'Thanks! Have a great rest of your day.');
-};
-
-const sendListOfTeammates = async (userId) => {
-    let teammates = await teamService.getTeams
-    sendShortMessage(userId, 'Thanks! Have a great rest of your day.');
-}
-
-
-
 const sendShortMessage = (userId, text) => {
     let data = {
         token: process.env.SLACK_ACCESS_TOKEN,
@@ -49,16 +34,23 @@ const openCreateTeamDialog = async (trigger_id) => {
             callback_id: 'setupTeam',
             submit_label: 'Create',
             text: ' ',
-            elements: [{
+            elements: [
+                {
                     type: 'text',
-                    name: 'title',
+                    name: 'name',
                     label: 'Team Name',
                 },
                 {
                     type: 'text',
-                    name: 'time',
-                    label: 'Working Hours?',
-                    placeholder: '8:00-5:00'
+                    name: 'location',
+                    placeholder: 'The Vault',
+                    label: 'Location',
+                },
+                {
+                    type: 'text',
+                    name: 'board_location (0-19)',
+                    placeholder: '0',
+                    label: 'Board Location',
                 }
             ]
         })

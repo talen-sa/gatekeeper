@@ -75,7 +75,7 @@ let handleEvents = async function(req, res) {
             }
         }
     }
-    if (req.body.command === '/list_teammates') {
+    if (req.body.command === '/list_team') {
         if (!signature.isVerified(req)) {
             res.sendStatus(404);
             return;
@@ -119,10 +119,22 @@ let handleEvents = async function(req, res) {
             const { user_id, trigger_id } = req.body;
             try {
                 let result = await teamService.getAllTeamsStatus();
+                let empty = true;
+                let msgList = [];
+                msgList.push(`*Whos's here?*\n`);
+                // message.sendShortMessage(user_id, `*Whos's here?*`);
+
                 for (var a = 0; a < result.teams.length; a++) {
                     if (result.teams[a].status =='1') {
-                        message.sendShortMessage(user_id, `${result.teams[a].team}`);
+                        msgList.push(`\`${result.teams[a].team}\``);
+                        empty = false;
                     }
+                }
+                if (empty) {
+                    message.sendShortMessage(user_id, `Nobody is here.`);
+                }
+                else {
+                    message.sendShortMessage(user_id, msgList.toString().replace(/[,]/g, '\n'));
                 }
 
                 res.send('');

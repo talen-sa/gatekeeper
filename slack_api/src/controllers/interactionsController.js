@@ -25,12 +25,13 @@ let handleInteractions = async function(req, res) {
         if (type === 'dialog_submission') {
             if (callback_id === 'setupTeam') {
                 try {
-                    await teamService.createTeam(submission.title);
-                    message.sendShortMessage(user.id, 'Thanks! Your team has been registered.');
+                    let result = await teamService.createTeam(submission.name, submission.location, submission.board_location);
+                    message.sendShortMessage(user.id, `Your team has been registered.\n Your board position is: ${result.board_location}`);
                     res.send('');
                 } catch (e) {
                     console.log('error');
-                    res.send(500);
+                    message.sendShortMessage(user.id, 'Oops, the name ${submission.title} is already taken or an error has occured.');
+                    res.send('');
                 }
             }
             else if (callback_id === 'deleteTeam') {
@@ -47,8 +48,18 @@ let handleInteractions = async function(req, res) {
                 try {
                     let result = await teamService.listUsersOnTeam(submission.team);
                     result = json2array(result);
-                    
-                    message.sendShortMessage(user.id, `The teammates on team ${submission.team} are:\n` + result.toString().replace(/[,]/g, ""));
+                    let formattedList = []
+                    for (var person of result) {
+                        person = person.replace(/[\n]/g, "");
+                        formattedList.push(`\`${person}\`\n`);
+                    }
+                    console.log(result);
+                    if (result.length != 0) {
+                        message.sendShortMessage(user.id, `*The teammates on team ${submission.team} are:*\n` +  formattedList.toString().replace(/[,]/g, ""));
+                    }
+                    else {
+                        message.sendShortMessage(user.id, `*The team \'${submission.team}\' has no teammates yet.*`);
+                    }
                     res.send('');
                 } catch (e) {
                     console.log('error');
@@ -58,7 +69,7 @@ let handleInteractions = async function(req, res) {
             else if (callback_id === 'addUser') {
                 try {
                     await teamService.addUserToTeam(submission.user, submission.team);
-                    message.sendShortMessage(user.id, `Successfully added user to the team: ${submission.team}`);
+                    message.sendShortMessage(user.id, `*Successfully added user to the team:* ${submission.team}`);
                     res.send('');
                 } catch (e) {
                     console.log('error');
@@ -68,17 +79,17 @@ let handleInteractions = async function(req, res) {
             else if (callback_id === 'removeUser') {
                 try {
                     await teamService.removeUserFromTeam(submission.user, submission.team);
-                    message.sendShortMessage(user.id, `Successfully removed user from the team: ${submission.team}`);
+                    message.sendShortMessage(user.id, `*Successfully removed user from the team:* ${submission.team}`);
                     res.send('');
                 } catch (e) {
-                    console.log('error');
-                    res.send(500);
+                    message.sendShortMessage(user.id, `*They are currently no users on the team:* ${submission.team}`);
+                    res.send('');
                 }
             }
             else if (callback_id === 'inout') {
                 try {
                     await teamService.updateTeamStatus(submission.team, submission.status);
-                    message.sendShortMessage(user.id, `Successfully set status to: ${submission.status}`);
+                    message.sendShortMessage(user.id, `*Successfully set ${submission.team}'s status to:* ${submission.status}`);
                     res.send('');
                 } catch (e) {
                     console.log('error');
