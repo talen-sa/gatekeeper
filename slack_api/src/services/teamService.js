@@ -45,23 +45,6 @@ module.exports.getAllTeamsStatus = async function() {
           reject(error);
     });
   });
-    var testData = {
-        teams: [
-          {
-            team: "team 1",
-            status: "in"
-          },
-          {
-            team: "team 2",
-            status: "out"
-          },
-          {
-            team: "team 3",
-            status: "in"
-          }
-        ]
-      };
-    return testData;
 }
 module.exports.createTeam = async function(data) {
     // axios.post('/team')
@@ -80,13 +63,16 @@ module.exports.updateTeamStatus = async function(team_id, status) {
     // });
 }
 
-module.exports.deleteTeam = async function(data) {
-    // axios.delete('/team')
-    // .then(function (response) {
-    //     console.log(response);
-    // }).catch(function (error) {
-    //     console.log(error);
-    // });
+module.exports.deleteTeam = async function(team_name) {
+  return new Promise(function(resolve, reject) {
+    axios.delete(PI_API_URL + '/teams/' + team_name)
+      .then(function (response) {
+        resolve('success');
+      }).catch(function (error) {
+          console.log(error);
+          reject(error);
+    });
+  });
 }
 
 module.exports.getUser = async function(data) {
