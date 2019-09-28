@@ -30,7 +30,7 @@ let handleInteractions = async function(req, res) {
                     res.send('');
                 } catch (e) {
                     console.log('error');
-                    message.sendShortMessage(user.id, 'Oops, the name ${submission.title} is already taken or an error has occured.');
+                    message.sendShortMessage(user.id, '*Oops, that name or board position is already taken.*');
                     res.send('');
                 }
             }
