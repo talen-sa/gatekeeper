@@ -154,7 +154,7 @@ let handleEvents = async function(req, res) {
                 let result = await teamService.checkIfUserHasMultipleTeams(user_id);
                 if (result.multiple === 'false') {
                     await teamService.updateTeamStatus(result.team_id, 'in');
-                    message.sendShortMessage(user_id, "*Team Status Set to:* \'in\'");
+                    message.sendShortMessage(user_id, "*Team Status Set to:* \`in\`");
                     res.send('');
                 }
                 else if (result.multiple === 'true') {
@@ -170,7 +170,7 @@ let handleEvents = async function(req, res) {
                     }
                 }
                 else {
-                    message.sendShortMessage(user_id, '*Please register for a team.*');
+                    message.sendShortMessage(user_id, '*Please register for a team by typing `/add_user`.*');
                     res.send('');
                 }
             } catch (e) {
@@ -190,7 +190,7 @@ let handleEvents = async function(req, res) {
                 let result = await teamService.checkIfUserHasMultipleTeams(user_id);
                 if (result.multiple === 'false') {
                     await teamService.updateTeamStatus(result.team_id, 'out');
-                    message.sendShortMessage(user_id, "*Team Status Set to:* \'out\'");
+                    message.sendShortMessage(user_id, "*Team Status Set to:* \`out\`");
                     res.send('');
                 }
                 else if (result.multiple === 'true') {
@@ -206,7 +206,7 @@ let handleEvents = async function(req, res) {
                     }
                 }
                 else {
-                    message.sendShortMessage(user_id, '*Please register for a team.*');
+                    message.sendShortMessage(user_id, '*Please register for a team by typing `/add_user`.*');
                     res.send('');
                 }
             } catch (e) {
