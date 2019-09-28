@@ -33,3 +33,8 @@ def set_status(position, status):
         _pixels[position] = _colors["green"]
     else:
         _pixels[position] = _colors["blue"]
+
+
+def toggle_status(status):
+    for pixel in _pixels:
+        set_status(_pixels[pixel], status)
