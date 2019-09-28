@@ -16,9 +16,7 @@ class User(base):
 
     id = db.Column(db.Integer(), primary_key=True)
     username = db.Column(db.String(30), nullable=False, unique=True)
-    _teams = db.relationship(
-        "Team", secondary="belongs_to", backref="_users", cascade="delete"
-    )
+    _teams = db.relationship("Team", secondary="belongs_to", backref="_users")
 
     def save(self):
         """Addes the non-existing user to the DB."""
@@ -27,6 +25,7 @@ class User(base):
 
     def delete(self):
         """Deletes the user from the DB."""
+        self._teams.clear()
         db.session.delete(self)
         db.session.commit()
 
@@ -63,7 +62,7 @@ class UserSchema(ma.Schema):
         fields = ("id", "username", "teams")
 
 
-class UserPostSchema(ma.Schema):
+class UserPutSchema(ma.Schema):
     teams = fields.List(fields.Nested(UserTeamSchema))
 
 
@@ -79,4 +78,5 @@ class UserPatchSchema(ma.Schema):
 user_schema = UserSchema()
 users_schema = UserSchema(many=True)
 users_post_schema = UsersPostSchema()
-user_post_schema = UserPostSchema()
+user_put_schema = UserPutSchema()
+user_patch_schema = UserPatchSchema()
