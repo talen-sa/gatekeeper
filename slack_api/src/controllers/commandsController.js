@@ -135,7 +135,7 @@ let handleEvents = async function(req, res) {
                     message.sendShortMessage(user_id, `Nobody is here.`);
                 }
                 else {
-                    message.sendShortMessage(user_id, msgList.replace(/[,]/g, "\n"));
+                    message.sendShortMessage(user_id, msgList.toString().replace(/[,]/g, "\n"));
                 }
 
                 res.send('');
