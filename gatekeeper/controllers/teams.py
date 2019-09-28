@@ -4,8 +4,14 @@ from marshmallow import ValidationError
 
 import gatekeeper.whiteboard as whiteboard
 from gatekeeper.controllers.response import Error, Fail, Success
-from gatekeeper.models.team import (Team, post_team_schema, team_patch_schema,
-                                    team_put_schema, team_schema, teams_schema)
+from gatekeeper.models.team import (
+    Team,
+    post_team_schema,
+    team_patch_schema,
+    team_put_schema,
+    team_schema,
+    teams_schema,
+)
 from gatekeeper.models.user import User
 
 
@@ -22,8 +28,9 @@ class TeamApi(Resource):
         try:
             team = Team.get_team(team_name)
             data = team_put_schema.load(request.get_json())
-            board_position = data["board_position"]
-            Team.is_team_at_board_position(board_position)
+            board_position = data.get("board_position")
+            if board_position is not None:
+                team.set_board_position(board_position)
             for k, v in data.items():
                 setattr(team, k, v)
             team.save()
@@ -67,9 +74,12 @@ class TeamsApi(Resource):
         try:
             data = post_team_schema.load(request.get_json())
             Team.validate_non_existance(data["name"])
+            position = data.get("board_position")
             team = Team()
-            for k, v in data.items():
-                setattr(team, k, v)
+            team.name = data.get("name")
+            team.location = data.get("location")
+            if position is not None:
+                team.set_board_position(position)
             team.save()
             return Success(f"Team {team.name} created").to_json(), 204
         except ValidationError as err:

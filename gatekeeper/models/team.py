@@ -88,7 +88,7 @@ class TeamsSchema(ma.Schema):
 
 class PostTeamSchema(ma.Schema):
     class Meta:
-        fields = ("name", "location")
+        fields = ("name", "location", "board_position")
 
 
 class TeamPutSchema(ma.Schema):
