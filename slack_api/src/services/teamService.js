@@ -36,11 +36,10 @@ module.exports.getAllTeamsStatus = async function() {
   return new Promise(function(resolve, reject) {
     axios.get(PI_API_URL + '/teams/')
       .then(function (response) {
-        console.log(response.data.data)
         for (var team of response.data.data) {
-          console.log(team);
           result.push({team:team.name, status:team.status});
         }
+        console.log(result);
         resolve(result);
       }).catch(function (error) {
           console.log(error);
