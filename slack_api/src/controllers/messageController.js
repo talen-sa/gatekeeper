@@ -154,11 +154,17 @@ const openUpdateTeamDialog = async (trigger_id) => {
         trigger_id: trigger_id,
         dialog: JSON.stringify(
             {
-            title: 'Create a Team',
-            callback_id: 'setupTeam',
+            title: 'Update Team\'s Board Positon',
+            callback_id: 'updatePosition',
             submit_label: 'Create',
             text: ' ',
             elements: [
+                {
+                    type: 'select',
+                    name: 'team',
+                    label: 'Choose the team to update',
+                    data_source: 'external',
+                },
                 {
                     type: 'text',
                     name: 'board_position',
