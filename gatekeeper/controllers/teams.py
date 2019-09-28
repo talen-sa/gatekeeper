@@ -3,8 +3,8 @@ from flask_restful import Api, Resource
 from marshmallow import ValidationError
 
 from gatekeeper.controllers.response import Error, Fail, Success
-from gatekeeper.models.team import (Team, team_patch_schema, team_put_schema,
-                                    team_schema, teams_schema)
+from gatekeeper.models.team import (Team, post_team_schema, team_patch_schema,
+                                    team_put_schema, team_schema, teams_schema)
 
 
 class TeamApi(Resource):
@@ -68,7 +68,7 @@ class TeamsApi(Resource):
 
     def post(self):
         try:
-            data = teams_schema.load(request.get_json())
+            data = post_team_schema.load(request.get_json())
             team = Team.get_team(data["name"])
             if team is not None:
                 return Fail(f"Team {team.name} already exists").to_json(), 400

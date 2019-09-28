@@ -80,6 +80,11 @@ class TeamsSchema(ma.Schema):
         fields = ("name", "status", "location", "board_position")
 
 
+class PostTeamSchema(ma.Schema):
+    class Meta:
+        fields = ("name", "status", "location", "board_position")
+
+
 class TeamPutSchema(ma.Schema):
     location = fields.String(required=True)
     board_position = fields.Integer(required=True)
@@ -90,6 +95,9 @@ class TeamPatchSchema(ma.Schema):
 
 
 team_schema = TeamSchema()
+
+post_team_schema = PostTeamSchema()
+
 teams_schema = TeamsSchema(many=True)
 
 team_put_schema = TeamPutSchema()
