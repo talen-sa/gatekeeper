@@ -160,10 +160,15 @@ const openUpdateTeamDialog = async (trigger_id) => {
             text: ' ',
             elements: [
                 {
-                    type: 'select',
-                    name: 'team',
-                    label: 'Choose the team to update',
-                    data_source: 'external',
+                    type: 'text',
+                    name: 'name',
+                    label: 'Team Name',
+                },
+                {
+                    type: 'text',
+                    name: 'location',
+                    placeholder: 'The Vault',
+                    label: 'Location',
                 },
                 {
                     type: 'text',
