@@ -32,7 +32,6 @@ module.exports.getOpenBoardPositions = async function() {
   for (var a = 0; a < 20; a++) {  //initialize board positions
     available_positions[a] = a;
   }
-  console.log(available_positions);
   return new Promise(function(resolve, reject) {
     axios.get(PI_API_URL + '/teams/')
       .then(function (response) {
