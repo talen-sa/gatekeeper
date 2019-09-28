@@ -25,15 +25,10 @@ const send = async (data) => {
 };
 
 const openCreateTeamDialog = async (trigger_id) => {
-    let teams = await teamService.getOpenBoardPositions();
-    let taken_positions = [];
-    // for (var a = 0; a < teams.length; a++) {
-    //     console.log(teams);
-    //     taken_positions.push(teams[a].board_position)
-    // }
-    // console.log(taken_positions);
-    let open_positions = [];
-
+    // let open_positions = await teamService.getOpenBoardPositions();
+    // let open_positions_str = open_positions.toString();
+    // console.log(open_positions_str);
+    
     const dialogData = {
         token: process.env.SLACK_ACCESS_TOKEN,
         trigger_id: trigger_id,
@@ -59,7 +54,7 @@ const openCreateTeamDialog = async (trigger_id) => {
                     type: 'text',
                     name: 'board_position',
                     placeholder: '0',
-                    label: `Board Location\n Available Positions: ${open_positions})`,
+                    label: 'Board Location (0-19)',
                 }
             ]
         })

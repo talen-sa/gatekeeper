@@ -19,16 +19,26 @@ module.exports.getTeams = async function() {
     });
   });
 }
+function arrayRemove(arr, value) {
+
+  return arr.filter(function(ele){
+      return ele != value;
+  });
+
+}
 module.exports.getOpenBoardPositions = async function() {
+  var available_positions = [];
   var result = [];
+  for (var a = 0; a < 20; a++) {  //initialize board positions
+    available_positions[a] = a;
+  }
   return new Promise(function(resolve, reject) {
     axios.get(PI_API_URL + '/teams/')
       .then(function (response) {
-        for (var team of response.data.data) {
-          console.log(team.board_position);
+        for (var team of response.data.data) {  //get taken board positions
+          available_positions = arrayRemove(available_positions, team.board_position);
         }
- 
-        resolve({options: result});
+        resolve(available_positions);
       }).catch(function (error) {
           console.log(error);
           reject(error);
@@ -40,7 +50,6 @@ module.exports.getTeamByID = async function(team_id) {
   return new Promise(function(resolve, reject) {
     axios.get(PI_API_URL + `/teams/${team_id}`)
       .then(function (response) {
-        console.log(response.data);
         resolve(response.data);
       }).catch(function (error) {
           console.log(error);
