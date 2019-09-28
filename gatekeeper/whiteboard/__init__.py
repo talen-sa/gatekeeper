@@ -8,7 +8,7 @@ if Config.USE_BOARD is not None:
     import board
     import neopixel
 
-    _pixels = neopixel.NeoPixel(board.D12, 1)
+    _pixels = neopixel.NeoPixel(board.D12, Config.ROW_COUNT)
 
 _colors = {"red": (10, 0, 0), "green": (0, 10, 0), "blue": (0, 0, 10)}
 
@@ -27,7 +27,7 @@ def set_status(position, status):
         raise WhiteboardError(
             "position {} exceeds row count {}".format(position, len(_pixels))
         )
-    if status == WhiteboardStatus.OUT.vaue:
+    if status == WhiteboardStatus.OUT.value:
         _pixels[position] = _colors["red"]
     elif status == WhiteboardStatus.IN.value:
         _pixels[position] = _colors["green"]
