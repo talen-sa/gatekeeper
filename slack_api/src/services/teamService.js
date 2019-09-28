@@ -107,6 +107,17 @@ module.exports.deleteUser = async function(data) {
     // });
 }
 module.exports.addUserToTeam = async function(user, team) {
+  return new Promise(function(resolve, reject) {
+    axios.patch(PI_API_URL + '/users/' + user, 
+    {
+      teams: [{team_name}],
+    }).then(function (response) {
+        resolve('success');
+      }).catch(function (error) {
+          console.log(error.data);
+          reject(error);
+    });
+  });
 }
 module.exports.removeUserFromTeam = async function(user, team) {
 }
