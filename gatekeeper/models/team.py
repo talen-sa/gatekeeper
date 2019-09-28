@@ -66,7 +66,7 @@ class Team(base):
 
     @staticmethod
     def is_team_at_board_position(position):
-        team = Team.query.filter_by(board_position=position).first() is not None
+        team = Team.query.filter_by(board_position=position).first()
         if team is not None:
             raise ValidationError(f"Team already exists at boar_position {position}")
 
