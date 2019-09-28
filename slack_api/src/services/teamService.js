@@ -121,6 +121,7 @@ module.exports.addUserToDB= async function(user) {
 }
 module.exports.addUserToTeam = async function(user, team) {
   let user = await addUserToDB(user);
+  console.log(user);
   return new Promise(function(resolve, reject) {
     console.log(JSON.stringify({teams: [{ name:team }]}));
     axios.patch(PI_API_URL + '/users/' + user, 
@@ -129,7 +130,7 @@ module.exports.addUserToTeam = async function(user, team) {
     }).then(function (response) {
         resolve('success');
     }).catch(function (error) {
-        console.log('errors', error.data);
+        // console.log('errors', error.data);
         reject(error.data);
     });
   });
