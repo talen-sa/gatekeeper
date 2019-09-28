@@ -17,3 +17,4 @@ class Config(object):
 
     BOARD_RANGE = os.getenv("BOARD_RANGE", 10)
     USE_BOARD = os.getenv("USE_BOARD", None)
+    ROW_COUNT = os.getenv(int("ROW_COUNT"), 10)

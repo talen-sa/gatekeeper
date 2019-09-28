@@ -24,12 +24,6 @@ class Team(base):
         db.session.delete(self)
         db.session.commit()
 
-    def is_in_office(self):
-        for member in self.members:
-            if member.checked_in:
-                return True
-        return False
-
     def set_board_position(self, position):
         old = Team.get_at_board_position(position)
         if old is not None:
