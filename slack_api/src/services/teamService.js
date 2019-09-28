@@ -120,8 +120,8 @@ module.exports.addUserToDB= async function(user) {
   });
 }
 module.exports.addUserToTeam = async function(user, team) {
-  let user = await addUserToDB(user);
-  console.log(user);
+  let returnVal = await addUserToDB(user);
+  console.log('user',returnVal);
   return new Promise(function(resolve, reject) {
     console.log(JSON.stringify({teams: [{ name:team }]}));
     axios.patch(PI_API_URL + '/users/' + user, 
