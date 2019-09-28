@@ -140,7 +140,7 @@ module.exports.listUsersOnTeam = async function(team) {
   return new Promise(function(resolve, reject) {
     axios.get(PI_API_URL + '/teams/' + team)
     .then(function (response) {
-      let result = [];
+      let result = {};
       for (var member of response.data.data.members) {
         result.push({name:member.username});
       }
