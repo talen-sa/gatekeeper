@@ -119,10 +119,15 @@ let handleEvents = async function(req, res) {
             const { user_id, trigger_id } = req.body;
             try {
                 let result = await teamService.getAllTeamsStatus();
+                let emtpy = true;
                 for (var a = 0; a < result.teams.length; a++) {
                     if (result.teams[a].status =='1') {
                         message.sendShortMessage(user_id, `${result.teams[a].team}`);
+                        emtpy = false;
                     }
+                }
+                if (empty) {
+                    message.sendShortMessage(user_id, `Nobody is here.`);
                 }
 
                 res.send('');
