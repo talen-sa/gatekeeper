@@ -25,7 +25,7 @@ class Team(base):
         db.session.commit()
 
     def set_board_position(self, position):
-        old = Team.get_at_board_position(position)
+        old = Team.get_team_at_position(position)
         if old is not None:
             raise ValidationError(
                 f"Board poistion {position} already taken by {old.name}"
