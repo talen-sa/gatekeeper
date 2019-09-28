@@ -108,9 +108,10 @@ module.exports.deleteUser = async function(data) {
 }
 module.exports.addUserToTeam = async function(user, team) {
   return new Promise(function(resolve, reject) {
+    console.log(user,team);
     axios.patch(PI_API_URL + '/users/' + user, 
     {
-      teams: [{"name":team}],
+      teams: [{name:team}],
     }).then(function (response) {
         resolve('success');
       }).catch(function (error) {
