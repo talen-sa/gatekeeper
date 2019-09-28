@@ -18,7 +18,7 @@ class WhiteboardStatus(Enum):
 
 
 def set_status(position, status):
-    if position > len(_pixels):
+    if position >= len(_pixels):
         raise WhiteboardError(
             "position {} exceeds row count {}".format(position, len(_pixels))
         )

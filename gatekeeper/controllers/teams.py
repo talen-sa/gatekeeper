@@ -1,4 +1,4 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, current_app
 from flask_restful import Api, Resource
 from marshmallow import ValidationError
 
@@ -54,6 +54,7 @@ class TeamApi(Resource):
 
             team.status = status
 
+            current_app.logger.debug(status)
             # Update board
             whiteboard.set_status(team.board_position, status)
             team.save()
