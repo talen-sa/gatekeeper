@@ -56,7 +56,7 @@ module.exports.createTeam = async function(data) {
     //     console.log(error);
     // });
 }
-module.exports.updateTeamStatus = async function(data) {
+module.exports.updateTeamStatus = async function(team_id, status) {
     // axios.put('/team')
     // .then(function (response) {
     //     console.log(response);
@@ -100,4 +100,13 @@ module.exports.listUsersOnTeam = async function(user, team) {
         2: "test"
     }
     return testData;
+}
+module.exports.checkIfUserHasMultipleTeams = async function(user_id) {
+    // axios.get('/team')
+    // .then(function (response) {
+    //     console.log(response);
+    // }).catch(function (error) {
+    //     console.log(error);
+    // });
+    return {multiple: false, team_id: 'team_id'};
 }

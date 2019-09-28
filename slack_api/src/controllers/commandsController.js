@@ -135,6 +135,75 @@ let handleEvents = async function(req, res) {
             }
         }
     }
+    if (req.body.command === '/in') {
+        if (!signature.isVerified(req)) {
+            res.sendStatus(404);
+            return;
+        } else {
+            const { user_id, trigger_id } = req.body;
+            try {
+                let result = await teamService.checkIfUserHasMultipleTeams(user_id);
+                if (result.multiple === false) {
+                    await teamService.updateTeamStatus(result.team_id, 'in');
+                    message.sendShortMessage(user_id, "Team Status Set to \'in\'");
+                    res.send('');
+                }
+                else {
+                    try {
+                        const result = await message.openInOutDialog(trigger_id);
+                        console.log('asd', result);
+                        if (result.data.error) {
+                            res.sendStatus(500);
+                        } else {
+                            res.send('');
+                        }
+                    } catch (err) {
+                        res.sendStatus(500);
+                    }
+                }
+            } catch (e) {
+                console.log('error');
+                res.send(500);
+            }
+        }
+    }
+
+    if (req.body.command === '/out') {
+        if (!signature.isVerified(req)) {
+            res.sendStatus(404);
+            return;
+        } else {
+            const { user_id, trigger_id } = req.body;
+            try {
+                let result = await teamService.checkIfUserHasMultipleTeams(user_id);
+                if (result.multiple === false) {
+                    await teamService.updateTeamStatus(result.team_id, 'out');
+                    message.sendShortMessage(user_id, "Team Status Set to \'out\'");
+                    res.send('');
+                }
+                else {
+                    try {
+                        const result = await message.openInOutDialog(trigger_id);
+                        console.log('asd', result);
+                        if (result.data.error) {
+                            res.sendStatus(500);
+                        } else {
+                            res.send('');
+                        }
+                    } catch (err) {
+                        res.sendStatus(500);
+                    }
+                }
+            } catch (e) {
+                console.log('error');
+                res.send(500);
+            }
+        }
+    }
+    
+
+
+    
 }
 module.exports.run = function(req, res) {
     handleEvents(req, res);
