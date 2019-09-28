@@ -106,8 +106,9 @@ module.exports.deleteUser = async function(data) {
     //     console.log(error);
     // });
 }
-module.exports.addUserToDB= async function(user) {
+module.exports.addUserToDB = async function(user) {
   return new Promise(function(resolve, reject) {
+    console.log(user);
     axios.post(PI_API_URL + '/users/', 
     {
       username: user,
