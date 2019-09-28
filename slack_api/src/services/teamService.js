@@ -50,7 +50,6 @@ module.exports.getTeamByID = async function(team_id) {
   return new Promise(function(resolve, reject) {
     axios.get(PI_API_URL + `/teams/${team_id}`)
       .then(function (response) {
-        console.log(response.data);
         resolve(response.data);
       }).catch(function (error) {
           console.log(error);
