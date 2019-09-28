@@ -60,6 +60,7 @@ module.exports.createTeam = async function(team_name) {
   });
 }
 module.exports.updateTeamStatus = async function(team_name, status_text) {
+  console.log('updateTeamStatus');
   let status_code = (status_text === 'in' ? 1 : 0);
   return new Promise(function(resolve, reject) {
     axios.patch(PI_API_URL + '/teams/'  + team_name, 
@@ -107,7 +108,6 @@ module.exports.deleteUser = async function(data) {
     // });
 }
 module.exports.addUserToDB = async function(user) {
-  console.log('run');
   return new Promise(function(resolve, reject) {
     console.log(user);
     axios.post(PI_API_URL + '/users/', 
@@ -123,7 +123,6 @@ module.exports.addUserToDB = async function(user) {
 }
 module.exports.addUserToTeam = async function(user, team) {
   let returnVal = await this.addUserToDB(user);
-  console.log('user',returnVal);
   return new Promise(function(resolve, reject) {
     console.log(JSON.stringify({teams: [{ name:team }]}));
     axios.patch(PI_API_URL + '/users/' + user, 
@@ -132,7 +131,6 @@ module.exports.addUserToTeam = async function(user, team) {
     }).then(function (response) {
         resolve('success');
     }).catch(function (error) {
-        // console.log('errors', error.data);
         reject(error.data);
     });
   });
@@ -147,6 +145,7 @@ module.exports.listUsersOnTeam = async function(user, team) {
     return testData;
 }
 module.exports.checkIfUserHasMultipleTeams = async function(user_id) {
+  console.log('checkIfUserHasMultipleTeams');
   return new Promise(function(resolve, reject) {
     axios.get(PI_API_URL + '/users/' + user_id)
       .then(function (response) {
