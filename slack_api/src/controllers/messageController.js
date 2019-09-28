@@ -85,22 +85,37 @@ const openDeleteTeamDialog = async (trigger_id) => {
     return axios.post(`${apiUrl}/dialog.open`, qs.stringify(dialogData));
 };
 
-const openInDialog = async (trigger_id) => {
+const openInOutDialog = async (trigger_id) => {
     const dialogData = {
         token: process.env.SLACK_ACCESS_TOKEN,
         trigger_id: trigger_id,
         dialog: JSON.stringify(
             {
-            title: 'Delete a Team',
-            callback_id: 'deleteTeam',
-            submit_label: 'Delete',
+            title: 'Change Team\'s Status',
+            callback_id: 'inout',
+            submit_label: 'Set',
             text: ' ',
             elements: [
                 {
                     type: 'select',
                     name: 'team',
-                    label: 'Choose the team to delete',
+                    label: 'Choose the team to update',
                     data_source: 'external',
+                },
+                {
+                    type: 'select',
+                    name: 'status',
+                    label: 'Set team\'s status',
+                    options: [
+                        {
+                            label: "In",
+                            value: "in"
+                        },
+                        {
+                            label: "Out",
+                            value: "out"
+                        }
+                    ]
                 }
             ]
         })
@@ -108,7 +123,45 @@ const openInDialog = async (trigger_id) => {
     return axios.post(`${apiUrl}/dialog.open`, qs.stringify(dialogData));
 };
 
-const openInOutDialog = async (trigger_id) => {
+const openOutDialog = async (trigger_id) => {
+    const dialogData = {
+        token: process.env.SLACK_ACCESS_TOKEN,
+        trigger_id: trigger_id,
+        dialog: JSON.stringify(
+            {
+            title: 'Change Team\'s Status',
+            callback_id: 'inout',
+            submit_label: 'Set',
+            text: ' ',
+            elements: [
+                {
+                    type: 'select',
+                    name: 'team',
+                    label: 'Choose the team to update',
+                    data_source: 'external',
+                },
+                {
+                    type: 'select',
+                    name: 'status',
+                    label: 'Set team\'s status',
+                    options: [
+                        {
+                            label: "In",
+                            value: "in"
+                        },
+                        {
+                            label: "Out",
+                            value: "out"
+                        }
+                    ]
+                }
+            ]
+        })
+    };
+    return axios.post(`${apiUrl}/dialog.open`, qs.stringify(dialogData));
+};
+
+const openInDialog = async (trigger_id) => {
     const dialogData = {
         token: process.env.SLACK_ACCESS_TOKEN,
         trigger_id: trigger_id,
@@ -234,5 +287,7 @@ module.exports = {
     openAddUserDialog,
     openRemoveUserDialog,
     openInOutDialog,
+    openOutDialog,
+    openInDialog,
     sendShortMessage
 };
