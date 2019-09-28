@@ -1,7 +1,5 @@
 const commandsController = require('./controllers/commandsController');
 const interactionsController = require('./controllers/interactionsController');
-const channels = require('./channels');
-const slackService = require('./services/slackService')
 const teamService = require('./services/teamService');
 let handleRoutes = function(app) {
     app.get('/', async (req, res) => {
@@ -18,6 +16,7 @@ let handleRoutes = function(app) {
 
     app.post('/data', async (req, res) => {
         let teams = await teamService.getTeams();
+        console.log(teams);
         res.status(200).send(JSON.stringify(teams));
     });
 }

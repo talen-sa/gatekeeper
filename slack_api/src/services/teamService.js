@@ -8,7 +8,24 @@ module.exports.getTeams = async function() {
     axios.get(PI_API_URL + '/teams/')
       .then(function (response) {
         for (var team of response.data.data) {
-          result.push({label:team.name, value:team.name});
+          var team_and_location = `${team.board_position}: ${team.name}`
+          result.push({label:team_and_location, value:team.name});
+        }
+ 
+        resolve({options: result});
+      }).catch(function (error) {
+          console.log(error);
+          reject(error);
+    });
+  });
+}
+module.exports.getOpenBoardPositions = async function() {
+  var result = [];
+  return new Promise(function(resolve, reject) {
+    axios.get(PI_API_URL + '/teams/')
+      .then(function (response) {
+        for (var team of response.data.data) {
+          console.log(team.board_position);
         }
  
         resolve({options: result});
