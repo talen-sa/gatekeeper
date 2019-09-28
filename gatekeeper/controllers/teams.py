@@ -4,14 +4,8 @@ from marshmallow import ValidationError
 
 import gatekeeper.whiteboard as whiteboard
 from gatekeeper.controllers.response import Error, Fail, Success
-from gatekeeper.models.team import (
-    Team,
-    post_team_schema,
-    team_patch_schema,
-    team_put_schema,
-    team_schema,
-    teams_schema,
-)
+from gatekeeper.models.team import (Team, post_team_schema, team_patch_schema,
+                                    team_put_schema, team_schema, teams_schema)
 from gatekeeper.models.user import User
 
 
