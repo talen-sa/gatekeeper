@@ -18,22 +18,22 @@ let checkStatusCode = function(data) {
 
 module.exports.getTeams = async function() {
   var result = [];
-
-  axios.get(PI_API_URL + '/teams/')
-  .then(function (response) {
-    console.log(response.data.data)
-    for (var team of response.data.data) {
-      console.log(team);
-      result.push({label:team.name, value:team.name});
-    }
-    var json = {
-      options: result
-    }
-    console.log(json);
-    return json;
-  }).catch(function (error) {
-      console.log(error);
-      return error;
+  return new Promise(function(resolve, reject) {
+    axios.get(PI_API_URL + '/teams/')
+      .then(function (response) {
+        console.log(response.data.data)
+        for (var team of response.data.data) {
+          console.log(team);
+          result.push({label:team.name, value:team.name});
+        }
+        var json = {
+          options: result
+        }
+        resolve(json);
+      }).catch(function (error) {
+          console.log(error);
+          resolve(error);
+    });
   });
     // var testData = {
     //     options: [
