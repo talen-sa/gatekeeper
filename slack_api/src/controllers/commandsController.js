@@ -112,6 +112,25 @@ let handleEvents = async function(req, res) {
             }
         }
     }
+    if (req.body.command === '/my_teams') {
+        if (!signature.isVerified(req)) {
+            res.sendStatus(404);
+            return;
+        } else {
+            const { user_id, trigger_id } = req.body;
+            try {
+                const result = await message.openUpdateTeamDialog(trigger_id);
+                console.log(result.data);
+                if (result.data.error) {
+                    res.sendStatus(500);
+                } else {
+                    res.send('');
+                }
+            } catch (err) {
+                res.sendStatus(500);
+            }
+        }
+    }
     if (req.body.command === '/set_status') {
         if (!signature.isVerified(req)) {
             res.sendStatus(404);
@@ -119,7 +138,7 @@ let handleEvents = async function(req, res) {
         } else {
             const { user_id, trigger_id } = req.body;
             try {
-                const result = await message.openInOutDialog(trigger_id);
+                message.sendShortMessage(user_id, `Nobody is here.`);
                 if (result.data.error) {
                     res.sendStatus(500);
                 } else {
@@ -141,8 +160,6 @@ let handleEvents = async function(req, res) {
                 let empty = true;
                 let msgList = [];
                 msgList.push(`*Whos's here?*\n`);
-                // message.sendShortMessage(user_id, `*Whos's here?*`);
-
                 for (var a = 0; a < result.teams.length; a++) {
                     if (result.teams[a].status =='1') {
                         msgList.push(`\`${result.teams[a].team}\``);
@@ -155,7 +172,6 @@ let handleEvents = async function(req, res) {
                 else {
                     message.sendShortMessage(user_id, msgList.toString().replace(/[,]/g, '\n'));
                 }
-
                 res.send('');
             } catch (e) {
                 console.log('error');
