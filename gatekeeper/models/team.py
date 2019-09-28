@@ -1,5 +1,6 @@
 from marshmallow import ValidationError, fields
 
+from gatekeeper.config import Config
 from gatekeeper.models import base, db, ma
 
 
@@ -25,6 +26,8 @@ class Team(base):
         db.session.commit()
 
     def set_board_position(self, position):
+        if position not in range(len(Config.ROW_COUNT)):
+            raise ValidationError(f"Board poistion {position} not in range")
         old = Team.get_team_at_position(position)
         if old is not None:
             raise ValidationError(
