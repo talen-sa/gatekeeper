@@ -47,13 +47,11 @@ module.exports.getAllTeamsStatus = async function() {
   });
 }
 module.exports.createTeam = async function(team_name) {
-  console.log('name',team_name);
   return new Promise(function(resolve, reject) {
     axios.post(PI_API_URL + '/teams/', 
     {
       name: team_name
     }).then(function (response) {
-      console.log(response);
         resolve('success');
       }).catch(function (error) {
           console.log(error.data);
@@ -61,13 +59,19 @@ module.exports.createTeam = async function(team_name) {
     });
   });
 }
-module.exports.updateTeamStatus = async function(team_id, status) {
-    // axios.put('/team')
-    // .then(function (response) {
-    //     console.log(response);
-    // }).catch(function (error) {
-    //     console.log(error);
-    // });
+module.exports.updateTeamStatus = async function(team_id, status_text) {
+  let status_code = (status_text === 'in' ? 1 : 0);
+  return new Promise(function(resolve, reject) {
+    axios.patch(PI_API_URL + '/teams/'  + team_name, 
+    {
+      status: status_code
+    }).then(function (response) {
+        resolve('success');
+      }).catch(function (error) {
+          console.log(error.data);
+          reject(error);
+    });
+  });
 }
 
 module.exports.deleteTeam = async function(team_name) {
