@@ -137,7 +137,7 @@ const openOutDialog = async (trigger_id) => {
                 {
                     type: 'select',
                     name: 'team',
-                    label: 'Choose the team to set to \`out\`',
+                    label: 'Choose the team to set to \'out\'',
                     data_source: 'external',
                 }
             ]
@@ -160,7 +160,7 @@ const openInDialog = async (trigger_id) => {
                 {
                     type: 'select',
                     name: 'team',
-                    label: 'Choose the team to set to \`in\`',
+                    label: 'Choose the team to set to \'in\'',
                     data_source: 'external',
                 },
             ]
