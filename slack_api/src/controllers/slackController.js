@@ -16,7 +16,7 @@ module.exports.getAllUsers = async function() {
     return result.data.members;
 };
 
-module.exports.getUserById = function(user_id) {
+module.exports.getUserById = async function(user_id) {
     return new Promise(function(resolve, reject) {
         const payload = {
             token: process.env.SLACK_USER_TOKEN,
@@ -30,8 +30,8 @@ module.exports.getUserById = function(user_id) {
             console.log(e);
             reject(e);
         }
+        reject('error');
     });
-    
 };
 
 module.exports.getUsersInChannel = async function(channel) {
