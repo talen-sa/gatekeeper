@@ -9,7 +9,7 @@ module.exports.getTeams = async function() {
       .then(function (response) {
         for (var team of response.data.data) {
           var team_and_location = `${team.board_position}: ${team.name}`
-          result.push({label:team.name, value:team_and_location});
+          result.push({label:team_and_location, value:team.name});
         }
  
         resolve({options: result});
