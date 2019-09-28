@@ -6,6 +6,7 @@ import gatekeeper.whiteboard as whiteboard
 from gatekeeper.controllers.response import Error, Fail, Success
 from gatekeeper.models.team import (Team, post_team_schema, team_patch_schema,
                                     team_put_schema, team_schema, teams_schema)
+from gatekeeper.models.user import User
 
 
 class TeamApi(Resource):
@@ -84,9 +85,31 @@ class TeamsApi(Resource):
             return Error(str(err)).to_json(), 400
 
 
+class TeamAndUser(Resource):
+    def delete(self, team_name, user_name):
+        team = Team.get_team(team_name)
+        if team is None:
+            return Fail(f"Team {team_name} does not exist.").to_json(), 404
+
+        user = User.get_user(user_name)
+        if user is None:
+            return Fail(f"User with username {user_name} not found").to_json(), 404
+
+        try:
+            team._members.remove(user)
+            team.save()
+            return None, 204
+        except ValueError:
+            return (
+                Fail(f"User: {user_name} not found on Team: {team_name}").to_json(),
+                404,
+            )
+
+
 teams_bp = Blueprint("teams", __name__)
 
 api = Api(teams_bp)
 
 api.add_resource(TeamsApi, "/api/teams/")
 api.add_resource(TeamApi, "/api/teams/<string:team_name>")
+api.add_resource(TeamAndUser, "/api/teams/<string:team_name>/<string:user_name>")
