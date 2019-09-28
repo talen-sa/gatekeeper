@@ -3,8 +3,16 @@ from flask_restful import Api, Resource
 from marshmallow import ValidationError
 
 from gatekeeper.controllers.response import Error, Fail, Success
-from gatekeeper.models.team import (Team, post_team_schema, team_patch_schema,
-                                    team_put_schema, team_schema, teams_schema)
+from gatekeeper.models.team import (
+    Team,
+    post_team_schema,
+    team_patch_schema,
+    team_put_schema,
+    team_schema,
+    teams_schema,
+)
+
+import gatekeeper.whiteboard as whiteboard
 
 
 class TeamApi(Resource):
@@ -47,6 +55,7 @@ class TeamApi(Resource):
             team.status = status
 
             # Update board
+            whiteboard.set_status(team.board_position, status)
             team.save()
             return None, 204
         except ValidationError as err:
