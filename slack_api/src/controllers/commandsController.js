@@ -122,13 +122,14 @@ let handleEvents = async function(req, res) {
                 let empty = true;
                 let msgList = [];
                 msgList.push(`whos's here?`);
-
+                msgList[0].push('`');
                 for (var a = 0; a < result.teams.length; a++) {
-                    if (result.teams[a].status =='1') {
+                    if (result.teams[a + 1].status =='1') {
                         msgList.push(`${result.teams[a].team}`);
                         empty = false;
                     }
                 }
+                msgList[result.teams.length + 2].push('`');
                 if (empty) {
                     msgList.push(`whos's here?`);
                     message.sendShortMessage(user_id, `Nobody is here.`);
