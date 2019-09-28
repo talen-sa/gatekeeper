@@ -51,12 +51,7 @@ module.exports.createTeam = async function(team_name) {
   return new Promise(function(resolve, reject) {
     axios.post(PI_API_URL + '/teams/', 
     {
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      data: {
-        name: team_name
-      }
+      name: team_name
     }).then(function (response) {
       console.log(response);
         resolve('success');
