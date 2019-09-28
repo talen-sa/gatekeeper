@@ -3,17 +3,6 @@ const PI_API_URL = process.env.PI_API_URL;
 let checkStatusCode = function(data) {
   return data.status==='success' ? true : false;
 }
-// {
-//   "status": "success",
-//   "data": [
-//       {
-//           "name": "asd",
-//           "status": 0,
-//           "board_position": null,
-//           "location": "vault"
-//       }
-//   ]
-// }
 
 module.exports.getTeams = async function() {
   var result = [];
@@ -60,7 +49,6 @@ module.exports.createTeam = async function(team_name) {
   });
 }
 module.exports.updateTeamStatus = async function(team_name, status_text) {
-  console.log('updateTeamStatus');
   let status_code = (status_text === 'in' ? 1 : 0);
   return new Promise(function(resolve, reject) {
     axios.patch(PI_API_URL + '/teams/'  + team_name, 
@@ -99,13 +87,16 @@ module.exports.getUser = async function(user_id) {
     });
   });
 }
-module.exports.deleteUser = async function(data) {
-    // axios.delete('/user/1')
-    // .then(function (response) {
-    //     console.log(response);
-    // }).catch(function (error) {
-    //     console.log(error);
-    // });
+module.exports.deleteUser = async function(user_name) {
+  return new Promise(function(resolve, reject) {
+    axios.delete(PI_API_URL + '/users/' + user_name)
+      .then(function (response) {
+        resolve('success');
+      }).catch(function (error) {
+          console.log(error);
+          reject(error);
+    });
+  });
 }
 module.exports.addUserToDB = async function(user) {
   return new Promise(function(resolve, reject) {
@@ -136,8 +127,32 @@ module.exports.addUserToTeam = async function(user, team) {
   });
 }
 module.exports.removeUserFromTeam = async function(user, team) {
+  return new Promise(function(resolve, reject) {
+    axios.delete(`${PI_API_URL}/users/${user}/${team}`) 
+    .then(function (response) {
+        resolve('success');
+    }).catch(function (error) {
+        reject(error.data);
+    });
+  });
 }
-module.exports.listUsersOnTeam = async function(user, team) {
+module.exports.listUsersOnTeam = async function(team) {
+  return new Promise(function(resolve, reject) {
+    axios.get(PI_API_URL + '/teams/' + team)
+    .then(function (response) {
+      let result = [];
+      for (var member of response.data.data.members) {
+        result.push({name:member.username});
+      }
+      console.log(result);
+        resolve(result);
+      }).catch(function (error) {
+          console.log(error.data);
+          reject(error);
+    });
+  });
+
+
     var testData = {
         1: "michael",
         2: "test"
@@ -145,11 +160,9 @@ module.exports.listUsersOnTeam = async function(user, team) {
     return testData;
 }
 module.exports.checkIfUserHasMultipleTeams = async function(user_id) {
-  console.log('checkIfUserHasMultipleTeams');
   return new Promise(function(resolve, reject) {
     axios.get(PI_API_URL + '/users/' + user_id)
       .then(function (response) {
-        console.log(response.data);
         let teams = response.data.data.teams;
 
         if (teams.length == 1) {
