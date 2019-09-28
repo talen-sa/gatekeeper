@@ -135,7 +135,7 @@ module.exports.removeUserFromTeam = async function(user, team) {
   });
 }
 let getUsernameFromSlack = async function(user_id) {
-  return await slackController.getUserById(member.username);
+  return await slackController.getUserById(user_id);
 }
 module.exports.listUsersOnTeam = async function(team) {
   return new Promise(function(resolve, reject) {
