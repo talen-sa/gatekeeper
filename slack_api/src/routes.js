@@ -16,6 +16,7 @@ let handleRoutes = function(app) {
 
     app.post('/data', async (req, res) => {
         let teams = await teamService.getTeams();
+        console.log(teams);
         res.status(200).send(JSON.stringify(teams));
     });
 }
