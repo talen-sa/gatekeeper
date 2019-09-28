@@ -32,7 +32,7 @@ module.exports.getTeams = async function() {
       return testData;
     }
     else {
-      console.log('error');
+      console.log('error', result);
       return 'error';
     }
   }).catch(function (error) {
