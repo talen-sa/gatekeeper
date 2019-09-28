@@ -121,7 +121,7 @@ let handleEvents = async function(req, res) {
                 let result = await teamService.getAllTeamsStatus();
                 let empty = true;
                 let msgList = [];
-                message.sendShortMessage(user_id, '', `whos's here?`);
+                message.sendShortMessage(user_id, `*Whos's here?*`);
 
                 for (var a = 0; a < result.teams.length; a++) {
                     if (result.teams[a].status =='1') {
@@ -130,7 +130,7 @@ let handleEvents = async function(req, res) {
                     }
                 }
                 if (empty) {
-                    message.sendShortMessage(user_id, '', `Nobody is here.`);
+                    message.sendShortMessage(user_id, `Nobody is here.`);
                 }
                 else {
                     message.sendShortMessage(user_id, '`' + msgList.toString().replace(/[,]/g, "\n") + '`');
