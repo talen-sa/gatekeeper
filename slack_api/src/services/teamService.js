@@ -142,6 +142,7 @@ module.exports.listUsersOnTeam = async function(team) {
     .then(function (response) {
       let result = [];
       for (var member of response.data.data.members) {
+        console.log('push', member.username);
         result.push({name:member.username});
       }
         resolve(response.data);
