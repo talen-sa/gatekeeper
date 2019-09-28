@@ -47,8 +47,8 @@ let handleInteractions = async function(req, res) {
             else if (callback_id === 'listTeam') {
                 try {
                     let result = await teamService.listUsersOnTeam(submission.team);
-                    let team = await teamService.getTeamByID(submission.team);
-                    console.log('got team', team);
+                    let teamResult = await teamService.getTeamByID(submission.team);
+                    let team = teamResult.data;
                     result = json2array(result);
                     let formattedList = []
                     for (var person of result) {
@@ -57,6 +57,7 @@ let handleInteractions = async function(req, res) {
                     }
                     console.log(result);
                     if (result.length != 0) {
+                        message.sendShortMessage(user.id, `*The board location for team: ${submission.team} is: ${team.location}`);
                         message.sendShortMessage(user.id, `*The teammates on team \`${submission.team}\` are:*\n` +  formattedList.toString().replace(/[,]/g, ""));
                     }
                     else {
