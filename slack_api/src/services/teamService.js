@@ -199,7 +199,6 @@ module.exports.getMyTeams = async function(user_id) {
     .then(function (response) {
         console.log(response.data.data.teams);
         resolve(response.data.data.teams)
-        resolve('success');
     }).catch(function (error) {
         reject(error.data);
     });
