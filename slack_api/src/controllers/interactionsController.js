@@ -58,6 +58,7 @@ let handleInteractions = async function(req, res) {
             }
             else if (callback_id === 'addUser') {
                 try {
+                    console.log(submission.user, submission.team);
                     await teamService.addUserToTeam(submission.user, submission.team);
                     message.sendShortMessage(user.id, `Successfully added user to the team: ${submission.team}`);
                     res.send('');
