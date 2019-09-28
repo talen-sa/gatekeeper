@@ -19,7 +19,7 @@ let checkStatusCode = function(data) {
 module.exports.getTeams = async function() {
   var result = [];
 
-  axios.get(PI_API_URL + '/teams/')
+  axios.get('http://0.0.0.0:5000/api/teams/')
   .then(function (response) {
     if (checkStatusCode(response)) {
       for (var team in response) {
