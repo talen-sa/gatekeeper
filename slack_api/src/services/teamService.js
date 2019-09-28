@@ -19,6 +19,22 @@ module.exports.getTeams = async function() {
     });
   });
 }
+module.exports.getOpenBoardPositions = async function() {
+  var result = [];
+  return new Promise(function(resolve, reject) {
+    axios.get(PI_API_URL + '/teams/')
+      .then(function (response) {
+        for (var team of response.data.data) {
+          console.log(team);
+        }
+ 
+        resolve({options: result});
+      }).catch(function (error) {
+          console.log(error);
+          reject(error);
+    });
+  });
+}
 module.exports.getTeamByID = async function(team_id) {
   var result = [];
   return new Promise(function(resolve, reject) {
