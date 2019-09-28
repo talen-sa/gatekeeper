@@ -1,9 +1,14 @@
+from gatekeeper.config import Config
+
 from enum import Enum
 
-import board
-import neopixel
+_pixels = {}
 
-_pixels = neopixel.NeoPixel(board.D12, 1)
+if Config.USE_BOARD is not None:
+    import board
+    import neopixel
+
+    _pixels = neopixel.NeoPixel(board.D12, 1)
 
 _colors = {"red": (10, 0, 0), "green": (0, 10, 0), "blue": (0, 0, 10)}
 
