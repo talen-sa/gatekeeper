@@ -26,7 +26,7 @@ class WhiteboardStatus(Enum):
 
 def _translate_position(index):
     num_leds = len(_pixels)
-    if index < num_leds:
+    if index < num_leds / 2:
         return num_leds - (1 + index)
     else:
         return index - (num_leds / 2)
