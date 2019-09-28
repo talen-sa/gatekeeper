@@ -5,10 +5,6 @@ const slackService = require('./services/slackService')
 const teamService = require('./services/teamService');
 let handleRoutes = function(app) {
     app.get('/', async (req, res) => {
-        //let users = await slackService.getAllUsers();
-        //let users = await slackService.getUserById('UNTP2M55W');
-        //let test = await slackService.getUsersInChannel('CNH967BPB');
-        // console.log(users);
         res.send(200);
     });
 
