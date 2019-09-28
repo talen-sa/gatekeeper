@@ -1,4 +1,4 @@
-from marshmallow import fields
+from marshmallow import ValidationError, fields
 
 from gatekeeper.models import base, db, ma
 
@@ -45,7 +45,16 @@ class User(base):
         Args:
             username: username to search for
         """
-        return User.query.filter_by(username=username).first()
+        user = User.query.filter_by(username=username).first()
+        if user is None:
+            raise ValidationError(f"User {username} does not exist")
+        return user
+
+    @staticmethod
+    def validate_non_existance(name):
+        user = User.query.filter_by(name=name).first()
+        if user is not None:
+            raise ValidationError(f"User {name} already exists.")
 
 
 class UserTeamSchema(ma.Schema):
