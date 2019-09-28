@@ -4,9 +4,14 @@ from marshmallow import ValidationError
 
 from gatekeeper.controllers.response import Error, Fail, Success
 from gatekeeper.models.team import Team
-from gatekeeper.models.user import (User, user_patch_schema, user_put_schema,
-                                    user_schema, users_post_schema,
-                                    users_schema)
+from gatekeeper.models.user import (
+    User,
+    user_patch_schema,
+    user_put_schema,
+    user_schema,
+    users_post_schema,
+    users_schema,
+)
 
 
 class UserApi(Resource):
@@ -77,8 +82,9 @@ class UsersApi(Resource):
             if user is not None:
                 return Fail(f"User {username} already exists").to_json()
             new_user = User(username=username)
-            teams = data["teams"]
-            if len(teams) > 0:
+
+            teams = data.get("teams")
+            if teams is not None and len(teams) > 0:
                 for t in teams:
                     team_name = t["name"]
                     team = Team.get_team(team_name)
