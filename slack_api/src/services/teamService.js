@@ -1,27 +1,60 @@
-module.exports.getTeams = async function(data) {
-    // axios.get('/team')
-    // .then(function (response) {
-    //     console.log(response);
-    // }).catch(function (error) {
-    //     console.log(error);
-    // });
-    var testData = {
-        options: [
-          {
-            label: "team 1",
-            value: "1"
-          },
-          {
-            label: "team 2",
-            value: "2"
-          },
-          {
-            label: "team 3",
-            value: "3"
-          }
-        ]
-      };
-    return testData;
+const axios = require('axios');
+const PI_API_URL = process.env.PI_API_URL;
+let checkStatusCode = function(data) {
+  return data.status==='success' ? true : false;
+}
+// {
+//   "status": "success",
+//   "data": [
+//       {
+//           "name": "asd",
+//           "status": 0,
+//           "board_position": null,
+//           "location": "vault"
+//       }
+//   ]
+// }
+
+
+module.exports.getTeams = async function() {
+  var result = [];
+
+  axios.get(PI_API_URL + '/teams/')
+  .then(function (response) {
+    if (checkStatusCode(response)) {
+      for (var team in response) {
+        result.push({label:team.name, value:team.name});
+      }
+      var json = {
+        options: result
+      }
+      console.log(json);
+      return testData;
+    }
+    else {
+      console.log('error');
+      return 'error';
+    }
+  }).catch(function (error) {
+      console.log(error);
+      return error;
+  });
+    // var testData = {
+    //     options: [
+    //       {
+    //         label: "team 1",
+    //         value: "1"
+    //       },
+    //       {
+    //         label: "team 2",
+    //         value: "2"
+    //       },
+    //       {
+    //         label: "team 3",
+    //         value: "3"
+    //       }
+    //     ]
+    //   };
 }
 module.exports.getAllTeamsStatus = async function() {
     // axios.get('/team')
