@@ -141,11 +141,13 @@ module.exports.listUsersOnTeam = async function(team) {
     axios.get(PI_API_URL + '/teams/' + team)
     .then(function (response) {
       let result = [];
+      console.log('data', response.data.data.members);
       for (var member of response.data.data.members) {
         console.log('push', member.username);
         result.push({name:member.username});
       }
-        resolve(response.data);
+      console.log("resolved", result);
+        resolve(result);
       }).catch(function (error) {
           console.log(error.data);
           reject(error);
