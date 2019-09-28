@@ -50,11 +50,10 @@ class TeamApi(Resource):
             if team is None:
                 return Error(f"Team {team_name} does not exist.").to_json(), 404
             status = team_patch_schema.load(request.get_json())["status"]
-            # validate status enum
 
+            # validate status enum
             team.status = status
 
-            # Update board
             if team.board_position is not None:
                 whiteboard.set_status(team.board_position, status)
             team.save()
