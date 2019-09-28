@@ -50,7 +50,8 @@ let handleInteractions = async function(req, res) {
                     result = json2array(result);
                     let formattedList = []
                     for (var person of result) {
-                        formattedList.push(`\`${person}\``);
+                        person = person..replace(/[\n]/g, "");
+                        formattedList.push(`\`${person}\`\n`);
                     }
                     console.log(result);
                     if (result.length != 0) {
