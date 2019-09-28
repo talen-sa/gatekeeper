@@ -2,7 +2,7 @@ from enum import Enum
 
 from gatekeeper.config import Config
 
-_pixels = {}
+_pixels = [{}] * Config.ROW_COUNT
 
 if Config.USE_BOARD is not None:
     import board

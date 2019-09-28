@@ -1,4 +1,4 @@
-from marshmallow import fields
+from marshmallow import ValidationError, fields
 
 from gatekeeper.models import base, db, ma
 
@@ -53,11 +53,22 @@ class Team(base):
         Args:
             teamname: teamname to search for
         """
-        return Team.query.filter_by(name=name).first()
+        team = Team.query.filter_by(name=name).first()
+        if team is None:
+            raise ValidationError(f"Team {name} does not exist.")
+        return team
+
+    @staticmethod
+    def validate_non_existance(name):
+        team = Team.query.filter_by(name=name).first()
+        if team is not None:
+            raise ValidationError(f"Team {name} already exists.")
 
     @staticmethod
     def is_team_at_board_position(position):
-        return Team.query.filter_by(board_position=position).first() is not None
+        team = Team.query.filter_by(board_position=position).first() is not None
+        if team is not None:
+            raise ValidationError(f"Team already exists at boar_position {position}")
 
 
 class TeamSchema(ma.Schema):

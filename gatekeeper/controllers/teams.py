@@ -4,39 +4,26 @@ from marshmallow import ValidationError
 
 import gatekeeper.whiteboard as whiteboard
 from gatekeeper.controllers.response import Error, Fail, Success
-from gatekeeper.models.team import (
-    Team,
-    post_team_schema,
-    team_patch_schema,
-    team_put_schema,
-    team_schema,
-    teams_schema,
-)
+from gatekeeper.models.team import (Team, post_team_schema, team_patch_schema,
+                                    team_put_schema, team_schema, teams_schema)
 from gatekeeper.models.user import User
 
 
 class TeamApi(Resource):
     def get(self, team_name):
-        team = Team.get_team(team_name)
-        if team is None:
-            return Error(f"Team {team_name} does not exist.").to_json(), 404
-        result = team_schema.dump(team)
-        return Success(result).to_json(), 200
+        try:
+            team = Team.get_team(team_name)
+            result = team_schema.dump(team)
+            return Success(result).to_json(), 200
+        except ValidationError as err:
+            return Error(str(err)).to_json(), 400
 
     def put(self, team_name):
-        team = Team.get_team(team_name)
-        if team is None:
-            return Error(f"Team {team_name} does not exist.").to_json(), 404
         try:
+            team = Team.get_team(team_name)
             data = team_put_schema.load(request.get_json())
             board_position = data["board_position"]
-            if Team.is_team_at_board_position(board_position):
-                return (
-                    Fail(
-                        f"Team already exists at board_position {board_position}"
-                    ).to_json(),
-                    400,
-                )
+            Team.is_team_at_board_position(board_position)
             for k, v in data.items():
                 setattr(team, k, v)
             team.save()
@@ -47,8 +34,6 @@ class TeamApi(Resource):
     def patch(self, team_name):
         try:
             team = Team.get_team(team_name)
-            if team is None:
-                return Error(f"Team {team_name} does not exist.").to_json(), 404
             status = team_patch_schema.load(request.get_json())["status"]
 
             # validate status enum
@@ -64,11 +49,12 @@ class TeamApi(Resource):
             return Error(str(err)).to_json(), 400
 
     def delete(self, team_name):
-        team = Team.get_team(team_name)
-        if team is None:
-            return Fail(f"Team {team_name} does not exist.").to_json(), 404
-        team.delete()
-        return None, 204
+        try:
+            team = Team.get_team(team_name)
+            team.delete()
+            return None, 204
+        except ValidationError as err:
+            return Error(str(err)).to_json(), 400
 
 
 class TeamsApi(Resource):
@@ -80,10 +66,7 @@ class TeamsApi(Resource):
     def post(self):
         try:
             data = post_team_schema.load(request.get_json())
-            team = Team.get_team(data["name"])
-            if team is not None:
-                return Fail(f"Team {team.name} already exists").to_json(), 400
-
+            Team.validate_non_existance(data["name"])
             team = Team()
             for k, v in data.items():
                 setattr(team, k, v)
@@ -95,15 +78,9 @@ class TeamsApi(Resource):
 
 class TeamAndUser(Resource):
     def delete(self, team_name, user_name):
-        team = Team.get_team(team_name)
-        if team is None:
-            return Fail(f"Team {team_name} does not exist.").to_json(), 404
-
-        user = User.get_user(user_name)
-        if user is None:
-            return Fail(f"User with username {user_name} not found").to_json(), 404
-
         try:
+            team = Team.get_team(team_name)
+            user = User.get_user(user_name)
             team._members.remove(user)
             team.save()
             return None, 204
@@ -112,6 +89,8 @@ class TeamAndUser(Resource):
                 Fail(f"User: {user_name} not found on Team: {team_name}").to_json(),
                 404,
             )
+        except ValidationError as err:
+            return Error(str(err)).to_json(), 400
 
 
 teams_bp = Blueprint("teams", __name__)

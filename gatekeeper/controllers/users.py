@@ -11,24 +11,21 @@ from gatekeeper.models.user import (User, user_patch_schema, user_put_schema,
 
 class UserApi(Resource):
     def get(self, username):
-        user = User.get_user(username)
-        if user is None:
-            return Fail(f"User with username {username} not found").to_json(), 404
-        result = user_schema.dump(user)
-        return Success(result).to_json(), 200
+        try:
+            user = User.get_user(username)
+            result = user_schema.dump(user)
+            return Success(result).to_json(), 200
+        except ValidationError as err:
+            return Error(str(err)).to_json(), 400
 
     def patch(self, username):
         try:
             user = User.get_user(username)
-            if user is None:
-                return Fail(f"User with username {username} not found").to_json(), 404
             teams = user_patch_schema.load(request.get_json())["teams"]
             current_app.logger.debug(teams)
             for t in teams:
                 team_name = t["name"]
                 team = Team.get_team(team_name)
-                if team is None:
-                    return Fail(f"Team {team_name} does not exist").to_json(), 400
                 user._teams.append(team)
             user.save()
             return None, 204
@@ -38,8 +35,6 @@ class UserApi(Resource):
     def put(self, username):
         try:
             user = User.get_user(username)
-            if user is None:
-                return Fail(f"User with username {username} not found").to_json(), 404
             user._teams = []
             teams = user_put_schema.load(request.get_json())["teams"]
             current_app.logger.debug(teams)
@@ -55,11 +50,12 @@ class UserApi(Resource):
             return Error(str(err)).to_json(), 400
 
     def delete(self, username):
-        user = User.get_user(username)
-        if user is None:
-            return Fail(f"User with username {username} not found").to_json(), 404
-        user.delete()
-        return None, 204
+        try:
+            user = User.get_user(username)
+            user.delete()
+            return None, 204
+        except ValidationError as err:
+            return Error(str(err)).to_json(), 400
 
 
 class UsersApi(Resource):
@@ -72,18 +68,13 @@ class UsersApi(Resource):
         try:
             data = users_post_schema.load(request.get_json())
             username = data["username"]
-            user = User.get_user(username)
-            if user is not None:
-                return Fail(f"User {username} already exists").to_json()
+            User.validate_non_existance(username)
             new_user = User(username=username)
-
             teams = data.get("teams")
             if teams is not None and len(teams) > 0:
                 for t in teams:
                     team_name = t["name"]
                     team = Team.get_team(team_name)
-                    if team is None:
-                        return Fail(f"Team {team_name} does not exist").to_json(), 400
                     new_user._teams.append(team)
             new_user.save()
             return Success(f"user {username} created successfully").to_json(), 201
