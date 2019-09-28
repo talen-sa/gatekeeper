@@ -102,11 +102,11 @@ module.exports.deleteUser = async function(user_name) {
 
 module.exports.addUserToDB = async function(user) {
   return new Promise(function(resolve, reject) {
-    console.log("ADDING USER", user);
     axios.post(PI_API_URL + '/users/', 
     {
       username: user,
     }).then(function (response) {
+      console.log('success', response);
         resolve('success');
     }).catch(function (error) {
         console.log('errors', error.data);
