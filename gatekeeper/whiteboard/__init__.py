@@ -22,9 +22,9 @@ def set_status(position, status):
         raise WhiteboardError(
             "position {} exceeds row count {}".format(position, len(_pixels))
         )
-    if status == WhiteboardStatus.OUT:
+    if status == WhiteboardStatus.OUT.vaue:
         _pixels[position] = _colors["red"]
-    elif status == WhiteboardStatus.IN:
+    elif status == WhiteboardStatus.IN.value:
         _pixels[position] = _colors["green"]
     else:
         _pixels[position] = _colors["blue"]
