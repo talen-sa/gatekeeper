@@ -93,7 +93,6 @@ class PostTeamSchema(ma.Schema):
 
 class TeamPutSchema(ma.Schema):
     location = fields.String(required=True)
-    board_position = fields.Integer(required=True)
 
 
 class TeamPatchSchema(ma.Schema):
