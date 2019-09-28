@@ -1,7 +1,8 @@
 ## Dependencies
 
-- Python3-devel
+- Python3-devel or Python3-dev
 - Python3 >= 3.6
+- GCC
 
 ## Getting Started
 

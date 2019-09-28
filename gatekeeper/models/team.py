@@ -20,6 +20,7 @@ class Team(base):
 
     def delete(self):
         """Deletes the Team from the DB."""
+        self._members.clear()
         db.session.delete(self)
         db.session.commit()
 
