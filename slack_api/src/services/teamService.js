@@ -15,96 +15,75 @@ let checkStatusCode = function(data) {
 //   ]
 // }
 
-
 module.exports.getTeams = async function() {
   var result = [];
-
-  axios.get(PI_API_URL + '/teams/')
-  .then(function (response) {
-    if (checkStatusCode(response)) {
-      for (var team in response) {
-        result.push({label:team.name, value:team.name});
-      }
-      var json = {
-        options: result
-      }
-      console.log(json);
-      return testData;
-    }
-    else {
-      console.log('error');
-      return 'error';
-    }
-  }).catch(function (error) {
-      console.log(error);
-      return error;
+  return new Promise(function(resolve, reject) {
+    axios.get(PI_API_URL + '/teams/')
+      .then(function (response) {
+        for (var team of response.data.data) {
+          result.push({label:team.name, value:team.name});
+        }
+ 
+        resolve({options: result});
+      }).catch(function (error) {
+          console.log(error);
+          reject(error);
+    });
   });
-    // var testData = {
-    //     options: [
-    //       {
-    //         label: "team 1",
-    //         value: "1"
-    //       },
-    //       {
-    //         label: "team 2",
-    //         value: "2"
-    //       },
-    //       {
-    //         label: "team 3",
-    //         value: "3"
-    //       }
-    //     ]
-    //   };
 }
 module.exports.getAllTeamsStatus = async function() {
-    // axios.get('/team')
-    // .then(function (response) {
-    //     console.log(response);
-    // }).catch(function (error) {
-    //     console.log(error);
-    // });
-    var testData = {
-        teams: [
-          {
-            team: "team 1",
-            status: "in"
-          },
-          {
-            team: "team 2",
-            status: "out"
-          },
-          {
-            team: "team 3",
-            status: "in"
-          }
-        ]
-      };
-    return testData;
+  var result = [];
+  return new Promise(function(resolve, reject) {
+    axios.get(PI_API_URL + '/teams/')
+      .then(function (response) {
+        for (var team of response.data.data) {
+          result.push({team:team.name, status:team.status});
+        }
+        resolve({teams: result});
+      }).catch(function (error) {
+          console.log(error);
+          reject(error);
+    });
+  });
 }
-module.exports.createTeam = async function(data) {
-    // axios.post('/team')
-    // .then(function (response) {
-    //     console.log(response);
-    // }).catch(function (error) {
-    //     console.log(error);
-    // });
+module.exports.createTeam = async function(team_name) {
+  return new Promise(function(resolve, reject) {
+    axios.post(PI_API_URL + '/teams/', 
+    {
+      name: team_name
+    }).then(function (response) {
+        resolve('success');
+      }).catch(function (error) {
+          console.log(error.data);
+          reject(error);
+    });
+  });
 }
-module.exports.updateTeamStatus = async function(team_id, status) {
-    // axios.put('/team')
-    // .then(function (response) {
-    //     console.log(response);
-    // }).catch(function (error) {
-    //     console.log(error);
-    // });
+module.exports.updateTeamStatus = async function(team_name, status_text) {
+  let status_code = (status_text === 'in' ? 1 : 0);
+  return new Promise(function(resolve, reject) {
+    axios.patch(PI_API_URL + '/teams/'  + team_name, 
+    {
+      status: status_code
+    }).then(function (response) {
+        resolve('success');
+      }).catch(function (error) {
+          console.log(error.data);
+          reject(error);
+    });
+  });
 }
 
-module.exports.deleteTeam = async function(data) {
-    // axios.delete('/team')
-    // .then(function (response) {
-    //     console.log(response);
-    // }).catch(function (error) {
-    //     console.log(error);
-    // });
+module.exports.deleteTeam = async function(team_name) {
+  return new Promise(function(resolve, reject) {
+    axios.delete(PI_API_URL + '/teams/' + team_name)
+      .then(function (response) {
+        resolve('success');
+      }).catch(function (error) {
+          console.log(error);
+          reject(error);
+    });
+  });
 }
 
 module.exports.getUser = async function(data) {

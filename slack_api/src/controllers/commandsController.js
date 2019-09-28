@@ -120,10 +120,8 @@ let handleEvents = async function(req, res) {
             const { user_id, trigger_id } = req.body;
             try {
                 let result = await teamService.getAllTeamsStatus();
-                console.log('1',result.teams[0]);
-                message.sendShortMessage(user_id, "Who's Here");
                 for (var a = 0; a < result.teams.length; a++) {
-                    if (result.teams[a].status =='in') {
+                    if (result.teams[a].status =='1') {
                         message.sendShortMessage(user_id, `${result.teams[a].team}`);
                     }
                 }
