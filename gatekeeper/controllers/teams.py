@@ -32,12 +32,15 @@ class TeamApi(Resource):
     def patch(self, team_name):
         try:
             team = Team.get_team(team_name)
-            status = team_patch_schema.load(request.get_json())["status"]
+            data = team_patch_schema.load(request.get_json())
+            board_position = data.get("board_position")
+            status = data.get("status")
 
-            # validate status enum
-            team.status = status
+            if board_position is not None:
+                team.set_board_position(board_position)
 
-            if team.board_position is not None:
+            if team.board_position is not None and status is not None:
+                team.status = status
                 whiteboard.set_status(team.board_position, status)
             team.save()
             return None, 204
