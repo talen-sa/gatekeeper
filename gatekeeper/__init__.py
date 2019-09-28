@@ -20,7 +20,7 @@ def init_forum():
     base.metadata.create_all(bind=db.engine)
 
     toggle_status(1)
-    toggle_status(0)
+    # toggle_status(0)
 
 
 @app.route("/status")
