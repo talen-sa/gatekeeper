@@ -29,7 +29,7 @@ def _translate_position(index):
     if index < num_leds / 2:
         return num_leds - (1 + index)
     else:
-        return index - (num_leds / 2)
+        return index - (num_leds // 2)
 
 
 def set_status(position, status):
