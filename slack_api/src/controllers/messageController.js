@@ -159,12 +159,7 @@ const openUpdateTeamDialog = async (trigger_id) => {
             submit_label: 'Update',
             text: ' ',
             elements: [
-                {
-                    type: 'select',
-                    name: 'team',
-                    label: 'Choose the team to update',
-                    data_source: 'external',
-                },
+                
                 {
                     type: 'text',
                     name: 'board_position',
