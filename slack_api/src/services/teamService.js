@@ -136,9 +136,9 @@ module.exports.removeUserFromTeam = async function(user, team) {
 }
 
 module.exports.listUsersOnTeam = async function(team) {
-  return new Promise(async function(resolve, reject) {
+  return new Promise(function(resolve, reject) {
     axios.get(PI_API_URL + '/teams/' + team)
-    .then(function (response) {
+    .then(async function (response) {
       let result = [];
       for (var member of response.data.data.members) {
         let user = await slackController.getUserById(member.username);
