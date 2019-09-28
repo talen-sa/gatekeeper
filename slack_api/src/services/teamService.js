@@ -47,7 +47,7 @@ module.exports.getAllTeamsStatus = async function() {
   });
 }
 module.exports.createTeam = async function(team_name) {
-  console.log(team_name);
+  console.log('name',team_name);
   return new Promise(function(resolve, reject) {
     axios.post(PI_API_URL + '/teams/', 
     {
