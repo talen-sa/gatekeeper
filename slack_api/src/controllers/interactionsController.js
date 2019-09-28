@@ -5,7 +5,9 @@ const teamService = require('../services/teamService');
 function json2array(json){
     var result = [];
     var keys = Object.keys(json);
+    console.log('converting');
     keys.forEach(function(key){
+        console.log(json[key]);
         result.push(json[key] + "\n");
     });
     return result;
