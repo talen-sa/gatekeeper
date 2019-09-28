@@ -52,7 +52,7 @@ class User(base):
 
     @staticmethod
     def validate_non_existance(name):
-        user = User.query.filter_by(name=name).first()
+        user = User.query.filter_by(username=name).first()
         if user is not None:
             raise ValidationError(f"User {name} already exists.")
 
