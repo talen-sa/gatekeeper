@@ -59,7 +59,7 @@ module.exports.createTeam = async function(team_name) {
     });
   });
 }
-module.exports.updateTeamStatus = async function(team_id, status_text) {
+module.exports.updateTeamStatus = async function(team_name, status_text) {
   let status_code = (status_text === 'in' ? 1 : 0);
   return new Promise(function(resolve, reject) {
     axios.patch(PI_API_URL + '/teams/'  + team_name, 
