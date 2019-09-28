@@ -17,18 +17,21 @@ module.exports.getAllUsers = async function() {
 };
 
 module.exports.getUserById = async function(user_id) {
-    const payload = {
-        token: process.env.SLACK_USER_TOKEN,
-        user: user_id
-    };
-    let result;
-    try {
-        result = await axios.post(`${apiUrl}/users.info`, qs.stringify(payload));
-    } catch (e) {
-        console.log(e);
-        result = e;
-    }
-    return result.data;
+    return new Promise(function(resolve, reject) {
+        const payload = {
+            token: process.env.SLACK_USER_TOKEN,
+            user: user_id
+        };
+        let result;
+        try {
+            result = await axios.post(`${apiUrl}/users.info`, qs.stringify(payload));
+            resolve(result.data);
+        } catch (e) {
+            console.log(e);
+            reject(e);
+        }
+    });
+    
 };
 
 module.exports.getUsersInChannel = async function(channel) {
