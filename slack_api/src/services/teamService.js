@@ -1,6 +1,6 @@
 const axios = require('axios');
 const PI_API_URL = process.env.PI_API_URL;
-const slackController = require('../controllers/slackController');
+const slackController = require('./slackService');
 
 module.exports.getTeams = async function() {
   var result = [];
@@ -18,6 +18,7 @@ module.exports.getTeams = async function() {
     });
   });
 }
+
 module.exports.getAllTeamsStatus = async function() {
   var result = [];
   return new Promise(function(resolve, reject) {
@@ -33,6 +34,7 @@ module.exports.getAllTeamsStatus = async function() {
     });
   });
 }
+
 module.exports.createTeam = async function(team_name) {
   return new Promise(function(resolve, reject) {
     axios.post(PI_API_URL + '/teams/', 
@@ -46,6 +48,7 @@ module.exports.createTeam = async function(team_name) {
     });
   });
 }
+
 module.exports.updateTeamStatus = async function(team_name, status_text) {
   let status_code = (status_text === 'in' ? 1 : 0);
   return new Promise(function(resolve, reject) {
@@ -85,6 +88,7 @@ module.exports.getUser = async function(user_id) {
     });
   });
 }
+
 module.exports.deleteUser = async function(user_name) {
   return new Promise(function(resolve, reject) {
     axios.delete(PI_API_URL + '/users/' + user_name)
@@ -96,6 +100,7 @@ module.exports.deleteUser = async function(user_name) {
     });
   });
 }
+
 module.exports.addUserToDB = async function(user) {
   return new Promise(function(resolve, reject) {
     console.log(user);
@@ -110,6 +115,7 @@ module.exports.addUserToDB = async function(user) {
     });
   });
 }
+
 module.exports.addUserToTeam = async function(user, team) {
   let returnVal = await this.addUserToDB(user);
   return new Promise(function(resolve, reject) {
@@ -124,6 +130,7 @@ module.exports.addUserToTeam = async function(user, team) {
     });
   });
 }
+
 module.exports.removeUserFromTeam = async function(user, team) {
   return new Promise(function(resolve, reject) {
     axios.delete(`${PI_API_URL}/teams/${team}/${user}`) 
@@ -151,20 +158,13 @@ module.exports.listUsersOnTeam = async function(team) {
           reject(error);
     });
   });
-
-
-    var testData = {
-        1: "michael",
-        2: "test"
-    }
-    return testData;
 }
+
 module.exports.checkIfUserHasMultipleTeams = async function(user_id) {
   return new Promise(function(resolve, reject) {
     axios.get(PI_API_URL + '/users/' + user_id)
       .then(function (response) {
         let teams = response.data.data.teams;
-        console.log('teams', teams);
         if (teams.length == 1) {
           resolve({multiple: 'false', team_id: teams[0].name});
         }
