@@ -5,11 +5,10 @@ const qs = require('qs');
 const apiUrl = process.env.SLACK_API_URL;
 const teamService = require('../services/teamService');
 
-const sendShortMessage = (userId, text, title) => {
+const sendShortMessage = (userId, text) => {
     let data = {
         token: process.env.SLACK_ACCESS_TOKEN,
         channel: userId,
-        title: "asd",
         text: text,
     };
     send(data);
