@@ -142,7 +142,7 @@ module.exports.listUsersOnTeam = async function(team) {
       let result = [];
       for (var member of response.data.data.members) {
         let user = await slackController.getUserById(member.username);
-        console.log('usr', user);
+        console.log('usr', user.user);
         result.push({name:user.real_name});
       }
         resolve(result);
