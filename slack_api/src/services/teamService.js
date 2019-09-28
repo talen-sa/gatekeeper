@@ -110,7 +110,7 @@ module.exports.addUserToTeam = async function(user, team) {
   return new Promise(function(resolve, reject) {
     axios.patch(PI_API_URL + '/users/' + user, 
     {
-      teams: [{name:team}],
+      teams: [{"name":team}],
     }).then(function (response) {
         resolve('success');
       }).catch(function (error) {
