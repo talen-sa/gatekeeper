@@ -76,8 +76,8 @@ let handleInteractions = async function(req, res) {
                     message.sendShortMessage(user.id, `Successfully removed user from the team: ${submission.team}`);
                     res.send('');
                 } catch (e) {
-                    console.log('error');
-                    res.send(500);
+                    message.sendShortMessage(user.id, `They are currently not on a team.`);
+                    res.send('');
                 }
             }
             else if (callback_id === 'inout') {
