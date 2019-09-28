@@ -23,14 +23,8 @@ module.exports.getUserById = async function(user_id) {
             user: user_id
         };
         let result;
-        try {
-            result = await axios.post(`${apiUrl}/users.info`, qs.stringify(payload));
-            resolve(result.data);
-        } catch (e) {
-            console.log(e);
-            reject(e);
-        }
-        reject('error');
+        result = await axios.post(`${apiUrl}/users.info`, qs.stringify(payload));
+        resolve(result.data);
     });
 };
 
