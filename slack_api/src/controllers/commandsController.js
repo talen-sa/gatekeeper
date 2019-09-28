@@ -126,7 +126,7 @@ let handleEvents = async function(req, res) {
 
                 for (var a = 0; a < result.teams.length; a++) {
                     if (result.teams[a].status =='1') {
-                        msgList.push(`${result.teams[a].team}`);
+                        msgList.push(`\`${result.teams[a].team}\``);
                         empty = false;
                     }
                 }
@@ -134,7 +134,7 @@ let handleEvents = async function(req, res) {
                     message.sendShortMessage(user_id, `Nobody is here.`);
                 }
                 else {
-                    message.sendShortMessage(user_id, '`' + msgList.toString().replace(/[,]/g, '`'));
+                    message.sendShortMessage(user_id, msgList.toString().replace(/[,]/g, ''));
                 }
 
                 res.send('');
