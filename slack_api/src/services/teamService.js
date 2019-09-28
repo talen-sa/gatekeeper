@@ -21,20 +21,14 @@ module.exports.getTeams = async function() {
 
   axios.get('http://0.0.0.0:5000/api/teams/')
   .then(function (response) {
-    if (checkStatusCode(response)) {
-      for (var team in response) {
-        result.push({label:team.name, value:team.name});
-      }
-      var json = {
-        options: result
-      }
-      console.log(json);
-      return testData;
+    for (var team in response) {
+      result.push({label:team.name, value:team.name});
     }
-    else {
-      console.log('error', result);
-      return 'error';
+    var json = {
+      options: result
     }
+    console.log(json);
+    return testData;
   }).catch(function (error) {
       console.log(error);
       return error;
