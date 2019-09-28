@@ -24,7 +24,7 @@ const sendShortMessage = (userId, text) => {
     let data = {
         token: process.env.SLACK_ACCESS_TOKEN,
         channel: userId,
-        text: text,
+        text: "\n\n" + text + "\n\n",
     };
     send(data);
 };
