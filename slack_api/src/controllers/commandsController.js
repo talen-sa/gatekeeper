@@ -120,14 +120,22 @@ let handleEvents = async function(req, res) {
             try {
                 let result = await teamService.getAllTeamsStatus();
                 let empty = true;
+                let msgList = [];
+                msgList.push(`whos's here?`);
+
                 for (var a = 0; a < result.teams.length; a++) {
                     if (result.teams[a].status =='1') {
-                        message.sendShortMessage(user_id, `${result.teams[a].team}`);
+                        msgList.push(`${result.teams[a].team}`);
+                        // message.sendShortMessage(user_id, `${result.teams[a].team}`);
                         empty = false;
                     }
                 }
                 if (empty) {
+                    msgList.push(`whos's here?`);
                     message.sendShortMessage(user_id, `Nobody is here.`);
+                }
+                else {
+                    message.sendShortMessage(user_id, msgList);
                 }
 
                 res.send('');
