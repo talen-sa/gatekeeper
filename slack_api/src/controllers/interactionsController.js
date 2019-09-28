@@ -25,7 +25,7 @@ let handleInteractions = async function(req, res) {
         if (type === 'dialog_submission') {
             if (callback_id === 'setupTeam') {
                 try {
-                    let result = await teamService.createTeam(submission.name, submission.location.replace(/[ ]/g, ''), submission.board_position);
+                    let result = await teamService.createTeam(submission.name, submission.location.replace(/[ ]/g, '_'), submission.board_position);
                     message.sendShortMessage(user.id, `*Your team has been registered.*\n *Your board position is:* \`${submission.board_position}\``);
                     res.send('');
                 } catch (e) {
