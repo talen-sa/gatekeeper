@@ -164,9 +164,9 @@ module.exports.checkIfUserHasMultipleTeams = async function(user_id) {
     axios.get(PI_API_URL + '/users/' + user_id)
       .then(function (response) {
         let teams = response.data.data.teams;
-
+        console.log('teams', teams);
         if (teams.length == 1) {
-          resolve({multiple: 'false', team_id: teams[0]});
+          resolve({multiple: 'false', team_id: teams[0].name});
         }
         else if (teams.length > 1){
           resolve({multiple: 'true'});
