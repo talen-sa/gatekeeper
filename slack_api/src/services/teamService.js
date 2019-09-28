@@ -101,6 +101,7 @@ module.exports.deleteUser = async function(user_name) {
 }
 
 module.exports.addUserToDB = async function(user) {
+  console.log("adding user");
   return new Promise(function(resolve, reject) {
     axios.post(PI_API_URL + '/users/', 
     {
