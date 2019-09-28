@@ -101,13 +101,11 @@ module.exports.deleteUser = async function(user_name) {
 }
 
 module.exports.addUserToDB = async function(user) {
-  console.log("adding user", user);
   return new Promise(function(resolve, reject) {
     axios.post(PI_API_URL + '/users/', 
     {
-      username: user,
+      username: user
     }).then(function (response) {
-      console.log('success', response);
         resolve('success');
     }).catch(function (error) {
         console.log('errors', error);
@@ -117,9 +115,9 @@ module.exports.addUserToDB = async function(user) {
 }
 
 module.exports.addUserToTeam = async function(user, team) {
-  let returnVal = await this.addUserToDB(user);
-  console.log('RET', returnVal);
+  await this.addUserToDB(user);
   return new Promise(function(resolve, reject) {
+    console.log(user, team);
     axios.patch(PI_API_URL + '/users/' + user, 
     {
       teams: [{ name:team }],
