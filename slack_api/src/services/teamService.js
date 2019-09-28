@@ -37,7 +37,7 @@ module.exports.getOpenBoardPositions = async function() {
     axios.get(PI_API_URL + '/teams/')
       .then(function (response) {
         for (var team of response.data.data) {  //get taken board positions
-          arrayRemove(available_positions, team.board_position);
+          available_positions = arrayRemove(available_positions, team.board_position);
         }
         console.log(available_positions);
  
