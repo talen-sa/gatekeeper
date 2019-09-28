@@ -159,7 +159,7 @@ let handleEvents = async function(req, res) {
                 }
                 else if (result.multiple === 'true') {
                     try {
-                        const result = await message.openInOutDialog(trigger_id);
+                        const result = await message.openInDialog(trigger_id);
                         if (result.data.error) {
                             res.sendStatus(500);
                         } else {
@@ -195,7 +195,7 @@ let handleEvents = async function(req, res) {
                 }
                 else if (result.multiple === 'true') {
                     try {
-                        const result = await message.openInOutDialog(trigger_id);
+                        const result = await message.openOutDialog(trigger_id);
                         if (result.data.error) {
                             res.sendStatus(500);
                         } else {
