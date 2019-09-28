@@ -38,9 +38,7 @@ module.exports.getOpenBoardPositions = async function() {
         for (var team of response.data.data) {  //get taken board positions
           available_positions = arrayRemove(available_positions, team.board_position);
         }
-        console.log(available_positions);
- 
-        resolve({options: result});
+        resolve(available_positions);
       }).catch(function (error) {
           console.log(error);
           reject(error);
