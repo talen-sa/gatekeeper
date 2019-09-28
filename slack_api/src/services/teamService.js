@@ -166,7 +166,7 @@ module.exports.checkIfUserHasMultipleTeams = async function(user_id) {
         let teams = response.data.data.teams;
 
         if (teams.length == 1) {
-          resolve({multiple: 'false'});
+          resolve({multiple: 'false', team_id: teams[0]});
         }
         else if (teams.length > 1){
           resolve({multiple: 'true'});

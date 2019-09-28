@@ -139,11 +139,8 @@ let handleEvents = async function(req, res) {
             return;
         } else {
             const { user_id, trigger_id } = req.body;
-            console.log("ASDASDASDASDASDASD");
-
             try {
                 let result = await teamService.checkIfUserHasMultipleTeams(user_id);
-                console.log("ASDASDASDASDASDASD", result);
                 if (result.multiple === 'false') {
                     await teamService.updateTeamStatus(result.team_id, 'in');
                     message.sendShortMessage(user_id, "Team Status Set to \'in\'");
