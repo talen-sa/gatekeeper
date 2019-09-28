@@ -28,6 +28,7 @@ const openCreateTeamDialog = async (trigger_id) => {
     let teams = await teamService.getTeams();
     let taken_positions = [];
     for (var a = 0; a < teams.length; a++) {
+        console.log(teams);
         taken_positions.push(teams[a].board_position)
     }
     console.log(taken_positions);
