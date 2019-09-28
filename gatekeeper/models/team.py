@@ -27,8 +27,9 @@ class Team(base):
     def set_board_position(self, position):
         old = Team.get_at_board_position(position)
         if old is not None:
-            old.board_position = None
-            old.save()
+            raise ValidationError(
+                f"Board poistion {position} already taken by {old.name}"
+            )
         self.board_position = position
         self.save()
 
@@ -96,7 +97,8 @@ class TeamPutSchema(ma.Schema):
 
 
 class TeamPatchSchema(ma.Schema):
-    status = fields.Integer(required=True)
+    class Meta:
+        fields = ("status", "board_position")
 
 
 team_schema = TeamSchema()
