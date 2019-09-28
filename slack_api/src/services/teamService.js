@@ -15,8 +15,23 @@ let checkStatusCode = function(data) {
 //   ]
 // }
 
-
 module.exports.getTeams = async function() {
+  var result = [];
+  return new Promise(function(resolve, reject) {
+    axios.get(PI_API_URL + '/teams/')
+      .then(function (response) {
+        for (var team of response.data.data) {
+          result.push({label:team.name, value:team.name});
+        }
+ 
+        resolve({options: result});
+      }).catch(function (error) {
+          console.log(error);
+          reject(error);
+    });
+  });
+}
+module.exports.getAllTeamsStatus = async function() {
   var result = [];
   return new Promise(function(resolve, reject) {
     axios.get(PI_API_URL + '/teams/')
@@ -24,7 +39,7 @@ module.exports.getTeams = async function() {
         console.log(response.data.data)
         for (var team of response.data.data) {
           console.log(team);
-          result.push({label:team.name, value:team.name});
+          result.push({team:team.name, status:team.status});
         }
         var json = {
           options: result
@@ -32,33 +47,9 @@ module.exports.getTeams = async function() {
         resolve(json);
       }).catch(function (error) {
           console.log(error);
-          resolve(error);
+          reject(error);
     });
   });
-    // var testData = {
-    //     options: [
-    //       {
-    //         label: "team 1",
-    //         value: "1"
-    //       },
-    //       {
-    //         label: "team 2",
-    //         value: "2"
-    //       },
-    //       {
-    //         label: "team 3",
-    //         value: "3"
-    //       }
-    //     ]
-    //   };
-}
-module.exports.getAllTeamsStatus = async function() {
-    // axios.get('/team')
-    // .then(function (response) {
-    //     console.log(response);
-    // }).catch(function (error) {
-    //     console.log(error);
-    // });
     var testData = {
         teams: [
           {
