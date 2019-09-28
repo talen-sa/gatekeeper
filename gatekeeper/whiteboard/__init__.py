@@ -1,6 +1,6 @@
-from gatekeeper.config import Config
-
 from enum import Enum
+
+from gatekeeper.config import Config
 
 _pixels = {}
 
