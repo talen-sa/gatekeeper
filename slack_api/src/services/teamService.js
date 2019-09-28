@@ -35,11 +35,13 @@ module.exports.getAllTeamsStatus = async function() {
   });
 }
 
-module.exports.createTeam = async function(team_name) {
+module.exports.createTeam = async function(team_name, location, board_position) {
   return new Promise(function(resolve, reject) {
     axios.post(PI_API_URL + '/teams/', 
     {
-      name: team_name
+      name: team_name,
+      location: location,
+      board_position: board_position
     }).then(function (response) {
         resolve('success');
       }).catch(function (error) {
