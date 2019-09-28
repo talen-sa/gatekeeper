@@ -7,7 +7,7 @@ function json2array(json){
     var keys = Object.keys(json);
     keys.forEach(function(key){
         console.log('converting', json[key]);
-        result.push(json[key].username + "\n");
+        result.push(json[key].name + "\n");
     });
     return result;
 }
