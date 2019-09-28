@@ -106,7 +106,21 @@ module.exports.deleteUser = async function(data) {
     //     console.log(error);
     // });
 }
+module.exports.addUserToDB= async function(user) {
+  return new Promise(function(resolve, reject) {
+    axios.post(PI_API_URL + '/users/', 
+    {
+      username: user,
+    }).then(function (response) {
+        resolve('success');
+    }).catch(function (error) {
+        console.log('errors', error.data);
+        reject(error.data);
+    });
+  });
+}
 module.exports.addUserToTeam = async function(user, team) {
+  let user = await addUserToDB(user);
   return new Promise(function(resolve, reject) {
     console.log(JSON.stringify({teams: [{ name:team }]}));
     axios.patch(PI_API_URL + '/users/' + user, 
