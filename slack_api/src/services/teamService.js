@@ -1,8 +1,6 @@
 const axios = require('axios');
 const PI_API_URL = process.env.PI_API_URL;
-let checkStatusCode = function(data) {
-  return data.status==='success' ? true : false;
-}
+const slackController = require('../controllers/slackController');
 
 module.exports.getTeams = async function() {
   var result = [];
@@ -143,7 +141,12 @@ module.exports.listUsersOnTeam = async function(team) {
       let result = [];
       for (var member of response.data.data.members) {
         console.log('push', member.username);
-        result.push({name:member.username});
+
+        let user = await slackController.getUserById(member.username)
+
+        //get username from skype
+
+        result.push({name:user});
       }
         resolve(result);
       }).catch(function (error) {
