@@ -39,7 +39,6 @@ module.exports.getAllTeamsStatus = async function() {
         for (var team of response.data.data) {
           result.push({team:team.name, status:team.status});
         }
-        console.log({teams: result});
         resolve({teams: result});
       }).catch(function (error) {
           console.log(error);
