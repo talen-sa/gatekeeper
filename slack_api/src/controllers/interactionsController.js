@@ -47,6 +47,8 @@ let handleInteractions = async function(req, res) {
             else if (callback_id === 'listTeam') {
                 try {
                     let result = await teamService.listUsersOnTeam(submission.team);
+                    let team = await teamService.getTeamByID(submission.team);
+                    console.log('got team', team);
                     result = json2array(result);
                     let formattedList = []
                     for (var person of result) {
