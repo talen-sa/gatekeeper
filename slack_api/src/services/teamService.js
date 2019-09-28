@@ -60,7 +60,7 @@ module.exports.createTeam = async function(team_name) {
     }).then(function (response) {
         resolve('success');
       }).catch(function (error) {
-          console.log(error);
+          console.log(error.data);
           reject(error);
     });
   });
