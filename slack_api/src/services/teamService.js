@@ -46,13 +46,22 @@ module.exports.getAllTeamsStatus = async function() {
     });
   });
 }
-module.exports.createTeam = async function(data) {
-    // axios.post('/team')
-    // .then(function (response) {
-    //     console.log(response);
-    // }).catch(function (error) {
-    //     console.log(error);
-    // });
+module.exports.createTeam = async function(team_name) {
+  return new Promise(function(resolve, reject) {
+    axios.post(PI_API_URL + '/teams/', {
+      name: team_name
+    },
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(function (response) {
+        resolve('success');
+      }).catch(function (error) {
+          console.log(error);
+          reject(error);
+    });
+  });
 }
 module.exports.updateTeamStatus = async function(team_id, status) {
     // axios.put('/team')
