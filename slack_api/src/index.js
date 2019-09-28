@@ -23,5 +23,5 @@ routes.use(app);
 
 
 const server = app.listen(process.env.PORT || 80, () => {
-    console.log('Express server listening on port %d in %s mode', server.address().port, app.settings.env);
+    console.log('Listening on port %d in %s mode', server.address().port, app.settings.env);
 });

@@ -6,7 +6,6 @@ function json2array(json){
     var result = [];
     var keys = Object.keys(json);
     keys.forEach(function(key){
-        console.log('converting', json[key]);
         result.push(json[key].name + "\n");
     });
     return result;
@@ -23,7 +22,6 @@ let handleInteractions = async function(req, res) {
             callback_id,
             submission
         } = JSON.parse(req.body.payload);
-        console.log(submission);
         if (type === 'dialog_submission') {
             if (callback_id === 'setupTeam') {
                 try {

@@ -80,7 +80,6 @@ module.exports.getUser = async function(user_id) {
   return new Promise(function(resolve, reject) {
     axios.get(PI_API_URL + '/users/' + user_id)
     .then(function (response) {
-      console.log('got user', response);
         resolve(response.data);
       }).catch(function (error) {
           console.log(error.data);
@@ -119,7 +118,6 @@ module.exports.addUserToDB = async function(user) {
 module.exports.addUserToTeam = async function(user, team) {
   let returnVal = await this.addUserToDB(user);
   return new Promise(function(resolve, reject) {
-    console.log(JSON.stringify({teams: [{ name:team }]}));
     axios.patch(PI_API_URL + '/users/' + user, 
     {
       teams: [{ name:team }],
@@ -149,7 +147,6 @@ module.exports.listUsersOnTeam = async function(team) {
       let result = [];
       for (var member of response.data.data.members) {
         let user = await slackService.getUserById(member.username);
-        console.log('usr', user.user.real_name);
         result.push({name:user.user.real_name});
       }
         resolve(result);
