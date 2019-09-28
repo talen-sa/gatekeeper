@@ -122,6 +122,7 @@ let handleEvents = async function(req, res) {
                 let empty = true;
                 let msgList = [];
                 message.sendShortMessage(user_id, `*Whos's here?*`);
+                res.send('');
 
                 for (var a = 0; a < result.teams.length; a++) {
                     if (result.teams[a].status =='1') {
