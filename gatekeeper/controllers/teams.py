@@ -28,9 +28,6 @@ class TeamApi(Resource):
         try:
             team = Team.get_team(team_name)
             data = team_put_schema.load(request.get_json())
-            board_position = data.get("board_position")
-            if board_position is not None:
-                team.set_board_position(board_position)
             for k, v in data.items():
                 setattr(team, k, v)
             team.save()
@@ -79,7 +76,8 @@ class TeamsApi(Resource):
             team.name = data.get("name")
             team.location = data.get("location")
             if position is not None:
-                team.set_board_position(position)
+                Team.is_team_at_board_position(position)
+                team.board_position = position
             team.save()
             return Success(f"Team {team.name} created").to_json(), 204
         except ValidationError as err:
