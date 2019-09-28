@@ -102,7 +102,7 @@ module.exports.deleteUser = async function(user_name) {
 
 module.exports.addUserToDB = async function(user) {
   return new Promise(function(resolve, reject) {
-    console.log(user);
+    console.log("ADDING USER", user);
     axios.post(PI_API_URL + '/users/', 
     {
       username: user,
@@ -117,6 +117,7 @@ module.exports.addUserToDB = async function(user) {
 
 module.exports.addUserToTeam = async function(user, team) {
   let returnVal = await this.addUserToDB(user);
+  console.log('RET', returnVal);
   return new Promise(function(resolve, reject) {
     axios.patch(PI_API_URL + '/users/' + user, 
     {
