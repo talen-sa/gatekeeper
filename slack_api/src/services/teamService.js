@@ -140,12 +140,7 @@ module.exports.listUsersOnTeam = async function(team) {
     .then(function (response) {
       let result = [];
       for (var member of response.data.data.members) {
-        console.log('push', member.username);
-
         let user = await slackController.getUserById(member.username)
-
-        //get username from skype
-
         result.push({name:user});
       }
         resolve(result);

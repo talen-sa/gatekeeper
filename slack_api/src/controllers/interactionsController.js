@@ -2,7 +2,7 @@ const message = require('./messageController');
 const signature = require('../verifySignature');
 const teamService = require('../services/teamService');
 
-let json2array = async function(json){
+function json2array(json){
     var result = [];
     var keys = Object.keys(json);
     keys.forEach(function(key){
