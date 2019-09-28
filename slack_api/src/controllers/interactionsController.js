@@ -37,7 +37,7 @@ let handleInteractions = async function(req, res) {
             else if (callback_id === 'deleteTeam') {
                 try {
                     await teamService.deleteTeam(submission.team);
-                    message.sendShortMessage(user.id, 'Deleted team: ' + submission.team);
+                    message.sendShortMessage(user.id, '*Deleted team:* ' + submission.team);
                     res.send('');
                 } catch (e) {
                     console.log('error');
