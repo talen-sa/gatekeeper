@@ -50,10 +50,10 @@ let handleInteractions = async function(req, res) {
                     result = json2array(result);
                     console.log(result.length);
                     if (result.length != 0) {
-                        message.sendShortMessage(user.id, `The teammates on team ${submission.team} are:\n` + result.toString().replace(/[,]/g, ""));
+                        message.sendShortMessage(user.id, `*The teammates on team ${submission.team} are:*\n \`` + result.toString().replace(/[,]/g, "") + '`');
                     }
                     else {
-                        message.sendShortMessage(user.id, `The team \'${submission.team}\' has no teammates yet.`);
+                        message.sendShortMessage(user.id, `*The team \'${submission.team}\' has no teammates yet.*`);
                     }
                     res.send('');
                 } catch (e) {
@@ -64,7 +64,7 @@ let handleInteractions = async function(req, res) {
             else if (callback_id === 'addUser') {
                 try {
                     await teamService.addUserToTeam(submission.user, submission.team);
-                    message.sendShortMessage(user.id, `Successfully added user to the team: ${submission.team}`);
+                    message.sendShortMessage(user.id, `*Successfully added user to the team:* ${submission.team}`);
                     res.send('');
                 } catch (e) {
                     console.log('error');
@@ -74,17 +74,17 @@ let handleInteractions = async function(req, res) {
             else if (callback_id === 'removeUser') {
                 try {
                     await teamService.removeUserFromTeam(submission.user, submission.team);
-                    message.sendShortMessage(user.id, `Successfully removed user from the team: ${submission.team}`);
+                    message.sendShortMessage(user.id, `*Successfully removed user from the team:* ${submission.team}`);
                     res.send('');
                 } catch (e) {
-                    message.sendShortMessage(user.id, `They are currently not on a team.`);
+                    message.sendShortMessage(user.id, `*They are currently no users on the team:* ${submission.team}`);
                     res.send('');
                 }
             }
             else if (callback_id === 'inout') {
                 try {
                     await teamService.updateTeamStatus(submission.team, submission.status);
-                    message.sendShortMessage(user.id, `Successfully set status to: ${submission.status}`);
+                    message.sendShortMessage(user.id, `*Successfully set ${submission.team}'s status to:* ${submission.status}`);
                     res.send('');
                 } catch (e) {
                     console.log('error');
