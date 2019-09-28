@@ -144,18 +144,19 @@ const openOutDialog = async (trigger_id) => {
     };
     return axios.post(`${apiUrl}/dialog.open`, qs.stringify(dialogData));
 };
+
 const openUpdateTeamDialog = async (trigger_id) => {
     let open_positions = await teamService.getOpenBoardPositions();
     let open_positions_str = open_positions.toString();
-    console.log(open_positions_str);
+    
     const dialogData = {
         token: process.env.SLACK_ACCESS_TOKEN,
         trigger_id: trigger_id,
         dialog: JSON.stringify(
             {
-            title: 'Change Team\'s Board Position',
-            callback_id: 'updatePosition',
-            submit_label: 'Update',
+            title: 'Create a Team',
+            callback_id: 'setupTeam',
+            submit_label: 'Create',
             text: ' ',
             elements: [
                 {
