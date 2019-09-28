@@ -8,7 +8,7 @@ class Team(base):
     __tablename__ = "teams"
 
     name = db.Column(db.String(30), primary_key=True, nullable=False)
-    status = db.Column(db.Integer(), default=0)
+    status = db.Column(db.Integer(), default=2)
     location = db.Column(db.String(30), default="vault")
     board_position = db.Column(db.Integer(), unique=True)
     _members = db.relationship("User", secondary="belongs_to")
@@ -58,6 +58,10 @@ class Team(base):
         if team is None:
             raise ValidationError(f"Team {name} does not exist.")
         return team
+
+    @staticmethod
+    def get_team_at_position(position):
+        return Team.query.filter_by(board_position=position).first()
 
     @staticmethod
     def validate_non_existance(name):
