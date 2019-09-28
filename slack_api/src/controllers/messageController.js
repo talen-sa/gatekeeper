@@ -5,26 +5,11 @@ const qs = require('qs');
 const apiUrl = process.env.SLACK_API_URL;
 const teamService = require('../services/teamService');
 
-const postInMessage = (userId) => {
-    sendShortMessage(userId, 'Thanks! Don\'t forget to sign out when you leave');
-};
-
-const postOutMessage = (userId) => {
-    sendShortMessage(userId, 'Thanks! Have a great rest of your day.');
-};
-
-const sendListOfTeammates = async (userId) => {
-    let teammates = await teamService.getTeams
-    sendShortMessage(userId, 'Thanks! Have a great rest of your day.');
-}
-
-
-
 const sendShortMessage = (userId, text) => {
     let data = {
         token: process.env.SLACK_ACCESS_TOKEN,
         channel: userId,
-        text: "\n\n" + text + "\n\n",
+        text: "----------------------------\n" + text +"----------------------------",
     };
     send(data);
 };
