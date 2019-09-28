@@ -6,7 +6,7 @@ function json2array(json){
     var result = [];
     var keys = Object.keys(json);
     keys.forEach(function(key){
-        console.log('converting', json[key].username);
+        console.log('converting', json[key]);
         result.push(json[key].username + "\n");
     });
     return result;
