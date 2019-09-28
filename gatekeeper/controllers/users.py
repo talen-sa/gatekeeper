@@ -4,8 +4,9 @@ from marshmallow import ValidationError
 
 from gatekeeper.controllers.response import Error, Fail, Success
 from gatekeeper.models.team import Team
-from gatekeeper.models.user import (User, user_post_schema, user_schema,
-                                    users_post_schema, users_schema)
+from gatekeeper.models.user import (User, user_patch_schema, user_put_schema,
+                                    user_schema, users_post_schema,
+                                    users_schema)
 
 
 class UserApi(Resource):
@@ -21,7 +22,7 @@ class UserApi(Resource):
             user = User.get_user(username)
             if user is None:
                 return Fail(f"User with username {username} not found").to_json(), 404
-            teams = user_post_schema.load(request.get_json())["teams"]
+            teams = user_patch_schema.load(request.get_json())["teams"]
             current_app.logger.debug(teams)
             for t in teams:
                 team_name = t["name"]
@@ -30,6 +31,7 @@ class UserApi(Resource):
                     return Fail(f"Team {team_name} does not exist").to_json(), 400
                 user._teams.append(team)
             user.save()
+            pass
             return None, 204
         except ValidationError as err:
             return Error(str(err)).to_json(), 400
@@ -40,7 +42,7 @@ class UserApi(Resource):
             if user is None:
                 return Fail(f"User with username {username} not found").to_json(), 404
             user._teams = []
-            teams = users_post_schema.load(request.get_json())["teams"]
+            teams = user_put_schema.load(request.get_json())["teams"]
             current_app.logger.debug(teams)
             for t in teams:
                 team_name = t["name"]
@@ -69,7 +71,7 @@ class UsersApi(Resource):
 
     def post(self):
         try:
-            data = user_post_schema.load(request.get_json())
+            data = users_post_schema.load(request.get_json())
             username = data["username"]
             user = User.get_user(username)
             if user is not None:

@@ -63,7 +63,7 @@ class UserSchema(ma.Schema):
         fields = ("id", "username", "teams")
 
 
-class UserPostSchema(ma.Schema):
+class UserPutSchema(ma.Schema):
     teams = fields.List(fields.Nested(UserTeamSchema))
 
 
@@ -79,4 +79,5 @@ class UserPatchSchema(ma.Schema):
 user_schema = UserSchema()
 users_schema = UserSchema(many=True)
 users_post_schema = UsersPostSchema()
-user_post_schema = UserPostSchema()
+user_put_schema = UserPutSchema()
+user_patch_schema = UserPatchSchema()
