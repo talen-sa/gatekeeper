@@ -28,7 +28,7 @@ module.exports.getTeams = async function() {
       options: result
     }
     console.log(json);
-    return testData;
+    return json;
   }).catch(function (error) {
       console.log(error);
       return error;
