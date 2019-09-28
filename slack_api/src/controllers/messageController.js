@@ -27,7 +27,7 @@ const send = async (data) => {
 const openCreateTeamDialog = async (trigger_id) => {
     let open_positions = await teamService.getOpenBoardPositions();
     let open_positions_str = open_positions.toString();
-    console.log(open_positions_str);
+    console.log(open_positions);
 
     const dialogData = {
         token: process.env.SLACK_ACCESS_TOKEN,
