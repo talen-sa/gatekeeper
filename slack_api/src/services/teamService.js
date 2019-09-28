@@ -8,7 +8,8 @@ module.exports.getTeams = async function() {
     axios.get(PI_API_URL + '/teams/')
       .then(function (response) {
         for (var team of response.data.data) {
-          result.push({label:team.name, value:team.name});
+          var team_and_location = `${team.board_position}: ${team.name}`
+          result.push({label:team.name, value:team_and_location});
         }
  
         resolve({options: result});
