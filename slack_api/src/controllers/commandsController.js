@@ -128,8 +128,6 @@ let handleEvents = async function(req, res) {
                 try {
                     const teamNames = await teamService.getMyTeamNames(user_id);
                     message.sendShortMessage(user_id, `*Your teams are:*\n` +  teamNames.toString().replace(/[,]/g, "\n"));
-                    res.send('');
-                    console.log(result);
                     if (result.data.error) {
                         res.sendStatus(500);
                     } else {
