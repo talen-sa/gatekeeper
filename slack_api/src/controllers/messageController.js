@@ -5,7 +5,7 @@ const qs = require('qs');
 const apiUrl = process.env.SLACK_API_URL;
 const teamService = require('../services/teamService');
 
-const sendShortMessage = (userId, text) => {
+const sendShortMessage = (userId, res, text) => {
     let data = {
         token: process.env.SLACK_ACCESS_TOKEN,
         channel: userId,
@@ -13,16 +13,18 @@ const sendShortMessage = (userId, text) => {
         link_names: "true"
     };
     send(data);
+    res.send('');
 };
 
-const sendErrorMessage = (userId) => {
+const sendErrorMessage = (userId, res, text) => {
     let data = {
         token: process.env.SLACK_ACCESS_TOKEN,
         channel: userId,
-        text: ":gatekeeper:\n *An unknown error has occured\n:sadpep:*\n",
+        text: ":gatekeeper:\n *An error has occured*\n:sadpep:*\n" + text,
         link_names: "true"
     };
     send(data);
+    res.send('');
 };
 
 const send = async (data) => {
