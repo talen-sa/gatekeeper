@@ -10,15 +10,16 @@ const sendShortMessage = (userId, text) => {
         token: process.env.SLACK_ACCESS_TOKEN,
         channel: userId,
         text: text,
-        attachments: {
-            text: "I am a test"
-        }
+        attachments: [
+            {text: "I am a test"}
+        ]
     };
     send(data);
 };
 
 const send = async (data) => {
     data.as_user = true; // send DM as a bot, not Slackbot
+    console.log(qs.stringify(data));
     const result = await axios.post(`${apiUrl}/chat.postMessage`, qs.stringify(data))
     try {
         if (result.data.error) console.log(`PostMessage Error: ${result.data.error}`);
