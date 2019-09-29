@@ -120,10 +120,10 @@ let handleEvents = async function(req, res) {
             }
         }
         if (req.body.command === '/my_teams') {
-            if (!signature.isVerified(req)) {
-                res.sendStatus(404);
-                return;
-            } else {
+            // if (!signature.isVerified(req)) {
+            //     res.sendStatus(404);
+            //     return;
+            // } else {
                 const { user_id, trigger_id } = req.body;
                 try {
                     const teamNames = await teamService.getMyTeamNames(user_id);
@@ -136,7 +136,7 @@ let handleEvents = async function(req, res) {
                 } catch (err) {
                     res.sendStatus(500);
                 }
-            }
+            // }
         }
         if (req.body.command === '/update_team_status') {
             if (!signature.isVerified(req)) {

@@ -56,7 +56,6 @@ let handleInteractions = async function(req, res) {
                         person = person.replace(/[\n]/g, "");
                         formattedList.push(`\`${person}\`\n`);
                     }
-                    console.log(result);
                     if (result.length != 0) {
                         message.sendShortMessage(user.id, `*The teammates on team \`${submission.team}\` (board position: \`${team.board_position}\`) are:*\n` +  formattedList.toString().replace(/[,]/g, ""));
                     }
