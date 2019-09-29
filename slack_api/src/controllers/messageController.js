@@ -20,7 +20,7 @@ const sendErrorMessage = (userId, res, text) => {
     let data = {
         token: process.env.SLACK_ACCESS_TOKEN,
         channel: userId,
-        text: ":gatekeeper:\n :sadparrot:\`*ERROR*\`:sadparrot:\n" + text,
+        text: ":gatekeeper:\n :sadparrot:\`ERROR\`:sadparrot:\n" + text,
         link_names: "true"
     };
     send(data);
