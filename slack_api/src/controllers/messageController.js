@@ -9,7 +9,7 @@ const sendShortMessage = (userId, text) => {
     let data = {
         token: process.env.SLACK_ACCESS_TOKEN,
         channel: userId,
-        text: "***\n" + text,
+        text: "```\n" + text,
         link_names: "true"
     };
     send(data);
