@@ -102,7 +102,7 @@ let handleEvents = async function(req, res) {
         if (req.body.command === '/update_team_status') {
             const { user_id, trigger_id } = req.body;
             try {
-                await message.openUpdateTeamDialog(trigger_id);
+                await message.openInOutDialog(trigger_id);
                 if (result.data.error) {
                     res.sendStatus(500);
                 } else {
