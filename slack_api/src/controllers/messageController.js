@@ -303,5 +303,6 @@ module.exports = {
     openInOutDialog,
     openOutDialog,
     openInDialog,
-    sendShortMessage
+    sendShortMessage,
+    sendErrorMessage
 };
