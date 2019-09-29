@@ -14,7 +14,15 @@ const sendShortMessage = (userId, text) => {
             {text: "I am a test"}
         ]
     };
-    send(data);
+    
+    send({
+        "text": "I am a test message http://slack.com",
+        "attachments": [
+            {
+                "text": "And here’s an attachment!"
+            }
+        ]
+    });
 };
 
 const send = async (data) => {
