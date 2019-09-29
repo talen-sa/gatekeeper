@@ -8,13 +8,13 @@ module.exports.getTeams = async function() {
     axios.get(PI_API_URL + '/teams/')
       .then(function (response) {
         for (var team of response.data.data) {
-          var team_and_location = `${team.board_position}: ${team.name}`
+          var team_and_location = `${team.board_position}. ${team.name}`
           result.push({label:team_and_location, value:team.name});
         }
         
         result.sort(function(a, b) {
-          var loc1 = a.label.split(':')[0];
-          var loc2 = b.label.split(':')[0];
+          var loc1 = a.label.split('.')[0];
+          var loc2 = b.label.split('.')[0];
           if (loc1 < loc2) {
             return -1;
           }
