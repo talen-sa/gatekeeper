@@ -15,7 +15,7 @@ class Team(base):
     _members = db.relationship("User", secondary="belongs_to")
 
     def save(self):
-        """Addes the non-existing Team to the DB."""
+        """Updated the Team to the DB."""
         db.session.add(self)
         db.session.commit()
 
@@ -26,6 +26,15 @@ class Team(base):
         db.session.commit()
 
     def set_board_position(self, position):
+        """Sets the board position of the Team to the given position.
+
+        Args:
+            position: the int to set the Team's position to.
+
+        Raises:
+            ValidationError: given position not in range, or position is taken by another team.
+
+        """
         if position not in range(Config.ROW_COUNT):
             raise ValidationError(f"Board poistion {position} not in range")
         old = Team.get_team_at_position(position)
@@ -56,6 +65,9 @@ class Team(base):
 
         Args:
             teamname: teamname to search for
+
+        Raises:
+            ValidationError: if team does not exist.
         """
         team = Team.query.filter_by(name=name).first()
         if team is None:
@@ -64,19 +76,41 @@ class Team(base):
 
     @staticmethod
     def get_team_at_position(position):
+        """Returns the Team Object for the team at the given position or None
+            if no team holds the position.
+
+        Args:
+            position: the index of the team to return.
+        """
         return Team.query.filter_by(board_position=position).first()
 
     @staticmethod
     def validate_non_existance(name):
+        """Check to see if a team exists with the given name.
+
+        Args:
+            name: Name of team to search for.
+
+        Raises:
+            ValidationError: if team exists.
+        """
         team = Team.query.filter_by(name=name).first()
         if team is not None:
             raise ValidationError(f"Team {name} already exists.")
 
     @staticmethod
-    def is_team_at_board_position(position):
+    def validate_free_board_position(position):
+        """Check to see if a team occupies the given board position.
+
+        Args:
+            position: Position to validate
+
+        Raises:
+            ValidationError: If team occupies the given board position.
+        """
         team = Team.query.filter_by(board_position=position).first()
         if team is not None:
-            raise ValidationError(f"Team already exists at boar_position {position}")
+            raise ValidationError(f"Team already exists at board_position {position}")
 
 
 class TeamSchema(ma.Schema):

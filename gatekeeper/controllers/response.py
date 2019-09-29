@@ -1,5 +1,5 @@
 class Response:
-    """Object for Forum API responses."""
+    """Object for API responses."""
 
     def __init__(self, status="", data={}):
         self.status = status
@@ -13,12 +13,6 @@ class Success(Response):
     def __init__(self, data):
         self.status = "success"
         self.data = data
-
-
-class Fail(Response):
-    def __init__(self, data):
-        self.status = "fail"
-        self.data = {"title": data}
 
 
 class Error(Response):

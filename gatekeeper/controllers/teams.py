@@ -4,11 +4,22 @@ from marshmallow import ValidationError
 
 import gatekeeper.whiteboard as whiteboard
 from gatekeeper.controllers.response import Error, Fail, Success
-from gatekeeper.models.team import (Team, post_team_schema, team_patch_schema,
-                                    team_put_schema, team_schema, teams_schema)
+from gatekeeper.models.team import (
+    Team,
+    post_team_schema,
+    team_patch_schema,
+    team_put_schema,
+    team_schema,
+    teams_schema,
+)
 from gatekeeper.models.user import User
 
 
+teams_bp = Blueprint("teams_controller", __name__)
+api = Api(teams_bp)
+
+
+@api.resource("/api/teams/<string:team_name")
 class TeamApi(Resource):
     def get(self, team_name):
         try:
@@ -58,6 +69,7 @@ class TeamApi(Resource):
             return Error(str(err)).to_json(), 400
 
 
+@api.resource("/api/teams")
 class TeamsApi(Resource):
     def get(self):
         teams = Team.get_all()
@@ -73,14 +85,14 @@ class TeamsApi(Resource):
             team.name = data.get("name")
             team.location = data.get("location")
             if position is not None:
-                Team.is_team_at_board_position(position)
-                team.board_position = position
+                team.set_board_position(position)
             team.save()
             return Success(f"Team {team.name} created").to_json(), 204
         except ValidationError as err:
             return Error(str(err)).to_json(), 400
 
 
+@api.resource("/api/teams/<string:team_name>/<string:user_name>")
 class TeamAndUser(Resource):
     def delete(self, team_name, user_name):
         try:
@@ -91,17 +103,8 @@ class TeamAndUser(Resource):
             return None, 204
         except ValueError:
             return (
-                Fail(f"User: {user_name} not found on Team: {team_name}").to_json(),
+                Error(f"User: {user_name} not found on Team: {team_name}").to_json(),
                 404,
             )
         except ValidationError as err:
             return Error(str(err)).to_json(), 400
-
-
-teams_bp = Blueprint("teams", __name__)
-
-api = Api(teams_bp)
-
-api.add_resource(TeamsApi, "/api/teams/")
-api.add_resource(TeamApi, "/api/teams/<string:team_name>")
-api.add_resource(TeamAndUser, "/api/teams/<string:team_name>/<string:user_name>")

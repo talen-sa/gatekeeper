@@ -19,18 +19,18 @@ class User(base):
     _teams = db.relationship("Team", secondary="belongs_to")
 
     def save(self):
-        """Addes the non-existing user to the DB."""
+        """Saves the User to the DB."""
         db.session.add(self)
         db.session.commit()
 
     def delete(self):
-        """Deletes the user from the DB."""
+        """Deletes the User from the DB."""
         self._teams.clear()
         db.session.delete(self)
         db.session.commit()
 
     def to_json(self):
-        """Returns a JSON representation of the user."""
+        """Returns a JSON representation of the User."""
         return {"id": self.id, "username": self.username}
 
     @staticmethod
@@ -40,10 +40,13 @@ class User(base):
 
     @staticmethod
     def get_user(username):
-        """Returns a user Object for a specific user, if it exists.
+        """Returns a user Object for a specific User, if it exists.
 
         Args:
             username: username to search for
+
+        Raises:
+            ValidationError: if user with given username does not exist.
         """
         user = User.query.filter_by(username=username).first()
         if user is None:
@@ -51,10 +54,18 @@ class User(base):
         return user
 
     @staticmethod
-    def validate_non_existance(name):
-        user = User.query.filter_by(username=name).first()
+    def validate_non_existance(username):
+        """Verifies that no users exist with given username
+
+        Args:
+            username: Username to check.
+
+        Raises:
+            ValidationError: If username exists.
+        """
+        user = User.query.filter_by(username=username).first()
         if user is not None:
-            raise ValidationError(f"User {name} already exists.")
+            raise ValidationError(f"User {username} already exists.")
 
 
 class UserTeamSchema(ma.Schema):

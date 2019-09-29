@@ -25,8 +25,8 @@ dbdown:
 	docker kill test-db
 
 format:
-	black gatekeeper tests
 	isort -rc gatekeeper tests
+	black gatekeeper tests
 
 test:
 	python3 -m coverage run --source gatekeeper -m pytest tests -p no:warnings
