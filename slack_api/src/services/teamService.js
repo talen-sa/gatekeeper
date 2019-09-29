@@ -11,6 +11,7 @@ module.exports.getTeams = async function() {
           var team_and_location = `${team.board_position}:${team.name}:${team.location}`
           result.push({label:team_and_location, value:team.name});
         }
+        result.sort();
  
         resolve({options: result});
       }).catch(function (error) {
