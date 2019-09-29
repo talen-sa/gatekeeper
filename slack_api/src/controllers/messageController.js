@@ -46,8 +46,8 @@ const sendShortMessage = (userId, success, title, text) => {
             {
                 fallback: title,
                 color: color,
-                author_name: "SAI Gatekeeper",
-                // title: title,
+                author_name: title,
+                title: status,
                 fields: [
                     {
                         value: text,
