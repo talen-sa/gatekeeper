@@ -11,6 +11,7 @@ let handleEvents = async function(req, res) {
         res.sendStatus(404);
     }
     else {
+        console.log(req.body);
         if (req.body.command === '/create_team') {
             const { user_id, trigger_id } = req.body;
             try {
