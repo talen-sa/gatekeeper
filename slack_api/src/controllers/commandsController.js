@@ -75,7 +75,7 @@ let handleEvents = async function(req, res) {
             }
         }
     }
-    if (req.body.command === '/list_team') {
+    if (req.body.command === '/list_teams') {
         if (!signature.isVerified(req)) {
             res.sendStatus(404);
             return;
@@ -93,7 +93,7 @@ let handleEvents = async function(req, res) {
             }
         }
     }
-    if (req.body.command === '/update_team') {
+    if (req.body.command === '/update_team_position') {
         if (!signature.isVerified(req)) {
             res.sendStatus(404);
             return;
@@ -132,7 +132,7 @@ let handleEvents = async function(req, res) {
             }
         }
     }
-    if (req.body.command === '/set_status') {
+    if (req.body.command === '/update_team_status') {
         if (!signature.isVerified(req)) {
             res.sendStatus(404);
             return;
