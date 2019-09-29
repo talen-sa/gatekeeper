@@ -11,7 +11,8 @@ const sendShortMessage = (userId, text) => {
         channel: userId,
         text: text,
     };
-    send(data);
+    sendShortSpecialMessage(userId, text);
+    // send(data);
 };
 
 const send = async (data) => {
