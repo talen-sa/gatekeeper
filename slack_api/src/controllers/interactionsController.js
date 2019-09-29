@@ -58,7 +58,7 @@ let handleInteractions = async function(req, res) {
                         formattedList.push(`\`${person}\`\n`);
                     }
                     if (result.length != 0) {
-                        message.sendShortMessage(user.id, ` \n \n*Team Info*\n *Team Name: *\`${submission.team}\`\n *Board position: *\`${team.board_position}\`\n *location: * \`${team.location}\`\n Members: *\n` +  formattedList.toString().replace(/[,]/g, ""));
+                        message.sendShortMessage(user.id, `:gatekeeper:\n*Team Info*\n *Team Name: *\`${submission.team}\`\n *Board position: *\`${team.board_position}\`\n *location: * \`${team.location}\`\n Members: *\n` +  formattedList.toString().replace(/[,]/g, ""));
                     }
                     else {
                         message.sendShortMessage(user.id, `*The team \`${submission.team}\` has no teammates yet.*`);
