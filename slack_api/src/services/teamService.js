@@ -195,7 +195,7 @@ module.exports.updateTeamPosition = async function(team, position) {
 
 module.exports.getMyTeams = async function(user_id) {
   return new Promise(function(resolve, reject) {
-    axios.patch(`${PI_API_URL}/users/${user_id}`)
+    axios.get(`${PI_API_URL}/users/${user_id}`)
     .then(function (response) {
         console.log(response.data.data.teams);
         resolve(response.data.data.teams)
