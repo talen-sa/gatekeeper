@@ -5,14 +5,13 @@ const qs = require('qs');
 const apiUrl = process.env.SLACK_API_URL;
 const teamService = require('../services/teamService');
 
-const sendShortMessage = (userId, text) => {
+const sendShortMessages= (userId, text) => {
     let data = {
         token: process.env.SLACK_ACCESS_TOKEN,
         channel: userId,
         text: text,
     };
-    sendShortSpecialMessage(userId, text);
-    // send(data);
+    send(data);
 };
 
 const send = async (data) => {
@@ -25,7 +24,7 @@ const send = async (data) => {
     }
 };
 
-const sendSpecialessage = async (data) => {
+const sendShortMessages = async (data) => {
     data.as_user = true; // send DM as a bot, not Slackbot
     const result = await axios.post(`https://hooks.slack.com/services/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`, JSON.stringify(data))
     try {
