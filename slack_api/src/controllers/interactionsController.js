@@ -94,8 +94,8 @@ let handleInteractions = async function(req, res) {
             else if (callback_id === 'inout') {
                 try {
                     await teamService.updateTeamStatus(submission.team, submission.status);
-                    message.sendShortMessage(user.id, `*Successfully set \`${submission.team}'s\` status to:* \`${submission.status}\``);
-                    res.send('');
+                    // message.sendShortMessage(user.id, true, "Update Status", `*Set \`${submission.team}'s\` status to:* \`${submission.status}\``);
+                    // res.send('');
                 } catch (e) {
                     console.log('error');
                     message.sendShortMessage(user.id, `*Failed To Set Status*`);
