@@ -14,7 +14,7 @@ module.exports.getTeams = async function() {
         
         result.sort(function(a, b) {
           console.log(a,b);
-          var loc1 = a.split(':')[0]; // ignore upper and lowercase
+          var loc1 = a.label.split(':')[0]; // ignore upper and lowercase
           console.log(loc1);
           var loc2 = b.name.toUpperCase(); // ignore upper and lowercase
           if (loc1 < loc2) {
