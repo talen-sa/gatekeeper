@@ -14,7 +14,6 @@ from gatekeeper.models.team import (
 )
 from gatekeeper.models.user import User
 
-
 teams_bp = Blueprint("teams_controller", __name__)
 api = Api(teams_bp)
 
