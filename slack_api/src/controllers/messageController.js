@@ -17,7 +17,7 @@ const sendShortMessage = (userId, text) => {
 
 const send = async (data) => {
     data.as_user = true; // send DM as a bot, not Slackbot
-    const result = await axios.post(`${apiUrl}/chat.postMessage`, qs.stringify(data))
+    const result = await axios.post(`${apiUrl}/chat.postMessage`, JSON.stringify(data))
     try {
         if (result.data.error) console.log(`PostMessage Error: ${result.data.error}`);
     } catch (err) {
