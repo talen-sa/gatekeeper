@@ -118,17 +118,17 @@ let handleEvents = async function(req, res) {
                 var readme_message = `
                 *The Source Allies In Out Board*\n
                 Here is a list of the available commands:\n
-                1. */create_team*\n\`registers a new team\`\n
-                2. */delete_team*\n\`deletes a team\`\n
-                3. */my_teams*\n\`lists your teams\`\n
-                4. */add_user*\n\`adds a user to a team\`\n
-                5. */remove_user*\n\`removes a user from a team\`\n
-                6. */team_info*\n\`gives you info about the team\`\n
-                7. */in*\n\`set your team's status to in\`\n
-                8. */out*\n\`set your team's status to out\`\n
-                9. */update_team_status*\n\`update any team's status\`\n
-                10. */update_team_position*\n\`update a team's board position\`\n
-                11. */whos_here*\n\`lists all teams in the office and their location\`\n
+                1. */create_team: *\`registers a new team\`\n
+                2. */delete_team: *\`deletes a team\`\n
+                3. */my_teams: *\`lists your teams\`\n
+                4. */add_user: *\`adds a user to a team\`\n
+                5. */remove_user: *\`removes a user from a team\`\n
+                6. */team_info: *\`gives you info about the team\`\n
+                7. */in: *\`set your team's status to in\`\n
+                8. */out: *\`set your team's status to out\`\n
+                9. */update_team_status: *\`update any team's status\`\n
+                10. */update_team_position: *\`update a team's board position\`\n
+                11. */whos_here: *\`lists all teams in the office and their location\`\n
                 `
                 message.sendShortMessage(user_id, res, readme_message);
             } catch (err) {
