@@ -199,9 +199,9 @@ module.exports.getMyTeamNames = async function(user_id) {
     .then(function (response) {
       let teamNames = [];
       for (team of response.data.data.teams) {
-        teamNames.push(team.name)
+        teamNames.push(`\`${team.name}\`\n`);
+
       }
-      console.log(teamNames);
       resolve(teamNames)
     }).catch(function (error) {
         reject(error.data);

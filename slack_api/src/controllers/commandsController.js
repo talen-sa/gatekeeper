@@ -119,7 +119,7 @@ let handleEvents = async function(req, res) {
             const { user_id, trigger_id } = req.body;
             try {
                 const teamNames = await teamService.getMyTeamNames(user_id);
-                message.sendShortMessage(user_id, `*Your teams are:*\n` +  teamNames.toString().replace(/[,]/g, ""));
+                message.sendShortMessage(user_id, `*Your teams are:*\n` +  teamNames.toString().replace(/[,]/g, "\n"));
                 res.send('');
                 console.log(result);
                 if (result.data.error) {
