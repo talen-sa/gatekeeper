@@ -133,7 +133,7 @@ let handleEvents = async function(req, res) {
                 }
                 res.send('');
             } catch (e) {
-                console.log('error');
+                console.log('error' ,e);
                 res.send(500);
             }
         }
