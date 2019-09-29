@@ -19,7 +19,7 @@ const sendErrorMessage = (userId) => {
     let data = {
         token: process.env.SLACK_ACCESS_TOKEN,
         channel: userId,
-        text: ":gatekeeper:\n *An Error Has Occured*\n/giphy error",
+        text: ":gatekeeper:\n *An unknown error has occured\n:sadpep:*\n",
         link_names: "true"
     };
     send(data);
