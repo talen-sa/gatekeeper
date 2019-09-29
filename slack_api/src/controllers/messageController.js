@@ -9,7 +9,17 @@ const sendShortMessage = (userId, text) => {
     let data = {
         token: process.env.SLACK_ACCESS_TOKEN,
         channel: userId,
-        text: "```\n" + text,
+        text: ":gatekeeper:\n" + text,
+        link_names: "true"
+    };
+    send(data);
+};
+
+const sendErrorMessage = (userId) => {
+    let data = {
+        token: process.env.SLACK_ACCESS_TOKEN,
+        channel: userId,
+        text: ":gatekeeper:\n *An Error Has Occured*\n/giphy error",
         link_names: "true"
     };
     send(data);

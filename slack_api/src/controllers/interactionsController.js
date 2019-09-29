@@ -31,8 +31,9 @@ let handleInteractions = async function(req, res) {
                     res.send('');
                 } catch (e) {
                     console.log('error', e);
-                    message.sendShortMessage(user.id, '*Oops, that name or board position is already taken.*');
-                    res.send('');
+                    message.sendErrorMessage();
+                    // message.sendShortMessage(user.id, '*Oops, that name or board position is already taken.*');
+                    // res.send('');
                 }
             }
             else if (callback_id === 'deleteTeam') {
