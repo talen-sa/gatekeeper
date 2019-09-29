@@ -22,6 +22,8 @@ let handleInteractions = async function(req, res) {
             callback_id,
             submission
         } = JSON.parse(req.body.payload);
+        console.log(req.body);
+
         if (type === 'dialog_submission') {
             if (callback_id === 'setupTeam') {
                 try {
