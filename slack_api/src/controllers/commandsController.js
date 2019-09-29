@@ -2,7 +2,6 @@ const message = require('./messageController');
 const signature = require('../verifySignature');
 const teamService = require('../services/teamService')
 
-
 let checkSlackSiganature = async function(req, res) {
     return !signature.isVerified(req) ? false : true;
 }

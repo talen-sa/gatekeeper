@@ -23,14 +23,6 @@ module.exports.getTeams = async function() {
           }
           return 0;
         });
-        
-
-
-
-
-
-
-
  
         resolve({options: result});
       }).catch(function (error) {
@@ -40,11 +32,9 @@ module.exports.getTeams = async function() {
   });
 }
 function arrayRemove(arr, value) {
-
   return arr.filter(function(ele){
       return ele != value;
   });
-
 }
 module.exports.getOpenBoardPositions = async function() {
   var available_positions = [];
@@ -220,7 +210,6 @@ module.exports.getMyTeamNames = async function(user_id) {
       let teamNames = [];
       for (team of response.data.data.teams) {
         teamNames.push(`\`${team.name}\`\n`);
-
       }
       resolve(teamNames)
     }).catch(function (error) {

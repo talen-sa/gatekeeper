@@ -28,11 +28,9 @@ let handleInteractions = async function(req, res) {
                 try {
                     let result = await teamService.createTeam(submission.name, submission.location, submission.board_position);
                     message.sendShortMessage(user.id, res, `*Your team has been registered.*\n *Your board position is:* \`${submission.board_position}\``);
-                
                 } catch (e) {
                     console.log('error', e);
                     message.sendErrorMessage(user.id, res, '*That team name or board position is already taken.*');
-                
                 }
             }
             else if (callback_id === 'deleteTeam') {
@@ -63,22 +61,18 @@ let handleInteractions = async function(req, res) {
                     else {
                         message.sendErrorMessage(user.id, res, `*The team \`${submission.team}\` has no teammates yet.*`);
                     }
-                
                 } catch (e) {
                     console.log('error');
                     message.sendErrorMessage(user.id, res, `*Failed To List Teams*`);
-                
                 }
             }
             else if (callback_id === 'addUser') {
                 try {
                     await teamService.addUserToTeam(submission.user, submission.team);
                     message.sendShortMessage(user.id, res, `*Successfully added user to the team:* \`${submission.team}\``);
-                
                 } catch (e) {
                     console.log('error');
                     message.sendErrorMessage(user.id, res, `*Failed to add user*`);
-                
                 }
             }
             else if (callback_id === 'removeUser') {
@@ -88,7 +82,6 @@ let handleInteractions = async function(req, res) {
                 
                 } catch (e) {
                     message.sendErrorMessage(user.id, res, `*That user is not currently on team:* \`${submission.team}\``);
-                
                 }
             }
             else if (callback_id === 'inout') {
@@ -99,14 +92,12 @@ let handleInteractions = async function(req, res) {
                 } catch (e) {
                     console.log('error');
                     message.sendErrorMessage(user.id, res, `*Failed To Set Status*`);
-                
                 }
             }
             else if (callback_id === 'in') {
                 try {
                     await teamService.updateTeamStatus(submission.team, 'in');
                     message.sendShortMessage(user.id, res, `*Successfully set \`${submission.team}'s\` status to:* \`in\``);
-                
                 } catch (e) {
                     console.log('error');
                     message.sendErrorMessage(user.id, res, `*Failed To Set Status*`);

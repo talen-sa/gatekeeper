@@ -10,10 +10,6 @@ let handleRoutes = function(app) {
         commandsController.run(req, res);
     });
 
-    app.post('/buttonEvents', (req, res) => {
-        commandsController.run(req, res);
-    });
-
     app.post('/interactions', async (req, res) => {
         interactionsController.run(req, res);
     });
