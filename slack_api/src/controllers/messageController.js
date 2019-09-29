@@ -35,24 +35,23 @@ const sendSpecialessage = async (data) => {
     }
 };
 
-const sendShortSpecialMessage = (userId, text) => {
+const sendShortSpecialMessage = (userId, success, title, text) => {
+    let color = (success == true ? 'good' : 'bad');
+    let status = (success == true ? 'Success' : 'Error');
+
+    
     let data = {
         token: process.env.SLACK_ACCESS_TOKEN,
         channel: userId,
         attachments: [
             {
-                fallback: "Required plain-text summary of the attachment.",
-                color: "#36a64f",
-                pretext: "Optional text that appears above the attachment block",
-                author_name: "Bobby Tables",
-                author_link: "http://flickr.com/bobby/",
-                author_icon: "http://flickr.com/icons/bobby.jpg",
-                title: "Slack API Documentation",
-                title_link: "https://api.slack.com/",
-                text: "Optional text that appears within the attachment",
+                fallback: "This is a fallback test message.",
+                color: color,
+                author_name: "SAI Gatekeeper",
+                title: title,
                 fields: [
                     {
-                        title: "Priority",
+                        title: title,
                         value: text,
                         short: false
                     }
