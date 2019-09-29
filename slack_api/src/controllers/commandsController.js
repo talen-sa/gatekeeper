@@ -63,7 +63,7 @@ let handleEvents = async function(req, res) {
                 res.sendStatus(500);
             }
         }
-        if (req.body.command === '/list_teams') {
+        if (req.body.command === '/team_info') {
             const { user_id, trigger_id } = req.body;
             try {
                 const result = await message.openListUsersOnTeamDialog(trigger_id);
@@ -103,6 +103,34 @@ let handleEvents = async function(req, res) {
             const { user_id, trigger_id } = req.body;
             try {
                 await message.openInOutDialog(trigger_id);
+                if (result.data.error) {
+                    res.sendStatus(500);
+                } else {
+                    res.send('');
+                }
+            } catch (err) {
+                res.sendStatus(500);
+            }
+        }
+        if (req.body.command === '/gatekeeper') {
+            const { user_id, trigger_id } = req.body;
+            try {
+                var readme_message = `
+                :gatekeeper:\n
+                *The Source Allies In Out Board App*\n
+                Here is a list of the available commands:\n
+                1. /create_team     (registers a new team)\n
+                3. /delete_team     (deletes a team)\n
+                2. /add_user        (adds a user to a team)\n
+                4. /remove_user     (removes a user from a team)\n
+                5. /team_info       (gives you info about the team)\n
+                6. /in              (set your team's status to in)\n
+                7. /out             (set your team's status to out)\n
+                8. /set_status      (set any team's status manually)\n
+                9. /whos_here       (lists all teams in the office and their location)\n
+                `
+                message.sendShortMessage(user_id, res, '*Please register for a team by typing `/add_user`.*');
+                
                 if (result.data.error) {
                     res.sendStatus(500);
                 } else {
