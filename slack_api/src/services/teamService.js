@@ -193,12 +193,16 @@ module.exports.updateTeamPosition = async function(team, position) {
   });
 }
 
-module.exports.getMyTeams = async function(user_id) {
+module.exports.getMyTeamNames = async function(user_id) {
   return new Promise(function(resolve, reject) {
     axios.get(`${PI_API_URL}/users/${user_id}`)
     .then(function (response) {
-        console.log(response.data.data.teams);
-        resolve(response.data.data.teams)
+      let teamNames = [];
+      for (team of response.data.data.teams) {
+        teamNames.push(team.name)
+      }
+      console.log(teamNames);
+      resolve(teamNames)
     }).catch(function (error) {
         reject(error.data);
     });
