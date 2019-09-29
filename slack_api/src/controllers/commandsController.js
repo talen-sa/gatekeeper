@@ -120,25 +120,18 @@ let handleEvents = async function(req, res) {
             }
         }
         if (req.body.command === '/my_teams') {
-            // if (!signature.isVerified(req)) {
-            //     res.sendStatus(404);
-            //     return;
-            // } else {
-                const { user_id, trigger_id } = req.body;
-                try {
-                    const teamNames = await teamService.getMyTeamNames(user_id);
-                    message.sendShortMessage(user_id, `*Your teams are:*\n` +  teamNames.toString().replace(/[,]/g, "\n"));
-                    if (result.data.error) {
-                        console.log(result.data.error);
-                        res.sendStatus(500);
-                    } else {
-                        res.send('');
-                    }
-                } catch (err) {
-                    console.log(err);
+            const { user_id, trigger_id } = req.body;
+            try {
+                const teamNames = await teamService.getMyTeamNames(user_id);
+                message.sendShortMessage(user_id, `*Your teams are:*\n` +  teamNames.toString().replace(/[,]/g, "\n"));
+                if (teamNames.data.error) {
                     res.sendStatus(500);
+                } else {
+                    res.send('');
                 }
-            // }
+            } catch (err) {
+                res.sendStatus(500);
+            }
         }
         if (req.body.command === '/update_team_status') {
             if (!signature.isVerified(req)) {
