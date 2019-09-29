@@ -31,7 +31,7 @@ let handleInteractions = async function(req, res) {
                     res.send('');
                 } catch (e) {
                     console.log('error', e);
-                    message.sendErrorMessage();
+                    message.sendErrorMessage(user.id);
                     // message.sendShortMessage(user.id, '*Oops, that name or board position is already taken.*');
                     // res.send('');
                 }
