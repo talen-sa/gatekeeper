@@ -44,13 +44,12 @@ const sendShortMessage = (userId, success, title, text) => {
         channel: userId,
         attachments: [
             {
-                fallback: "This is a fallback test message.",
+                fallback: title,
                 color: color,
                 author_name: "SAI Gatekeeper",
                 // title: title,
                 fields: [
                     {
-                        title: title,
                         value: text,
                         short: false
                     }
