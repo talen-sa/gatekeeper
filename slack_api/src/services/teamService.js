@@ -11,7 +11,29 @@ module.exports.getTeams = async function() {
           var team_and_location = `${team.board_position}:${team.name}:${team.location}`
           result.push({label:team_and_location, value:team.name});
         }
-        result.sort();
+        
+        result.sort(function(a, b) {
+          var loc1 = a.split(':')[0]; // ignore upper and lowercase
+          console.log(loc1);
+          var loc2 = b.name.toUpperCase(); // ignore upper and lowercase
+          if (loc1 < loc2) {
+            return -1;
+          }
+          if (loc1 > loc2) {
+            return 1;
+          }
+        
+          // names must be equal
+          return 0;
+        });
+        
+
+
+
+
+
+
+
  
         resolve({options: result});
       }).catch(function (error) {
