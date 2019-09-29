@@ -66,16 +66,6 @@ const sendShortMessage = (userId, success, title, text) => {
     sendSpecialMessage(data);
 };
 
-const sendSpecialMessage = async (data) => {
-    data.as_user = true; // send DM as a bot, not Slackbot
-    const result = await axios.post(`https://hooks.slack.com/services/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`, JSON.stringify(data))
-    try {
-        if (result.data.error) console.log(`PostMessage Error: ${result.data.error}`);
-    } catch (err) {
-        console.log(err);
-    }
-};
-
 const openCreateTeamDialog = async (trigger_id) => {
     let open_positions = await teamService.getOpenBoardPositions();
     let open_positions_str = open_positions.toString();
