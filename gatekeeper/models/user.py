@@ -1,17 +1,17 @@
 from marshmallow import ValidationError, fields
 
-from gatekeeper.models import base, db, ma
+from gatekeeper.models import Base, db, ma
 
 belongs_to = db.Table(
     "belongs_to",
-    base.metadata,
+    Base.metadata,
     db.Column("user", db.Integer, db.ForeignKey("users.id"), primary_key=True),
     db.Column("team", db.String, db.ForeignKey("teams.name"), primary_key=True),
     extend_existing=True,
 )
 
 
-class User(base):
+class User(Base):
     __tablename__ = "users"
 
     id = db.Column(db.Integer(), primary_key=True)
@@ -50,7 +50,7 @@ class User(base):
         """
         user = User.query.filter_by(username=username).first()
         if user is None:
-            raise ValidationError(f"User {username} does not exist")
+            raise ValidationError(f"User: {username} does not exist")
         return user
 
     @staticmethod
@@ -65,7 +65,7 @@ class User(base):
         """
         user = User.query.filter_by(username=username).first()
         if user is not None:
-            raise ValidationError(f"User {username} already exists.")
+            raise ValidationError(f"User: {username} already exists.")
 
 
 class UserTeamSchema(ma.Schema):

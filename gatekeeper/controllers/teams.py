@@ -86,7 +86,7 @@ class TeamsApi(Resource):
             if position is not None:
                 team.set_board_position(position)
             team.save()
-            return Success(f"Team {team.name} created").to_json(), 204
+            return Success(f"Team: {team.name} created").to_json(), 204
         except ValidationError as err:
             return Error(str(err)).to_json(), 400
 

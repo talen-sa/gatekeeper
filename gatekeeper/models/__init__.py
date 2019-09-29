@@ -4,4 +4,4 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 ma = Marshmallow()
 
-base = db.make_declarative_base(model=db.Model)
+Base = db.make_declarative_base(model=db.Model)

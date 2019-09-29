@@ -1,10 +1,10 @@
 from marshmallow import ValidationError, fields
 
 from gatekeeper.config import Config
-from gatekeeper.models import base, db, ma
+from gatekeeper.models import Base, db, ma
 
 
-class Team(base):
+class Team(Base):
 
     __tablename__ = "teams"
 
@@ -36,11 +36,11 @@ class Team(base):
 
         """
         if position not in range(Config.ROW_COUNT):
-            raise ValidationError(f"Board poistion {position} not in range")
+            raise ValidationError(f"Board poistion: {position} not in range")
         old = Team.get_team_at_position(position)
         if old is not None:
             raise ValidationError(
-                f"Board poistion {position} already taken by {old.name}"
+                f"Board poistion: {position} already taken by {old.name}"
             )
         self.board_position = position
         self.save()
@@ -71,7 +71,7 @@ class Team(base):
         """
         team = Team.query.filter_by(name=name).first()
         if team is None:
-            raise ValidationError(f"Team {name} does not exist.")
+            raise ValidationError(f"Team: {name} does not exist.")
         return team
 
     @staticmethod
@@ -96,7 +96,7 @@ class Team(base):
         """
         team = Team.query.filter_by(name=name).first()
         if team is not None:
-            raise ValidationError(f"Team {name} already exists.")
+            raise ValidationError(f"Team: {name} already exists.")
 
     @staticmethod
     def validate_free_board_position(position):
@@ -110,7 +110,7 @@ class Team(base):
         """
         team = Team.query.filter_by(board_position=position).first()
         if team is not None:
-            raise ValidationError(f"Team already exists at board_position {position}")
+            raise ValidationError(f"Team already exists at board_position: {position}")
 
 
 class TeamSchema(ma.Schema):

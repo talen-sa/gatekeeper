@@ -50,8 +50,6 @@ class UserApi(Resource):
             for t in teams:
                 team_name = t.get("name")
                 team = Team.get_team(team_name)
-                if team is None:
-                    return Error(f"Team {team_name} does not exist").to_json(), 400
                 user._teams.append(team)
             user.save()
             return None, 204
@@ -87,6 +85,6 @@ class UsersApi(Resource):
                     team = Team.get_team(team_name)
                     new_user._teams.append(team)
             new_user.save()
-            return Success(f"user {username} created successfully").to_json(), 201
+            return Success(f"User: {username} created successfully").to_json(), 201
         except ValidationError as err:
             return Error(str(err)).to_json(), 400
