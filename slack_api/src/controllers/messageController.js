@@ -7,38 +7,16 @@ const teamService = require('../services/teamService');
 
 const sendShortMessage = (userId, text) => {
     let data = {
-        blocks: [
-            {
-                type: "actions",
-                elements: [
-                    {
-                        type: "button",
-                        text: {
-                            type: "plain_text",
-                            text: "Button",
-                            emoji: true
-                        },
-                        value: "test1"
-                    },
-                    {
-                        type: "button",
-                        text: {
-                            type: "plain_text",
-                            text: "Button",
-                            emoji: true
-                        },
-                        value: "test2"
-                    }
-                ]
-            }
-        ]
+        token: process.env.SLACK_ACCESS_TOKEN,
+        channel: userId,
+        text: text,
     };
     send(data);
 };
 
 const send = async (data) => {
     data.as_user = true; // send DM as a bot, not Slackbot
-    const result = await axios.post(`https://hooks.slack.com/services/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`, JSON.stringify(data))
+    const result = await axios.post(`${apiUrl}/chat.postMessage`, qs.stringify(data))
     try {
         if (result.data.error) console.log(`PostMessage Error: ${result.data.error}`);
     } catch (err) {
