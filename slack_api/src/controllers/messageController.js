@@ -16,6 +16,8 @@ const sendShortMessage = (userId, text) => {
     };
     
     send({
+        "token": process.env.SLACK_ACCESS_TOKEN,
+        "channel": userId,
         "text": "I am a test message http://slack.com",
         "attachments": [
             {
