@@ -11,7 +11,7 @@ let checkSlackSiganature = function(req, res) {
     return true;
 }
 let handleEvents = async function(req, res) {
-    if (checkSlackSiganature(req, res)) {
+    if (checkSlackSiganature(req, res) === true) {
         if (req.body.command === '/create_team') {
             if (!signature.isVerified(req)) {
                 res.sendStatus(404);
