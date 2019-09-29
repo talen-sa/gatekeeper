@@ -17,7 +17,17 @@ const sendShortMessage = (userId, text) => {
 
 const send = async (data) => {
     data.as_user = true; // send DM as a bot, not Slackbot
-    const result = await axios.post(`${apiUrl}/chat.postMessage`, JSON.stringify(data))
+    const result = await axios.post(`${apiUrl}/chat.postMessage`, qs.stringify(data))
+    try {
+        if (result.data.error) console.log(`PostMessage Error: ${result.data.error}`);
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+const sendSpecialessage = async (data) => {
+    data.as_user = true; // send DM as a bot, not Slackbot
+    const result = await axios.post(`https://hooks.slack.com/services/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/`, qs.stringify(data))
     try {
         if (result.data.error) console.log(`PostMessage Error: ${result.data.error}`);
     } catch (err) {
@@ -27,6 +37,8 @@ const send = async (data) => {
 
 const sendShortSpecialMessage = (userId, text) => {
     let data = {
+        token: process.env.SLACK_ACCESS_TOKEN,
+        channel: userId,
         attachments: [
             {
                 fallback: "Required plain-text summary of the attachment.",
@@ -53,7 +65,7 @@ const sendShortSpecialMessage = (userId, text) => {
             }
         ]
     };
-    send(data);
+    sendSpecialessage(data);
 };
 
 const sendSpecialMessage = async (data) => {
