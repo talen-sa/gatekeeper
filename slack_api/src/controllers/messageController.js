@@ -11,20 +11,12 @@ const sendShortMessage = (userId, text) => {
         channel: userId,
         text: text,
         attachments: [
-            {text: "I am a test"}
-        ]
-    };
-    
-    send({
-        token: process.env.SLACK_ACCESS_TOKEN,
-        channel: userId,
-        text: "I am a test message http://slack.com",
-        attachments: [
             {
-                "text": "And here’s an attachment!"
+                text: "I am a test"
             }
         ]
-    });
+    };
+    send(data);
 };
 
 const send = async (data) => {
