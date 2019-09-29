@@ -15,6 +15,5 @@ class Config(object):
         os.getenv("API_DB_NAME", "gate_db"),
     )
 
-    BOARD_RANGE = os.getenv("BOARD_RANGE", 10)
     USE_BOARD = os.getenv("USE_BOARD", None)
     ROW_COUNT = 20

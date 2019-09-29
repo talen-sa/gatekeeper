@@ -68,7 +68,7 @@ class TeamApi(Resource):
             return Error(str(err)).to_json(), 400
 
 
-@api.resource("/api/teams")
+@api.resource("/api/teams/")
 class TeamsApi(Resource):
     def get(self):
         teams = Team.get_all()

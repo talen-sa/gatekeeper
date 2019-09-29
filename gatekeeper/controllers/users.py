@@ -67,7 +67,7 @@ class UserApi(Resource):
             return Error(str(err)).to_json(), 400
 
 
-@api.resource("/api/users")
+@api.resource("/api/users/")
 class UsersApi(Resource):
     def get(self):
         users = User.get_all()
