@@ -38,7 +38,6 @@ const sendShortMessage = (userId, text) => {
 
 const send = async (data) => {
     data.as_user = true; // send DM as a bot, not Slackbot
-    console.log(qs.stringify(data));
     const result = await axios.post(`https://hooks.slack.com/services/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`, JSON.stringify(data))
     try {
         if (result.data.error) console.log(`PostMessage Error: ${result.data.error}`);
