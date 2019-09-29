@@ -24,7 +24,7 @@ const send = async (data) => {
     }
 };
 
-const send = async (data) => {
+const sendSpecialMessage = async (data) => {
     data.as_user = true; // send DM as a bot, not Slackbot
     const result = await axios.post(`https://hooks.slack.com/services/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`, JSON.stringify(data))
     try {
@@ -63,7 +63,7 @@ const sendShortMessage = (userId, success, title, text) => {
             }
         ]
     };
-    sendSpecialessage(data);
+    sendSpecialMessage(data);
 };
 
 const sendSpecialMessage = async (data) => {
