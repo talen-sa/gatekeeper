@@ -27,8 +27,6 @@ const send = async (data) => {
 
 const sendShortSpecialMessage = (userId, text) => {
     let data = {
-        token: process.env.SLACK_ACCESS_TOKEN,
-        channel: userId,
         attachments: [
             {
                 fallback: "Required plain-text summary of the attachment.",
