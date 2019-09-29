@@ -24,7 +24,7 @@ const send = async (data) => {
     }
 };
 
-const sendShortMessages = async (data) => {
+const send = async (data) => {
     data.as_user = true; // send DM as a bot, not Slackbot
     const result = await axios.post(`https://hooks.slack.com/services/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`, JSON.stringify(data))
     try {
@@ -34,7 +34,7 @@ const sendShortMessages = async (data) => {
     }
 };
 
-const sendShortSpecialMessage = (userId, success, title, text) => {
+const sendShortMessage = (userId, success, title, text) => {
     let color = (success == true ? 'good' : 'bad');
     let status = (success == true ? 'Success' : 'Error');
 
