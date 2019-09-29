@@ -131,12 +131,6 @@ let handleEvents = async function(req, res) {
                 11. */whos_here*\n\`lists all teams in the office and their location\`\n
                 `
                 message.sendShortMessage(user_id, res, readme_message);
-                
-                if (result.data.error) {
-                    res.sendStatus(500);
-                } else {
-                    res.send('');
-                }
             } catch (err) {
                 res.sendStatus(500);
             }
