@@ -3,15 +3,14 @@ const signature = require('../verifySignature');
 const teamService = require('../services/teamService')
 
 
-let checkSlackSiganature = function(req, res) {
-    if (!signature.isVerified(req)) {
-        res.sendStatus(404);
-        return false;
-    }
-    return true;
+let checkSlackSiganature = async function(req, res) {
+    return !signature.isVerified(req) ? false : true;
 }
 let handleEvents = async function(req, res) {
-    if (checkSlackSiganature(req, res) === true) {
+    if (checkSlackSiganature === false) {
+        res.sendStatus(404);
+    }
+    else {
         if (req.body.command === '/create_team') {
             if (!signature.isVerified(req)) {
                 res.sendStatus(404);
@@ -224,7 +223,7 @@ let handleEvents = async function(req, res) {
                 }
             }
         }
-
+    
         if (req.body.command === '/out') {
             if (!signature.isVerified(req)) {
                 res.sendStatus(404);
