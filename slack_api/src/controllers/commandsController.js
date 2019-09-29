@@ -116,18 +116,18 @@ let handleEvents = async function(req, res) {
             res.sendStatus(404);
             return;
         } else {
-            const { user_id, trigger_id } = req.body;
-            try {
-                const result = await teamService.getMyTeams(trigger_id);
-                console.log(result);
-                if (result.data.error) {
-                    res.sendStatus(500);
-                } else {
-                    res.send('');
-                }
-            } catch (err) {
-                res.sendStatus(500);
-            }
+            // const { user_id, trigger_id } = req.body;
+            // try {
+            //     const result = await teamService.getMyTeams(trigger_id);
+            //     console.log(result);
+            //     if (result.data.error) {
+            //         res.sendStatus(500);
+            //     } else {
+            //         res.send('');
+            //     }
+            // } catch (err) {
+            //     res.sendStatus(500);
+            // }
         }
     }
     if (req.body.command === '/set_status') {
