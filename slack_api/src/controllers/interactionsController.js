@@ -22,7 +22,7 @@ let handleInteractions = async function(req, res) {
             callback_id,
             submission
         } = JSON.parse(req.body.payload);
-
+        
         if (type === 'dialog_submission') {
             if (callback_id === 'setupTeam') {
                 try {
@@ -94,7 +94,7 @@ let handleInteractions = async function(req, res) {
             else if (callback_id === 'inout') {
                 try {
                     await teamService.updateTeamStatus(submission.team, submission.status);
-                    message.sendShortMessage(user.id, true, "Update Status", `*Set \`${submission.team}'s\` status to:* \`${submission.status}\``);
+                    message.sendShortMessage(user.id, `*Successfully set \`${submission.team}'s\` status to:* \`${submission.status}\``);
                     res.send('');
                 } catch (e) {
                     console.log('error');
