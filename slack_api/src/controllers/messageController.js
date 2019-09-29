@@ -228,7 +228,7 @@ const openListUsersOnTeamDialog = async (trigger_id) => {
                 {
                     type: 'select',
                     name: 'team',
-                    label: 'Choose the team to list',
+                    label: 'Choose team to get info',
                     data_source: 'external',
                 }
             ]
