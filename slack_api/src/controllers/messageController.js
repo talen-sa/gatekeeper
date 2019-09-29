@@ -10,11 +10,9 @@ const sendShortMessage = (userId, text) => {
         token: process.env.SLACK_ACCESS_TOKEN,
         channel: userId,
         text: text,
-        attachments: [
-            {
-                text: "I am a test"
-            }
-        ]
+        attachments: {
+            text: "I am a test"
+        }
     };
     send(data);
 };
