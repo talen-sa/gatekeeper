@@ -59,7 +59,6 @@ const sendShortMessage = (userId, success, title, text) => {
                 thumb_url: "http://example.com/path/to/thumb.png",
                 footer: "Slack API",
                 footer_icon: "https://platform.slack-edge.com/img/default_application_icon.png",
-                ts: 123456789
             }
         ]
     };
