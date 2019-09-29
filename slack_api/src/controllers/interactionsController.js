@@ -57,7 +57,7 @@ let handleInteractions = async function(req, res) {
                         formattedList.push(`\`${person}\`\n`);
                     }
                     if (result.length != 0) {
-                        message.sendShortMessage(user.id, `*The teammates on team \`${submission.team}\` (board position: \`${team.board_position}\`) are:*\n` +  formattedList.toString().replace(/[,]/g, ""));
+                        message.sendShortMessage(user.id, `*The teammates on team \`${submission.team}\` (board position: \`${team.board_position}\`) (location: \`${team.location}\`) are:*\n` +  formattedList.toString().replace(/[,]/g, ""));
                     }
                     else {
                         message.sendShortMessage(user.id, `*The team \`${submission.team}\` has no teammates yet.*`);
