@@ -112,7 +112,7 @@ let handleEvents = async function(req, res) {
                 res.sendStatus(500);
             }
         }
-        if (req.body.command === '`/who`s_here') {
+        if (req.body.command === '`/whos_here') {
             const { user_id, trigger_id } = req.body;
             try {
                 let result = await teamService.getAllTeamsStatus();
