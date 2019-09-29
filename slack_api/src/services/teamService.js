@@ -84,7 +84,7 @@ module.exports.getAllTeamsStatus = async function() {
     axios.get(PI_API_URL + '/teams/')
       .then(function (response) {
         for (var team of response.data.data) {
-          result.push({team:team.name, status:team.status});
+          result.push({team:team.name, status:team.status, location:team.location});
         }
         resolve({teams: result});
       }).catch(function (error) {

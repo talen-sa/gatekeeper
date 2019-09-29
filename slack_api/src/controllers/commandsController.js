@@ -121,7 +121,7 @@ let handleEvents = async function(req, res) {
                 msgList.push(`*Whos's here?*\n`);
                 for (var a = 0; a < result.teams.length; a++) {
                     if (result.teams[a].status =='1') {
-                        msgList.push(`\`${result.teams[a].team}\``);
+                        msgList.push(`\`${result.teams[a].team}:${result.teams[a].location}\``);
                         empty = false;
                     }
                 }
