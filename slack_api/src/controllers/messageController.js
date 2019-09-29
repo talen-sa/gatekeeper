@@ -53,7 +53,7 @@ const sendShortSpecialMessage = (userId, text) => {
                 fields: [
                     {
                         title: "Priority",
-                        value: "High",
+                        value: text,
                         short: false
                     }
                 ],
