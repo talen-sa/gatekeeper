@@ -2,7 +2,7 @@ from flask import Blueprint, current_app, request
 from flask_restful import Api, Resource
 from marshmallow import ValidationError
 
-from gatekeeper.controllers.response import Error, Fail, Success
+from gatekeeper.controllers.response import Error, Success
 from gatekeeper.models.team import Team
 from gatekeeper.models.user import (
     User,
@@ -51,7 +51,7 @@ class UserApi(Resource):
                 team_name = t.get("name")
                 team = Team.get_team(team_name)
                 if team is None:
-                    return Fail(f"Team {team_name} does not exist").to_json(), 400
+                    return Error(f"Team {team_name} does not exist").to_json(), 400
                 user._teams.append(team)
             user.save()
             return None, 204

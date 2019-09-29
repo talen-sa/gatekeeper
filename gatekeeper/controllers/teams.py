@@ -3,7 +3,7 @@ from flask_restful import Api, Resource
 from marshmallow import ValidationError
 
 import gatekeeper.whiteboard as whiteboard
-from gatekeeper.controllers.response import Error, Fail, Success
+from gatekeeper.controllers.response import Error, Success
 from gatekeeper.models.team import (
     Team,
     post_team_schema,
@@ -18,7 +18,7 @@ teams_bp = Blueprint("teams_controller", __name__)
 api = Api(teams_bp)
 
 
-@api.resource("/api/teams/<string:team_name")
+@api.resource("/api/teams/<string:team_name>")
 class TeamApi(Resource):
     def get(self, team_name):
         try:
