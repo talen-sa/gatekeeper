@@ -47,7 +47,7 @@ const sendShortMessage = (userId, success, title, text) => {
                 fallback: "This is a fallback test message.",
                 color: color,
                 author_name: "SAI Gatekeeper",
-                title: title,
+                // title: title,
                 fields: [
                     {
                         title: title,
