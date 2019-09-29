@@ -7,12 +7,29 @@ const teamService = require('../services/teamService');
 
 const sendShortMessage = (userId, text) => {
     let data = {
-        token: process.env.SLACK_ACCESS_TOKEN,
-        channel: userId,
-        text: text,
-        attachments: [
+        blocks: [
             {
-                text: "I am a test"
+                type: "actions",
+                elements: [
+                    {
+                        type: "button",
+                        text: {
+                            type: "plain_text",
+                            text: "Button",
+                            emoji: true
+                        },
+                        value: "test1"
+                    },
+                    {
+                        type: "button",
+                        text: {
+                            type: "plain_text",
+                            text: "Button",
+                            emoji: true
+                        },
+                        value: "test2"
+                    }
+                ]
             }
         ]
     };
