@@ -119,15 +119,17 @@ let handleEvents = async function(req, res) {
                 :gatekeeper:\n
                 *The Source Allies In Out Board App*\n
                 Here is a list of the available commands:\n
-                1. /create_team     (registers a new team)\n
-                3. /delete_team     (deletes a team)\n
-                2. /add_user        (adds a user to a team)\n
-                4. /remove_user     (removes a user from a team)\n
-                5. /team_info       (gives you info about the team)\n
-                6. /in              (set your team's status to in)\n
-                7. /out             (set your team's status to out)\n
-                8. /set_status      (set any team's status manually)\n
-                9. /whos_here       (lists all teams in the office and their location)\n
+                1. /create_team             (registers a new team)\n
+                2. /delete_team             (deletes a team)\n
+                3. /my_teams             (deletes a team)\n
+                4. /add_user                (adds a user to a team)\n
+                5. /remove_user             (removes a user from a team)\n
+                6. /team_info               (gives you info about the team)\n
+                7. /in                      (set your team's status to in)\n
+                8. /out                     (set your team's status to out)\n
+                9.  /update_team_status      (update any team's status)\n
+                10. /update_team_position    (update a team's board position)\n
+                11. /whos_here               (lists all teams in the office and their location)\n
                 `
                 message.sendShortMessage(user_id, res, '*Please register for a team by typing `/add_user`.*');
                 
